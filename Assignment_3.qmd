@@ -19,6 +19,6 @@ startup_food <- read_csv(here::here("data","Food_and_ services.csv")) |> clean_n
 startup_health <- read_csv(here::here("data","Health_Care.csv")) |> clean_names()
 startup_it <- read_csv(here::here("data","Information _Sector.csv")) |> clean_names()
 mastartup_nufacture <- read_csv(here::here("data","Manufactures.csv")) |> clean_names()
-startup_retail <- read_csv(here::here("data","Retail_Trade.csv")) |> clgit clean_names()
+startup_retail <- read_csv(here::here("data","Retail_Trade.csv")) |>  clean_names()
 ```
 
