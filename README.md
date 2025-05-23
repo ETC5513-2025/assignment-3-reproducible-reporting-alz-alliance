@@ -6,4 +6,4 @@ Group Members:
 * Thuy Ngo - 35776064
 * Mohammad Zulkifli Falaqi - 35531916
 
-Topic: Analysing faield startup and the reason for the same
+Topic: Analyzing failed startup business and examining the trend
