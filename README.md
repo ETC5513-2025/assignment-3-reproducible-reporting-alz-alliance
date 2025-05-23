@@ -3,7 +3,7 @@
 Group Members:
 
 * Ayush Pandia - 35613424
-* Thuy Ngo - 
+* Thuy Ngo - 35776064
 * Mohammad Zulkifli Falaqi - 35531916
 
-Topic: The availability of night-time public transport across Greater Melbourne
+Topic: Analysing faield startup and the reason for the same
