@@ -6,4 +6,4 @@ Group Members:
 * Thuy Ngo - 
 * Mohammad Zulkifli Falaqi - 35531916
 
-Topic: The availability of night-time public transport varies across Greater Melbourne
+Topic: The availability of night-time public transport across Greater Melbourne
