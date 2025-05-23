@@ -3,6 +3,8 @@ title: "Assignment 3"
 author: "ALZ Alliance"
 format: html
 editor: visual
+execute: 
+  warning: false
 ---
 
 ```{r}
@@ -11,14 +13,32 @@ library(tidyverse)
 library(janitor)
 ```
 
+
 ```{r}
-# loading data 
-startup_overall <- read_csv(here::here("data", "Finance_and_Insurance")) |> clean_names()
-startup_finance <- read_csv(here::here("data","Finance_and_ Insurance.csv")) |> clean_names()
-startup_food <- read_csv(here::here("data","Food_and_ services.csv")) |> clean_names()
+# loading the data 
+startup_overall <- read_csv(here::here("data", "Finance_and_Insurance.csv")) |> clean_names()
+startup_finance <- read_csv(here::here("data","Finance_and_Insurance.csv")) |> clean_names()
+startup_food <- read_csv(here::here("data","Food_and_services.csv")) |> clean_names()
 startup_health <- read_csv(here::here("data","Health_Care.csv")) |> clean_names()
-startup_it <- read_csv(here::here("data","Information _Sector.csv")) |> clean_names()
-mastartup_nufacture <- read_csv(here::here("data","Manufactures.csv")) |> clean_names()
+startup_it <- read_csv(here::here("data","Information_Sector.csv")) |> clean_names()
+startup_manufacture <- read_csv(here::here("data","Manufactures.csv")) |> clean_names()
 startup_retail <- read_csv(here::here("data","Retail_Trade.csv")) |>  clean_names()
+```
+
+```{r}
+# combining the dataset into one
+
+startup_combined <- bind_rows(
+  startup_finance,
+  startup_food,
+  startup_health,
+  startup_it,
+  startup_manufacture,
+  startup_retail
+)
+```
+
+```{r}
+
 ```
 
