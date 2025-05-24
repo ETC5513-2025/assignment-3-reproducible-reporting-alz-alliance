@@ -62,6 +62,29 @@ startup_combined <- bind_rows(
 - Mutate a col for length of business
 - Convert `how_much_they_raised` into numeric
 
+##### Remove duplicated rows
+
+```{r find duplicated names and remove them}
+
+# Find companies with multiple observations
+duplicated_names <- startup_combined |> 
+  count(name) |> 
+  filter(n > 1) |> 
+  pull(name)
+
+# Take a look to pick out which rows to remove
+startup_combined |> 
+  mutate(id = row_number()) |> 
+  filter(name %in% duplicated_names) |> 
+  arrange(name)
+
+# Handpicked the rows to remove
+removed_rows <- c(264, 89, 175, 306, 66, 259)
+startup_combined <- startup_combined |> 
+  mutate(id = row_number()) |> 
+  filter(!id %in% removed_rows)
+```
+
 #### Understanding Dataset
 
 ```{r}
