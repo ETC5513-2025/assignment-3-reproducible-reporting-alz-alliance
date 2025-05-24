@@ -1,11 +1,25 @@
 ---
 title: "Assignment 3"
 author: "ALZ Alliance"
-format: html
+format:
+    html:
+        toc: true
 editor: visual
 execute: 
   warning: false
 ---
+
+```{r}
+#| echo: false
+
+knitr::opts_chunk$set(
+  eval = TRUE,
+  message = TRUE,
+  warning = TRUE,
+  error = TRUE
+)
+```
+
 
 ```{r}
 # Loading the required library
@@ -15,11 +29,10 @@ library(knitr)
 library(kableExtra)
 ```
 
-### Data
+## Data processing
 
 ```{r}
 # loading the data 
-startup_overall <- read_csv(here::here("data", "Finance_and_Insurance.csv")) |> clean_names()
 startup_finance <- read_csv(here::here("data","Finance_and_Insurance.csv")) |> clean_names()
 startup_food <- read_csv(here::here("data","Food_and_services.csv")) |> clean_names()
 startup_health <- read_csv(here::here("data","Health_Care.csv")) |> clean_names()
@@ -27,6 +40,7 @@ startup_it <- read_csv(here::here("data","Information_Sector.csv")) |> clean_nam
 startup_manufacture <- read_csv(here::here("data","Manufactures.csv")) |> clean_names()
 startup_retail <- read_csv(here::here("data","Retail_Trade.csv")) |>  clean_names()
 ```
+
 #### Combining dataset into one
 
 ```{r}
@@ -42,7 +56,14 @@ startup_combined <- bind_rows(
 )
 ```
 
+#### Data cleaning
+
+- Convert years of operation into `start_year` and `end_year`
+- Mutate a col for length of business
+- Convert `how_much_they_raised` into numeric
+
 #### Understanding Dataset
+
 ```{r}
 # adding table for data description
 
@@ -83,7 +104,20 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 ```
 
+## Executive Summary (Linh)
 
-### Methadology
+## Introduction (Linh)
 
+## Methodology (Ayush)
 
+## Results (Zul + Linh)
+
+### Why startups fail (Linh)
+
+### Temporal analysis of start-up failures (Zul)
+
+## Conclusion (Zul + Linh)
+
+### Why startups fail (Linh)
+
+### Temporal analysis of start-up failures (Zul)
