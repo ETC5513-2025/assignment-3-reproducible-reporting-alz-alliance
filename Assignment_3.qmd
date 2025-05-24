@@ -2,9 +2,8 @@
 title: "Assignment 3"
 author: "ALZ Alliance"
 format:
-    html:
-        toc: true
-editor: visual
+  html:
+    toc: true
 execute: 
   warning: false
 ---
@@ -19,7 +18,6 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 ```
-
 
 ```{r}
 # Loading the required library
@@ -58,14 +56,13 @@ startup_combined <- bind_rows(
 
 #### Data cleaning
 
-- Convert years of operation into `start_year` and `end_year`
-- Mutate a col for length of business
-- Convert `how_much_they_raised` into numeric
+-   Convert years of operation into `start_year` and `end_year`
+-   Mutate a col for length of business
+-   Convert `how_much_they_raised` into numeric
 
 #### Understanding Dataset
 
-```{r}
-# adding table for data description
+```{r adding table for data description}
 
 variable_description <- tibble::tibble(
   Variable = c(
@@ -113,6 +110,11 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
 ## Results (Zul + Linh)
 
 ### Why startups fail (Linh)
+
+```{r}
+
+# Check unique names
+```
 
 ### Temporal analysis of start-up failures (Zul)
 
