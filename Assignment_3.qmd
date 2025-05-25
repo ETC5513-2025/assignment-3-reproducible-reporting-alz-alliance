@@ -20,7 +20,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 ```{r}
 # Loading the required library
 library(tidyverse)
@@ -58,9 +57,9 @@ startup_combined <- bind_rows(
 
 #### Data cleaning
 
-- Convert years of operation into `start_year` and `end_year`
-- Mutate a col for length of business
-- Convert `how_much_they_raised` into numeric
+-   Convert years of operation into `start_year` and `end_year`
+-   Mutate a col for length of business
+-   Convert `how_much_they_raised` into numeric
 
 ##### Remove duplicated rows
 
@@ -138,6 +137,55 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
 ### Why startups fail (Linh)
 
 ### Temporal analysis of start-up failures (Zul)
+
+```{r}
+
+sc_clean <- startup_combined %>%
+  mutate(
+    # Extract all 4-digit numbers (years) from the string
+    years = str_extract_all(years_of_operation, "\\d{4}"),
+    # Extract start year as the first year found
+    start_year = as.numeric(sapply(years, `[`, 1)),
+    # Extract end year as the second year found (if any)
+    end_year = as.numeric(sapply(years, `[`, 2)),
+    # If end_year is NA (only one year found), set it equal to start_year
+    end_year = ifelse(is.na(end_year), start_year, end_year),
+    # Calculate year length
+    year_length = end_year - start_year
+  ) %>%
+  select(-years)  # Remove intermediate column
+```
+
+
+```{r}
+ggplot(sc_clean, aes(x = sector, y = year_length)) +
+  geom_boxplot(fill = "lightgreen") +
+  coord_flip() +
+  labs(title = "Operation Duration by Industry Sector",
+       x = "Industry Sector",
+       y = "Years of Operation") +
+  theme_minimal()
+
+```
+
+
+```{r}
+top_n <- 30
+df_top <- df_ordered %>%
+  arrange(desc(year_length)) %>%
+  slice(1:top_n)
+
+ggplot(df_top, aes(y = name, color = sector)) +
+  geom_segment(aes(x = start_year, xend = end_year, yend = name), size = 3) +
+  labs(title = sprintf("Top %d Startups by Operation Duration", top_n),
+       x = "Year",
+       y = "Startup",
+       color = "Industry Sector") +
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 8))
+
+```
+
 
 ## Conclusion (Zul + Linh)
 

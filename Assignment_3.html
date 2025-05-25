@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -64,20 +64,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="Assignment_3_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="Assignment_3_files/libs/quarto-html/anchor.min.js"></script>
 <link href="Assignment_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Assignment_3_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="Assignment_3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="Assignment_3_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Assignment_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Assignment_3_files/libs/bootstrap/bootstrap-c0367b04c37547644fece4185067e4a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="Assignment_3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script src="Assignment_3_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
 <link href="Assignment_3_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data-processing" id="toc-data-processing" class="nav-link active" data-scroll-target="#data-processing">Data processing</a></li>
+  <li><a href="#executive-summary-linh" id="toc-executive-summary-linh" class="nav-link" data-scroll-target="#executive-summary-linh">Executive Summary (Linh)</a></li>
+  <li><a href="#introduction-linh" id="toc-introduction-linh" class="nav-link" data-scroll-target="#introduction-linh">Introduction (Linh)</a></li>
+  <li><a href="#methodology-ayush" id="toc-methodology-ayush" class="nav-link" data-scroll-target="#methodology-ayush">Methodology (Ayush)</a></li>
+  <li><a href="#results-zul-linh" id="toc-results-zul-linh" class="nav-link" data-scroll-target="#results-zul-linh">Results (Zul + Linh)</a>
+  <ul class="collapse">
+  <li><a href="#why-startups-fail-linh" id="toc-why-startups-fail-linh" class="nav-link" data-scroll-target="#why-startups-fail-linh">Why startups fail (Linh)</a></li>
+  <li><a href="#temporal-analysis-of-start-up-failures-zul" id="toc-temporal-analysis-of-start-up-failures-zul" class="nav-link" data-scroll-target="#temporal-analysis-of-start-up-failures-zul">Temporal analysis of start-up failures (Zul)</a></li>
+  </ul></li>
+  <li><a href="#conclusion-zul-linh" id="toc-conclusion-zul-linh" class="nav-link" data-scroll-target="#conclusion-zul-linh">Conclusion (Zul + Linh)</a>
+  <ul class="collapse">
+  <li><a href="#why-startups-fail-linh-1" id="toc-why-startups-fail-linh-1" class="nav-link" data-scroll-target="#why-startups-fail-linh-1">Why startups fail (Linh)</a></li>
+  <li><a href="#temporal-analysis-of-start-up-failures-zul-1" id="toc-temporal-analysis-of-start-up-failures-zul-1" class="nav-link" data-scroll-target="#temporal-analysis-of-start-up-failures-zul-1">Temporal analysis of start-up failures (Zul)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -107,78 +159,227 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading the required library</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">DATA</h3>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'janitor'
+
+The following objects are masked from 'package:stats':
+
+    chisq.test, fisher.test</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'kableExtra'
+
+The following object is masked from 'package:dplyr':
+
+    group_rows</code></pre>
+</div>
+</div>
+<section id="data-processing" class="level2">
+<h2 class="anchored" data-anchor-id="data-processing">Data processing</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data </span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>startup_overall <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"Finance_and_Insurance.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>startup_finance <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Finance_and_Insurance.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>startup_food <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Food_and_services.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>startup_health <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Health_Care.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>startup_it <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Information_Sector.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>startup_manufacture <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Manufactures.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>startup_retail <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Retail_Trade.csv"</span>)) <span class="sc">|&gt;</span>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>startup_finance <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Finance_and_Insurance.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 47 Columns: 20
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (13): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>startup_food <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Food_and_services.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 26 Columns: 17
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (10): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>startup_health <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Health_Care.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 60 Columns: 20
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (13): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>startup_it <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Information_Sector.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 156 Columns: 20
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (13): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>startup_manufacture <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Manufactures.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 30 Columns: 20
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (13): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>startup_retail <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Retail_Trade.csv"</span>)) <span class="sc">|&gt;</span>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 90 Columns: 20
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (13): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
 </div>
 <section id="combining-dataset-into-one" class="level4">
 <h4 class="anchored" data-anchor-id="combining-dataset-into-one">Combining dataset into one</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combining the dataset into one</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>startup_combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  startup_finance,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  startup_food,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  startup_health,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  startup_it,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  startup_manufacture,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  startup_retail</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combining the dataset into one</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>startup_combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  startup_finance,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  startup_food,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  startup_health,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  startup_it,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  startup_manufacture,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  startup_retail</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="data-cleaning" class="level4">
+<h4 class="anchored" data-anchor-id="data-cleaning">Data cleaning</h4>
+<ul>
+<li>Convert years of operation into <code>start_year</code> and <code>end_year</code></li>
+<li>Mutate a col for length of business</li>
+<li>Convert <code>how_much_they_raised</code> into numeric</li>
+</ul>
+<section id="remove-duplicated-rows" class="level5">
+<h5 class="anchored" data-anchor-id="remove-duplicated-rows">Remove duplicated rows</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find companies with multiple observations</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>duplicated_names <span class="ot">&lt;-</span> startup_combined <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(name) <span class="sc">|&gt;</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(name)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a look to pick out which rows to remove</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>startup_combined <span class="sc">|&gt;</span> </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> duplicated_names) <span class="sc">|&gt;</span> </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 22
+   name    sector          years_of_operation what_they_did how_much_they_raised
+   &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;               
+ 1 Bitpass Finance and In… 2002-2008          Micropayment… $2M                 
+ 2 Bitpass Information     6 (2002-2008)      Micropayment… $1.5M               
+ 3 Clinkle Finance and In… 2011-2016          Mobile wallet $30M                
+ 4 Clinkle Health Care     2011-2016          Mobile walle… $30M                
+ 5 Jawbone Health Care     2006-2017          Fitness trac… $930M               
+ 6 Jawbone Information     18 (1999-2017)     Fitness trac… $930M               
+ 7 Jawbone Manufacturing   2006-2017          Fitness trac… $930M               
+ 8 Sprig   Accommodation … 4 (2013-2017)      Organic meal… $57M                
+ 9 Sprig   Health Care     2013-2017          Healthy meal… $56M                
+10 Zume    Information     7 (2015-2022)      Predictive p… $375M               
+11 Zume    Manufacturing   2015-2023          Robotic pizz… $375M               
+# ℹ 17 more variables: why_they_failed &lt;chr&gt;, takeaway &lt;chr&gt;, giants &lt;dbl&gt;,
+#   no_budget &lt;dbl&gt;, competition &lt;dbl&gt;, poor_market_fit &lt;dbl&gt;,
+#   acquisition_stagnation &lt;dbl&gt;, platform_dependency &lt;dbl&gt;,
+#   monetization_failure &lt;dbl&gt;, niche_limits &lt;dbl&gt;, execution_flaws &lt;dbl&gt;,
+#   trend_shifts &lt;dbl&gt;, toxicity_trust_issues &lt;dbl&gt;, regulatory_pressure &lt;dbl&gt;,
+#   overhype &lt;dbl&gt;, high_operational_costs &lt;dbl&gt;, id &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Handpicked the rows to remove</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>removed_rows <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">264</span>, <span class="dv">89</span>, <span class="dv">175</span>, <span class="dv">306</span>, <span class="dv">66</span>, <span class="dv">259</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>startup_combined <span class="ot">&lt;-</span> startup_combined <span class="sc">|&gt;</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>id <span class="sc">%in%</span> removed_rows)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 </section>
 <section id="understanding-dataset" class="level4">
 <h4 class="anchored" data-anchor-id="understanding-dataset">Understanding Dataset</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adding table for data description</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>variable_description <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"name"</span>, <span class="st">"sector"</span>, <span class="st">"years_of_operation"</span>, <span class="st">"what_they_did"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"how_much_they_raised"</span>, <span class="st">"why_they_failed"</span>, <span class="st">"takeaway"</span>, <span class="st">"giants"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"no_budget"</span>, <span class="st">"competition"</span>, <span class="st">"poor_market_fit"</span>, <span class="st">"acquisition_stagnation"</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"platform_dependency"</span>, <span class="st">"monetization_failure"</span>, <span class="st">"niche_limits"</span>, <span class="st">"execution_flaws"</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"trend_shifts"</span>, <span class="st">"toxicity_trust_issues"</span>, <span class="st">"regulatory_pressure"</span>, <span class="st">"overhype"</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Description =</span> <span class="fu">c</span>(</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Name of the startup"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Business sector or industry"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Number of years the startup operated"</span>,</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Description of what the startup did"</span>,</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Total funds raised before failure (if available)"</span>,</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary reason for startup failure"</span>,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Key takeaway or lesson from the failure"</span>,</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Whether the startup competed with major players"</span>,</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Failed due to budget constraints"</span>,</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Faced tough competition"</span>,</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Did not fit well with market demand"</span>,</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Growth plateaued or stagnated"</span>,</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Depended heavily on external platforms"</span>,</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Could not effectively monetize"</span>,</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Had limited market potential"</span>,</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Poor execution or management issues"</span>,</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Impact of changing industry trends"</span>,</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Trust or toxicity issues in the team"</span>,</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Faced legal or regulatory hurdles"</span>,</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Failure due to excessive hype or unrealistic expectations"</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Display as a table</span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(variable_description, <span class="at">caption =</span> <span class="st">"Variable Descriptions for Startup Combined Dataset"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>), <span class="at">full_width =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adding table for data description</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>variable_description <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"name"</span>, <span class="st">"sector"</span>, <span class="st">"years_of_operation"</span>, <span class="st">"what_they_did"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"how_much_they_raised"</span>, <span class="st">"why_they_failed"</span>, <span class="st">"takeaway"</span>, <span class="st">"giants"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"no_budget"</span>, <span class="st">"competition"</span>, <span class="st">"poor_market_fit"</span>, <span class="st">"acquisition_stagnation"</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"platform_dependency"</span>, <span class="st">"monetization_failure"</span>, <span class="st">"niche_limits"</span>, <span class="st">"execution_flaws"</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"trend_shifts"</span>, <span class="st">"toxicity_trust_issues"</span>, <span class="st">"regulatory_pressure"</span>, <span class="st">"overhype"</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Description =</span> <span class="fu">c</span>(</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Name of the startup"</span>,</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Business sector or industry"</span>,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Number of years the startup operated"</span>,</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Description of what the startup did"</span>,</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Total funds raised before failure (if available)"</span>,</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary reason for startup failure"</span>,</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Key takeaway or lesson from the failure"</span>,</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Whether the startup competed with major players"</span>,</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Failed due to budget constraints"</span>,</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Faced tough competition"</span>,</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Did not fit well with market demand"</span>,</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Growth plateaued or stagnated"</span>,</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Depended heavily on external platforms"</span>,</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Could not effectively monetize"</span>,</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Had limited market potential"</span>,</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Poor execution or management issues"</span>,</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Impact of changing industry trends"</span>,</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Trust or toxicity issues in the team"</span>,</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Faced legal or regulatory hurdles"</span>,</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Failure due to excessive hype or unrealistic expectations"</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Display as a table</span></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(variable_description, <span class="at">caption =</span> <span class="st">"Variable Descriptions for Startup Combined Dataset"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>), <span class="at">full_width =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in attr(x, "align"): 'xfun::attr()' is deprecated.
+Use 'xfun::attr2()' instead.
+See help("Deprecated")</code></pre>
+</div>
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
 <caption>Variable Descriptions for Startup Combined Dataset</caption>
@@ -277,8 +478,688 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="methadology" class="level3">
-<h3 class="anchored" data-anchor-id="methadology">Methadology</h3>
+<section id="executive-summary-linh" class="level2">
+<h2 class="anchored" data-anchor-id="executive-summary-linh">Executive Summary (Linh)</h2>
+</section>
+<section id="introduction-linh" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-linh">Introduction (Linh)</h2>
+</section>
+<section id="methodology-ayush" class="level2">
+<h2 class="anchored" data-anchor-id="methodology-ayush">Methodology (Ayush)</h2>
+</section>
+<section id="results-zul-linh" class="level2">
+<h2 class="anchored" data-anchor-id="results-zul-linh">Results (Zul + Linh)</h2>
+<section id="why-startups-fail-linh" class="level3">
+<h3 class="anchored" data-anchor-id="why-startups-fail-linh">Why startups fail (Linh)</h3>
+</section>
+<section id="temporal-analysis-of-start-up-failures-zul" class="level3">
+<h3 class="anchored" data-anchor-id="temporal-analysis-of-start-up-failures-zul">Temporal analysis of start-up failures (Zul)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sc_clean <span class="ot">&lt;-</span> startup_combined <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract all 4-digit numbers (years) from the string</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">years =</span> <span class="fu">str_extract_all</span>(years_of_operation, <span class="st">"</span><span class="sc">\\</span><span class="st">d{4}"</span>),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract start year as the first year found</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">start_year =</span> <span class="fu">as.numeric</span>(<span class="fu">sapply</span>(years, <span class="st">`</span><span class="at">[</span><span class="st">`</span>, <span class="dv">1</span>)),</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract end year as the second year found (if any)</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">end_year =</span> <span class="fu">as.numeric</span>(<span class="fu">sapply</span>(years, <span class="st">`</span><span class="at">[</span><span class="st">`</span>, <span class="dv">2</span>)),</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If end_year is NA (only one year found), set it equal to start_year</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">end_year =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(end_year), start_year, end_year),</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate year length</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">year_length =</span> end_year <span class="sc">-</span> start_year</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>years)  <span class="co"># Remove intermediate column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Startups in this dataset have varied lifespans. Understanding the average and range of operation durations helps us gauge typical startup longevity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>duration_summary <span class="ot">&lt;-</span> sc_clean <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_duration =</span> <span class="fu">mean</span>(year_length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_duration =</span> <span class="fu">median</span>(year_length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_duration =</span> <span class="fu">min</span>(year_length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_duration =</span> <span class="fu">max</span>(year_length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_duration =</span> <span class="fu">sd</span>(year_length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>duration_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 6
+  count mean_duration median_duration min_duration max_duration sd_duration
+  &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+1   403          7.50               7            0           18        3.50</code></pre>
+</div>
+</div>
+<p>The summary shows that the average startup operates for around r round(duration_summary<span class="math inline">\(mean_duration, 2) years, with a median duration of r round(duration_summary\)</span>median_duration, 2) years. The shortest-lived startups operated for r duration_summary<span class="math inline">\(min_duration years, while the longest operated for up to r duration_summary\)</span>max_duration years. This wide range indicates diverse startup outcomes.</p>
+<p>Startup Founding Trends Over Time Examining the number of startups founded each year reveals trends in entrepreneurial activity, possibly reflecting economic conditions or industry booms.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>start_year_counts <span class="ot">&lt;-</span> sc_clean <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(start_year) <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(start_year)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(start_year_counts, <span class="fu">aes</span>(<span class="at">x =</span> start_year, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Startups Founded per Year"</span>,</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Start Year"</span>,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count of Startups"</span>) <span class="sc">+</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Assignment_3_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot above highlights periods of increased startup formation. Peaks may correspond to favorable economic conditions or technological innovations encouraging new ventures.</p>
+<p>Startup Endings and Potential Crisis Impact Understanding when startups end is crucial, especially to see if external shocks like financial crises increase failure rates.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>end_year_counts <span class="ot">&lt;-</span> sc_clean <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(end_year) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(end_year)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>crisis_years <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2008</span>, <span class="dv">2020</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>end_year_counts <span class="ot">&lt;-</span> end_year_counts <span class="sc">%&gt;%</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">crisis =</span> <span class="fu">ifelse</span>(end_year <span class="sc">%in%</span> crisis_years, <span class="st">"Crisis Year"</span>, <span class="st">"Other Year"</span>))</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(end_year_counts, <span class="fu">aes</span>(<span class="at">x =</span> end_year, <span class="at">y =</span> n, <span class="at">fill =</span> crisis)) <span class="sc">+</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Crisis Year"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"Other Year"</span> <span class="ot">=</span> <span class="st">"grey"</span>)) <span class="sc">+</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Startups Ended per Year with Crisis Years Highlighted"</span>,</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"End Year"</span>,</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count of Startups"</span>,</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Assignment_3_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The highlighted bars show that startup failures tend to spike around the 2008 and 2020 crisis years, suggesting external economic shocks may significantly impact startup survival.</p>
+<p>Operation Duration by Industry Sector Different industries may experience varying startup longevity due to market conditions, competition, and capital intensity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sc_clean, <span class="fu">aes</span>(<span class="at">x =</span> sector, <span class="at">y =</span> year_length)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightgreen"</span>) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Operation Duration by Industry Sector"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Industry Sector"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Years of Operation"</span>) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Assignment_3_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The boxplot reveals considerable variation in operation duration across sectors. Some industries show longer median lifespans, indicating more stable market conditions or better growth opportunities.</p>
+<p>Startups Ending During Crisis Years To explore the impact of crises further, we list startups that ended during crisis years. This may help identify sectors or startups particularly vulnerable during economic downturns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>crisis_startups <span class="ot">&lt;-</span> sc_clean <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(end_year <span class="sc">%in%</span> crisis_years) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, sector, start_year, end_year, year_length, how_much_they_raised)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(crisis_startups, <span class="at">caption =</span> <span class="st">"Startups Ended During Crisis Years (2008, 2020)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in attr(x, "align"): 'xfun::attr()' is deprecated.
+Use 'xfun::attr2()' instead.
+See help("Deprecated")</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in attr(x, "format"): 'xfun::attr()' is deprecated.
+Use 'xfun::attr2()' instead.
+See help("Deprecated")</code></pre>
+</div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Startups Ended During Crisis Years (2008, 2020)</caption>
+<colgroup>
+<col style="width: 21%">
+<col style="width: 29%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">sector</th>
+<th style="text-align: right;">start_year</th>
+<th style="text-align: right;">end_year</th>
+<th style="text-align: right;">year_length</th>
+<th style="text-align: left;">how_much_they_raised</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bitpass</td>
+<td style="text-align: left;">Finance and Insurance</td>
+<td style="text-align: right;">2002</td>
+<td style="text-align: right;">2008</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">$2M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Isentium</td>
+<td style="text-align: left;">Finance and Insurance</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$15M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Money360</td>
+<td style="text-align: left;">Finance and Insurance</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$10M (est.)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Monitor110</td>
+<td style="text-align: left;">Finance and Insurance</td>
+<td style="text-align: right;">2005</td>
+<td style="text-align: right;">2008</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">$3M (est.)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Plum Will</td>
+<td style="text-align: left;">Finance and Insurance</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">$2M (est.)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sensible</td>
+<td style="text-align: left;">Finance and Insurance</td>
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">$4M (est.)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Square Cash</td>
+<td style="text-align: left;">Finance and Insurance</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">$0 (Square-funded)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Toshl</td>
+<td style="text-align: left;">Finance and Insurance</td>
+<td style="text-align: right;">2008</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">$1M (est.)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Venmo Groups</td>
+<td style="text-align: left;">Finance and Insurance</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">$0 (Venmo-funded)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wepay</td>
+<td style="text-align: left;">Finance and Insurance</td>
+<td style="text-align: right;">2008</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">$75M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ZestFinance</td>
+<td style="text-align: left;">Finance and Insurance</td>
+<td style="text-align: right;">2009</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">$112M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Caviar</td>
+<td style="text-align: left;">Accommodation and Food Services</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$90M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Clover</td>
+<td style="text-align: left;">Accommodation and Food Services</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$20M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Presto</td>
+<td style="text-align: left;">Accommodation and Food Services</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">$30M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Zomato Base</td>
+<td style="text-align: left;">Accommodation and Food Services</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">$660M (Zomato)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HelloFresh Recipe</td>
+<td style="text-align: left;">Accommodation and Food Services</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$300M (HelloFresh)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BioBeats</td>
+<td style="text-align: left;">Health Care</td>
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">$7M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CareZone</td>
+<td style="text-align: left;">Health Care</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">$161M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Clarityn</td>
+<td style="text-align: left;">Health Care</td>
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">$20M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dthera Sciences</td>
+<td style="text-align: left;">Health Care</td>
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">$3M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">InTouch Health</td>
+<td style="text-align: left;">Health Care</td>
+<td style="text-align: right;">2002</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">$78M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kaiku Health</td>
+<td style="text-align: left;">Health Care</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$6M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MediChain</td>
+<td style="text-align: left;">Health Care</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">$15M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Proteus Digital Health</td>
+<td style="text-align: left;">Health Care</td>
+<td style="text-align: right;">2004</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">$500M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tinnitracks</td>
+<td style="text-align: left;">Health Care</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">$6M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Inkling</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2009</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">$48M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Knewton</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2008</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">$182.3M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Medium One</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">$3M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Periscope</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">$1.5M (Twitter $645M)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pinterest UK</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$1.5B (Pinterest)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Quid</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2008</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">$79M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rap Genius</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2009</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">$56.8M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ShareThis</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2007</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">$64M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tango</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2009</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">$367M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tumblr</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2007</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">$125M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Twitter Fabric</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">$645M (Twitter)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Whisper</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$61M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wickr</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$73M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Yahoo Answers</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2005</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">$1B+ (Yahoo)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yola</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2007</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">$25M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Zombie Labs</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">$1.5M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Curse</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2006</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">$58M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dailylook</td>
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">2011</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">$3.5M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Butterfly Network</td>
+<td style="text-align: left;">Manufacturing</td>
+<td style="text-align: right;">2011</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">$400M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cubelets</td>
+<td style="text-align: left;">Manufacturing</td>
+<td style="text-align: right;">2011</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">$10M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Elio Motors</td>
+<td style="text-align: left;">Manufacturing</td>
+<td style="text-align: right;">2009</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">$30M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Essential Products</td>
+<td style="text-align: left;">Manufacturing</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">$330M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Light</td>
+<td style="text-align: left;">Manufacturing</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">$70M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Osmo Systems</td>
+<td style="text-align: left;">Manufacturing</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">$3M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Thalmic Labs</td>
+<td style="text-align: left;">Manufacturing</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$135M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Combatant Gentlemen</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$35M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ElectricObjects</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">$6M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hush</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">$5M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Operator</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">$10M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PetCube</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$13M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Plum</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">$8M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Poshmark UK</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$70M (Poshmark)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RetailMeNot UK</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$300M (RetailMeNot)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ShopKeep</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2008</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">$35M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Shopkick</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2009</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">$15M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Shoptiques</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">$10M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ThriftBooks Indie</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">$5M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Zappos Local</td>
+<td style="text-align: left;">Retail Trade</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">$1.5B (Zappos)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This table provides detailed information on startups that failed during crisis periods, potentially reflecting the broader economic environment’s influence on startup survival.</p>
+</section>
+</section>
+<section id="conclusion-zul-linh" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-zul-linh">Conclusion (Zul + Linh)</h2>
+<section id="why-startups-fail-linh-1" class="level3">
+<h3 class="anchored" data-anchor-id="why-startups-fail-linh-1">Why startups fail (Linh)</h3>
+</section>
+<section id="temporal-analysis-of-start-up-failures-zul-1" class="level3">
+<h3 class="anchored" data-anchor-id="temporal-analysis-of-start-up-failures-zul-1">Temporal analysis of start-up failures (Zul)</h3>
+</section>
 </section>
 
 </main>
@@ -365,6 +1246,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -475,6 +1358,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
