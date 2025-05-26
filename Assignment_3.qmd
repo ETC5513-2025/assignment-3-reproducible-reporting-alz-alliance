@@ -136,6 +136,25 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
 
 ## Methodology (Ayush)
 
+**Linh's suggestion to put funding distribution in methodology**
+```{r funding distribution by sector}
+#| eval: false
+
+startup_combined |>
+  ggplot(aes(x = sector, y = funding_millions)) +
+  geom_violin(fill = "#2166ac") +
+  labs(
+    title = "Funding Raised by Sector",
+    x = "Sector",
+    y = "Funding Raised (Millions)"
+  ) +
+  theme_minimal(base_family = "sans") +
+  theme(
+    panel.grid = element_blank(),
+    axis.text.x = element_text(angle = 45, hjust = 1)  )
+
+```
+
 ## Results (Zul + Linh)
 
 ### Why startups fail (Linh)
@@ -201,6 +220,21 @@ failure_counts |>
 #| label: fig-sector-percent
 #| fig-cap: "Besides universal reasons of Competition and Giants, each sector carried their own set of reasons for startup failures."
 
+sector_counts <- startup_combined |> 
+  group_by(sector) |> 
+  summarise(sector_counts = n()) |> 
+  ungroup() 
+
+sector_percent <- startup_combined |> 
+  select(sector, col_pivot) |> 
+  mutate_all(~replace_na(., 0)) |> 
+  pivot_longer(cols = col_pivot, names_to = "reason", values_to = "present") |> 
+  group_by(sector, reason) |> 
+  summarise(company_fail_counts = sum(present, na.rm = TRUE)) |> 
+  ungroup() |> 
+  left_join(sector_counts, by = "sector") |> 
+  mutate(percent_fail = (company_fail_counts/sector_counts)*100)
+
 sector_percent |> 
   bind_rows(
     failure_counts |> 
@@ -229,46 +263,28 @@ sector_percent |>
 
 ```
 
-Overall, loss to market giants and intense competition are the primary reasons for business failures, as cited more than 70% of startups. Poor market fit, stagnation post-acquisition and budget limits are other common reasons for start-up failures, regardless of sectors.
+Top reasons for startup failure is competition with market giants, cited by 70% of startups. Poor market fit, post-acquisition stagnation, and budget constraints are also common across all sectors.
 
-Besides, there are sector-specific attributes for these failures, signalling unique business practices across sectors.
+Additionally, each sector demonstrates their unique challenges, for example: 
 
-- Accommodation and Food services startups reported 52% of their failures were due to High operational costs, which is unsurprising given the industry nature of heavy overheads into physical sites, e.g., hotels, restaurant.
-- While competition in Healthcare is not as intense as other sectors, startups struggled with product-market fit, monetization failure and business execution. This tells a story of difficulties getting close to and empathize with customers, probably due to the industry nature of data confidentiality, discouraging people to share their health status.
-- As an industry that requires significant upfront investment, Manufacturing startups faced a major financing challenges, with 55% reported No budget as their failure reason, followed by Execution flaws (28%).
+- In Accommodation and Food Services, 52% of startups failed due to high operational costs.
+- In Healthcare, the main reasons were poor market fit, monetization failure, and execution flaws.
+- In Manufacturing, 55% cited lack of budget, followed by 28% pointing to execution flaws.
 
 #### Funding
 
-```{r funding by sector}
-#| eval: false
-
-startup_combined |>
-  ggplot(aes(x = sector, y = funding_millions)) +
-  geom_violin(fill = "#2166ac") +
-  labs(
-    title = "Funding Raised by Sector",
-    x = "Sector",
-    y = "Funding Raised (Millions)"
-  ) +
-  theme_minimal(base_family = "sans") +
-  theme(
-    panel.grid = element_blank(),
-    axis.text.x = element_text(angle = 45, hjust = 1)  )
-
-```
-
 ```{r funding by reason}
 #| label: fig-funding-reason
-#| fig-cap: "While low-funded startup (commonly seed rounds and series A) struggled with product-market fit and product scalability due to niche market, higher-funded ones (commonly series B and C) faced challenged in monetization, business executitions and post-acquisition operations. "
+#| fig-cap: "While low-funded startup struggled with product-market fit and product scalability due to niche market, higher-funded ones faced challenged in monetization, business executitions and post-acquisition operations. "
 
 startup_combined <- startup_combined |>
   mutate(funding_millions = str_extract(how_much_they_raised, "\\d+\\.?\\d*") |> as.numeric())
 
-threshold <- quantile(startup_combined$funding_millions, probs = c(0.5, 0.75), na.rm = TRUE)
+threshold <- quantile(startup_combined$funding_millions, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
 
 startup_combined <- startup_combined |> 
-  mutate(funding_group = cut(funding_millions, breaks = c(-Inf, 20, 30, 70, Inf),   
-        labels = c("(Pre-)Seed","Series A", "Series B", "Series C"))) 
+  mutate(funding_group = cut(funding_millions, breaks = c(-Inf, 20, 70, Inf),   
+        labels = c("Low (< $20M)", "Medium ($20M - $70M)", "High (> $70M)"))) 
         
 funding_group_counts <- startup_combined |> 
   group_by(funding_group) |> 
@@ -304,11 +320,11 @@ funding_group_percent |>
 
 ```
 
-While only funding amount is available in the dataset, we made an inference to funding rounds the startup has done to raise such amount of fundings. [explain a bit on the threshold defined for each funding round and what start-ups often do in each round]
+Besides the universal attribution of competitive rivalries, startups faced distinct challenges depending on their funding levels. 
 
-Besides the universal attribution of competitive rivalries of major players, startups faced different challenges depending on their stage of life. 
-
-- (Pre-)Seed startups are early-staged, often with just a proof-of-concept or minimal viable product, looking to raise funds for their product development and market validation. They are often not yet knowledgeable of how their products fit into the market, which explains why they hit a wall with Poor market fit (26%) or Niche market limits (29%)
+- Low-funded startups reported facing challenges in scalability limits to niche product (29%), product-market fit (26%) and budget limits (21%).
+- While poor market fit was also a hurdle for medium-funded startups (19%), they faced bigger obstacles in post-acquisition stagnation (25%) and monetization (21%).
+- Execution flaws (23%), acquisition stagnation (23%), budget limits (20%), monetization failures (16%) and trend shifts (16%) are primary contributors to failures among high-funded startups.
 
 ### Temporal analysis of start-up failures (Zul)
 
