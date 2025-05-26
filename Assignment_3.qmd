@@ -268,7 +268,7 @@ threshold <- quantile(startup_combined$funding_millions, probs = c(0.5, 0.75), n
 
 startup_combined <- startup_combined |> 
   mutate(funding_group = cut(funding_millions, breaks = c(-Inf, 20, 30, 70, Inf),   
-        labels = c("seed","A", "B", "C"))) 
+        labels = c("(Pre-)Seed","Series A", "Series B", "Series C"))) 
         
 funding_group_counts <- startup_combined |> 
   group_by(funding_group) |> 
@@ -304,7 +304,11 @@ funding_group_percent |>
 
 ```
 
+While only funding amount is available in the dataset, we made an inference to funding rounds the startup has done to raise such amount of fundings. [explain a bit on the threshold defined for each funding round and what start-ups often do in each round]
 
+Besides the universal attribution of competitive rivalries of major players, startups faced different challenges depending on their stage of life. 
+
+- (Pre-)Seed startups are early-staged, often with just a proof-of-concept or minimal viable product, looking to raise funds for their product development and market validation. They are often not yet knowledgeable of how their products fit into the market, which explains why they hit a wall with Poor market fit (26%) or Niche market limits (29%)
 
 ### Temporal analysis of start-up failures (Zul)
 
