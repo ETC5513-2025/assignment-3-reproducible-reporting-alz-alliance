@@ -27,6 +27,7 @@ library(tidyverse)
 library(janitor)
 library(knitr)
 library(kableExtra)
+library(stringr)
 ```
 
 ## Data processing
@@ -58,9 +59,34 @@ startup_combined <- bind_rows(
 
 #### Data cleaning
 
-- Convert years of operation into `start_year` and `end_year`
-- Mutate a col for length of business
-- Convert `how_much_they_raised` into numeric
+```{r}
+# Convert years of operation into `start_year` and `end_year`
+
+startup_combined <- startup_combined |>
+  mutate(
+    year_range = str_extract(years_of_operation, "\\d{4}[-–]\\d{4}"), #extracting year range
+        start_year = as.numeric(str_extract(year_range, "^\\d{4}")), # extracting start year and end year
+    end_year = as.numeric(str_extract(year_range, "\\d{4}$"))
+  )
+head(startup_combined)
+```
+
+
+```{r}
+#  Mutate a col for length of business
+startup_combined <- startup_combined |>
+  mutate(business_operation_year = end_year - start_year)
+head(startup_combined)
+```
+
+```{r}
+# Dropping extra column in terms of year
+startup_combined <- startup_combined |>
+  select(-year_range, -years_of_operation)
+
+head(startup_combined)
+```
+
 
 ##### Remove duplicated rows
 
