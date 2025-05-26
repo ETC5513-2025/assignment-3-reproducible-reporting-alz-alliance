@@ -79,7 +79,14 @@ startup_combined <- startup_combined |>
 head(startup_combined)
 ```
 
-- Convert `how_much_they_raised` into numeric
+```{r}
+# Dropping extra column in terms of year
+startup_combined <- startup_combined |>
+  select(-year_range, -years_of_operation)
+
+head(startup_combined)
+```
+
 
 ##### Remove duplicated rows
 
