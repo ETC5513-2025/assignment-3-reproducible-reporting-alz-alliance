@@ -2,9 +2,8 @@
 title: "Assignment 3"
 author: "ALZ Alliance"
 format:
-    html:
-        toc: true
-editor: visual
+  html:
+    toc: true
 execute: 
   warning: false
 ---
@@ -16,7 +15,8 @@ knitr::opts_chunk$set(
   eval = TRUE,
   message = TRUE,
   warning = TRUE,
-  error = TRUE
+  error = TRUE,
+  echo = FALSE
 )
 ```
 
@@ -27,6 +27,8 @@ library(janitor)
 library(knitr)
 library(kableExtra)
 library(stringr)
+library(ggplot2)
+library(ggtext)
 ```
 
 ## Data processing
@@ -58,35 +60,21 @@ startup_combined <- bind_rows(
 
 #### Data cleaning
 
--   Convert years of operation into `start_year` and `end_year`
--   Mutate a col for length of business
--   Convert `how_much_they_raised` into numeric
+#####   Convert `how_much_they_raised` into numeric
+```{r convert funding}
+startup_combined <- startup_combined |>
+  mutate(funding_millions = str_extract(how_much_they_raised, "\\d+\\.?\\d*") |> as.numeric())
+```
 
-```{r}
-# Convert years of operation into `start_year` and `end_year`
-
+##### Convert years of operation into `start_year` and `end_year`
+```{r convert years of operations}
 startup_combined <- startup_combined |>
   mutate(
     year_range = str_extract(years_of_operation, "\\d{4}[-–]\\d{4}"), #extracting year range
         start_year = as.numeric(str_extract(year_range, "^\\d{4}")), # extracting start year and end year
-    end_year = as.numeric(str_extract(year_range, "\\d{4}$"))
-  )
-head(startup_combined)
-```
-
-```{r}
-#  Mutate a col for length of business
-startup_combined <- startup_combined |>
-  mutate(business_operation_year = end_year - start_year)
-head(startup_combined)
-```
-
-```{r}
-# Dropping extra column in terms of year
-startup_combined <- startup_combined |>
+    end_year = as.numeric(str_extract(year_range, "\\d{4}$")),
+    business_operation_year = end_year - start_year + 1) |> 
   select(-year_range, -years_of_operation)
-
-head(startup_combined)
 ```
 
 ##### Remove duplicated rows
@@ -114,8 +102,7 @@ startup_combined <- startup_combined |>
 
 #### Understanding Dataset
 
-```{r}
-# adding table for data description
+```{r adding table for data description}
 
 variable_description <- tibble::tibble(
   Variable = c(
@@ -160,9 +147,172 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
 
 ## Methodology (Ayush)
 
+**Linh's suggestion to put funding distribution in methodology**
+```{r funding distribution by sector}
+#| eval: false
+
+startup_combined |>
+  ggplot(aes(x = sector, y = funding_millions)) +
+  geom_violin(fill = "#2166ac") +
+  labs(
+    title = "Funding Raised by Sector",
+    x = "Sector",
+    y = "Funding Raised (Millions)"
+  ) +
+  theme_minimal(base_family = "sans") +
+  theme(
+    panel.grid = element_blank(),
+    axis.text.x = element_text(angle = 45, hjust = 1)  )
+
+```
+
 ## Results (Zul + Linh)
 
 ### Why startups fail (Linh)
+
+#### Failure reasons by sector
+```{r overall failure reasons}
+
+col_pivot <- c("giants", "no_budget", "competition", "poor_market_fit", "acquisition_stagnation",
+"platform_dependency", "monetization_failure", "niche_limits", "execution_flaws",
+"trend_shifts", "toxicity_trust_issues", "regulatory_pressure", "overhype", "high_operational_costs")
+
+col_pivot_labels <- c(
+  giants = "Giants",
+  no_budget = "No budget",
+  competition = "Competition",
+  poor_market_fit = "Poor market fit",
+  acquisition_stagnation = "Acquisition stagnation",
+  platform_dependency = "Platform dependency",
+  monetization_failure = "Monetization failure",
+  niche_limits = "Niche limits",
+  execution_flaws = "Execution flaws",
+  trend_shifts = "Trend shifts",
+  toxicity_trust_issues = "Toxicity & trust issues",
+  regulatory_pressure = "Regulatory pressure",
+  overhype = "Overhype",
+  high_operational_costs = "High operational costs"
+)
+
+failure_counts <- startup_combined |> 
+  select(col_pivot) |> 
+  mutate_all(~replace_na(., 0)) |> 
+  pivot_longer(cols = col_pivot, names_to = "reason", values_to = "present") |> 
+  group_by(reason) |> 
+  summarise(count = sum(present)) |> 
+  ungroup() |> 
+  mutate(percent = (count/nrow(startup_combined))*100)
+```
+
+```{r percentage of failures by sector}
+#| label: fig-sector-percent
+#| fig-cap: "Besides universal reasons of Competition and Giants, each sector carried their own set of reasons for startup failures."
+
+sector_counts <- startup_combined |> 
+  group_by(sector) |> 
+  summarise(sector_counts = n()) |> 
+  ungroup() 
+
+sector_percent <- startup_combined |> 
+  select(sector, col_pivot) |> 
+  mutate_all(~replace_na(., 0)) |> 
+  pivot_longer(cols = col_pivot, names_to = "reason", values_to = "present") |> 
+  group_by(sector, reason) |> 
+  summarise(company_fail_counts = sum(present, na.rm = TRUE)) |> 
+  ungroup() |> 
+  left_join(sector_counts, by = "sector") |> 
+  mutate(percent_fail = (company_fail_counts/sector_counts)*100)
+
+sector_percent |> 
+  bind_rows(
+    failure_counts |> 
+      rename(company_fail_counts = count, percent_fail = percent) |> 
+      mutate(sector = "All sector")
+  ) |> 
+  mutate(
+    #sector = factor(sector, levels = c("All sector", sort(unique(sector)[unique(sector) != "All sector"]))),
+    label = ifelse(sector == "All sector", paste0("**", round(percent_fail, 1), "**"), as.character(round(percent_fail, 1))),
+    sector_fmt = ifelse(sector == "All sector", paste0("**", sector, "**"), as.character(sector))
+  ) |> 
+  ggplot(aes(x = reorder(reason, company_fail_counts), y = sector_fmt, fill = percent_fail)) +
+  geom_tile(color = "white") +
+  geom_richtext(aes(label = label), size = 3, fill = NA, label.color = NA) +
+  coord_flip() +
+  scale_fill_gradient(low = "#f0f0f0", high = "#2166ac", name = "% Failed") +
+  scale_x_discrete(labels = col_pivot_labels) +
+  theme_minimal() +
+  labs(title = "Startup Failure Reasons by Sector",
+       x = "Failure Reason",
+       y = "Sector") +
+  theme(
+    axis.text.x = element_markdown(angle = 45, hjust = 1),  # enables bold in y-axis
+    panel.grid = element_blank()
+  )
+
+```
+
+Top reasons for startup failure is competition with market giants, cited by 70% of startups. Poor market fit, post-acquisition stagnation, and budget constraints are also common across all sectors.
+
+Additionally, each sector demonstrates their unique challenges, for example: 
+
+- In Accommodation and Food Services, 52% of startups failed due to high operational costs.
+- In Healthcare, the main reasons were poor market fit, monetization failure, and execution flaws.
+- In Manufacturing, 55% cited lack of budget, followed by 28% pointing to execution flaws.
+
+#### Failure reasons by Funding groups
+
+```{r funding by reason}
+#| label: fig-funding-reason
+#| fig-cap: "While low-funded startup struggled with product-market fit and product scalability due to niche market, higher-funded ones faced challenged in monetization, business executitions and post-acquisition operations. "
+
+startup_combined <- startup_combined |>
+  mutate(funding_millions = str_extract(how_much_they_raised, "\\d+\\.?\\d*") |> as.numeric())
+
+threshold <- quantile(startup_combined$funding_millions, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
+
+startup_combined <- startup_combined |> 
+  mutate(funding_group = cut(funding_millions, breaks = c(-Inf, 20, 70, Inf),   
+        labels = c("Low (< $20M)", "Medium ($20M - $70M)", "High (> $70M)"))) 
+        
+funding_group_counts <- startup_combined |> 
+  group_by(funding_group) |> 
+  summarise(funding_group_counts = n())
+
+funding_group_percent <- startup_combined |> 
+  select(col_pivot, funding_group) |>
+  pivot_longer(cols = col_pivot, names_to = "reason", values_to = "present") |> 
+  group_by(reason, funding_group) |> 
+  summarise(count = sum(present, na.rm = TRUE)) |> 
+  ungroup() |> 
+  left_join(funding_group_counts, by = "funding_group") |> 
+  mutate(percent_fail = (count/funding_group_counts)*100) |> 
+  filter(!is.na(funding_group))
+  
+funding_group_percent |>
+  ggplot(aes(x = reorder(reason, percent_fail), y = percent_fail)) +
+  geom_col(fill = "#2166ac") +
+  geom_text(aes(label = paste0(round(percent_fail, 1), "%")), 
+            hjust = -0.1, color = "black", size = 3) +
+  coord_flip() +
+  facet_wrap(~funding_group, ncol = 4) +
+  scale_x_discrete(labels = col_pivot_labels) + 
+  labs(title = "Startup Failure Reasons by Funding Group",
+    x = "Failure Reason",
+    y = "Failure Percentage") +
+  theme_minimal(base_family = "sans") +
+  theme(panel.grid = element_blank(),
+    strip.text = element_text(face = "bold"),
+    axis.text.y = element_text(face = "plain"),
+    axis.text.x = element_blank()) +
+  expand_limits(y = max(funding_group_percent$percent_fail) * 1.1)
+
+```
+
+Besides the universal attribution of competitive rivalries, startups faced distinct challenges depending on their funding levels (@fig-funding-reason). 
+
+- Low-funded startups reported facing challenges in scalability limits to niche product (29%), product-market fit (26%) and budget limits (21%).
+- While poor market fit was also a hurdle for medium-funded startups (19%), they faced bigger obstacles in post-acquisition stagnation (25%) and monetization (21%).
+- Execution flaws (23%), acquisition stagnation (23%), budget limits (20%), monetization failures (16%) and trend shifts (16%) are primary contributors to failures among high-funded startups.
 
 ### Temporal analysis of start-up failures (Zul)
 
