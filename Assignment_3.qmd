@@ -61,6 +61,7 @@ startup_combined <- bind_rows(
 -   Convert years of operation into `start_year` and `end_year`
 -   Mutate a col for length of business
 -   Convert `how_much_they_raised` into numeric
+
 ```{r}
 # Convert years of operation into `start_year` and `end_year`
 
@@ -72,7 +73,6 @@ startup_combined <- startup_combined |>
   )
 head(startup_combined)
 ```
-
 
 ```{r}
 #  Mutate a col for length of business
@@ -88,7 +88,6 @@ startup_combined <- startup_combined |>
 
 head(startup_combined)
 ```
-
 
 ##### Remove duplicated rows
 
@@ -167,55 +166,37 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
 
 ### Temporal analysis of start-up failures (Zul)
 
-```{r}
-
-sc_clean <- startup_combined %>%
-  mutate(
-    # Extract all 4-digit numbers (years) from the string
-    years = str_extract_all(years_of_operation, "\\d{4}"),
-    # Extract start year as the first year found
-    start_year = as.numeric(sapply(years, `[`, 1)),
-    # Extract end year as the second year found (if any)
-    end_year = as.numeric(sapply(years, `[`, 2)),
-    # If end_year is NA (only one year found), set it equal to start_year
-    end_year = ifelse(is.na(end_year), start_year, end_year),
-    # Calculate year length
-    year_length = end_year - start_year
-  ) %>%
-  select(-years)  # Remove intermediate column
-```
-
+The dataset of 403 failed startups in US reveals that most operated for a short duration, with an average lifespan of approximately 7.5 years. Startups were primarily active between 2009 and 2021, with a peak in activity around 2015, likely driven by economic recovery post-2008. Closures spiked around 2021, possibly due to the COVID-19 pandemic’s economic impact. This suggests external factors like market instability influenced failures. The plot below shows the number of active startups per year, highlighting periods of high activity and sharp declines, reflecting economic trends and challenges faced by startups.
 
 ```{r}
-ggplot(sc_clean, aes(x = sector, y = year_length)) +
-  geom_boxplot(fill = "lightgreen") +
-  coord_flip() +
-  labs(title = "Operation Duration by Industry Sector",
-       x = "Industry Sector",
-       y = "Years of Operation") +
-  theme_minimal()
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(plotly)
 
-```
+# Assuming your dataset is named 'startup_combined'
+# Create a data frame with one row per startup per active year
+df_active_years <- startup_combined %>%
+  mutate(year = map2(start_year, end_year, ~ seq(.x, .y))) %>%
+  unnest(year) %>%
+  select(year) %>%
+  group_by(year) %>%
+  summarise(count = n())
 
-
-```{r}
-top_n <- 30
-df_top <- df_ordered %>%
-  arrange(desc(year_length)) %>%
-  slice(1:top_n)
-
-ggplot(df_top, aes(y = name, color = sector)) +
-  geom_segment(aes(x = start_year, xend = end_year, yend = name), size = 3) +
-  labs(title = sprintf("Top %d Startups by Operation Duration", top_n),
+# Create a ggplot2 line plot
+p <- ggplot(df_active_years, aes(x = year, y = count, text = paste("Year:", year, "<br>Active Startups:", count))) +
+  geom_line(color = "#4e79a7", size = 1.2) +
+  geom_point(color = "#4e79a7", size = 3) +
+  labs(title = "Number of Active Startups per Year",
        x = "Year",
-       y = "Startup",
-       color = "Industry Sector") +
+       y = "Number of Active Startups") +
   theme_minimal() +
-  theme(axis.text.y = element_text(size = 8))
+  theme(axis.text = element_text(size = 10),
+        plot.title = element_text(hjust = 0.5))
 
+# Convert to interactive plot with ggplotly
+ggplotly(p, tooltip = "text")
 ```
-
-
 ## Conclusion (Zul + Linh)
 
 ### Why startups fail (Linh)
