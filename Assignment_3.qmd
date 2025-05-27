@@ -1,6 +1,10 @@
 ---
-title: "Assignment 3"
-author: "ALZ Alliance"
+title: "Assignment 3 - ALZ Alliance"
+subtitle: "Why do startups fail?: Analysis on 483 startups post-mortem"
+author:   
+  - Ayush Pandia - 35613424
+  - Thuy Ngo - 35776064
+  - Mohammad Zulkifli Falaqi - 35531916
 format:
   html:
     toc: true
@@ -13,9 +17,9 @@ execute:
 
 knitr::opts_chunk$set(
   eval = TRUE,
-  message = TRUE,
-  warning = TRUE,
-  error = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE,
   echo = FALSE
 )
 ```
@@ -29,6 +33,7 @@ library(kableExtra)
 library(stringr)
 library(ggplot2)
 library(ggtext)
+library(plotly)
 ```
 
 ## Data processing
@@ -154,7 +159,6 @@ Our analysis focuses on two key dimensions: (1) the reasons for failure (broken 
 **Linh's suggestion to put funding distribution in methodology**
 
 ```{r funding distribution by sector}
-#| eval: false
 #| label: fig-funding-distribution
 #| fig-cap: Funding amount has a heavy right-skewed distribution, which is seen across all sectors. 
 
@@ -334,11 +338,6 @@ Besides the universal attribution of competitive rivalries, startups faced disti
 The dataset of 403 failed startups in US reveals that most operated for a short duration, with an average lifespan of approximately 7.5 years. Startups were primarily active between 2009 and 2021, with a peak in activity around 2015, likely driven by economic recovery post-2008. Closures spiked around 2021, possibly due to the COVID-19 pandemic’s economic impact. This suggests external factors like market instability influenced failures. The plot below shows the number of active startups per year, highlighting periods of high activity and sharp declines, reflecting economic trends and challenges faced by startups.
 
 ```{r}
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(plotly)
-
 # Assuming your dataset is named 'startup_combined'
 # Create a data frame with one row per startup per active year
 df_active_years <- startup_combined %>%
@@ -362,6 +361,7 @@ p <- ggplot(df_active_years, aes(x = year, y = count, text = paste("Year:", year
 # Convert to interactive plot with ggplotly
 ggplotly(p, tooltip = "text")
 ```
+
 ## Discussion, Recommendations and Conclusions (Zul + Linh)
 
 ### Discussion
