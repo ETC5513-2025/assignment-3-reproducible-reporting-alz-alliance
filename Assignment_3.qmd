@@ -111,18 +111,17 @@ startup_combined <- startup_combined |>
 
 variable_description <- tibble::tibble(
   Variable = c(
-    "name", "sector", "years_of_operation", "what_they_did",
+    "name", "sector", "what_they_did",
     "how_much_they_raised", "why_they_failed", "takeaway", "giants",
     "no_budget", "competition", "poor_market_fit", "acquisition_stagnation",
     "platform_dependency", "monetization_failure", "niche_limits", "execution_flaws",
-    "trend_shifts", "toxicity_trust_issues", "regulatory_pressure", "overhype"
+    "trend_shifts", "toxicity_trust_issues", "regulatory_pressure", "overhype","high_operation_costs","funding_millions","start_year","end_year","business_operation_year","id"
   ),
   Description = c(
     "Name of the startup",
     "Business sector or industry",
-    "Number of years the startup operated",
     "Description of what the startup did",
-    "Total funds raised before failure (if available)",
+    "Total funds raised before failure",
     "Primary reason for startup failure",
     "Key takeaway or lesson from the failure",
     "Whether the startup competed with major players",
@@ -137,7 +136,13 @@ variable_description <- tibble::tibble(
     "Impact of changing industry trends",
     "Trust or toxicity issues in the team",
     "Faced legal or regulatory hurdles",
-    "Failure due to excessive hype or unrealistic expectations"
+    "Failure due to excessive hype or unrealistic expectations",
+    "High operational cost",
+    "Amount raised in millions",
+    "Business start year",
+    "business end year",
+    "Business operational year",
+    "To track row number"
   )
 )
 
@@ -156,7 +161,25 @@ Our analysis focuses on two key dimensions: (1) the reasons for failure (broken 
 
 ## Methodology (Ayush)
 
-**Linh's suggestion to put funding distribution in methodology**
+The dataset was sourced from [Kaggle](https://www.kaggle.com/datasets/dagloxkankwanda/startup-failures/data?select=Startup+Failure+%28Finance+and+Insurance%29.csv) and includes 483 failed startups across sectors such as Finance, Health, Retail, and Information Technology. Each sector was originally provided as a separate CSV file and merged into a single dataset for analysis. Data cleaning and transformation were performed using R and the tidyverse suite. Column names were standardized, and duplicates were removed. The years_of_operation field was parsed to extract start_year and end_year, from which the business duration was calculated. Funding data was cleaned by extracting numeric values and converted into millions for consistency across records.
+
+```{r summary by sector}
+#| label: tbl-summary
+#| tbl-cap: Summary of Funding by sector
+
+startup_combined |>
+  group_by(sector) |>
+  summarise(
+    Count = n(),
+    Mean_Funding = round(mean(funding_millions, na.rm = TRUE), 2),
+    Median_Funding = round(median(funding_millions, na.rm = TRUE), 2)
+  ) |> 
+  kbl() |>
+   kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+@tbl-summary summarizes the distribution of funding across sectors, highlighting variation in average and median funding levels. This provides context for how financial backing differs between industries and sets the stage for analyzing whether funding levels influence startup outcomes.
 
 ```{r funding distribution by sector}
 #| label: fig-funding-distribution
@@ -177,7 +200,7 @@ startup_combined |>
 
 ```
 
-Considering the various funding rounds startups may undergo, we defined funding brackets to align with the typical stages of startup development.
+Considering the various funding rounds startups may undergo, we defined funding brackets to align with the typical stages of startup development as displayed in @fig-funding-distribution
 
 - Low-funded startups are those that have raised less than $20M—an amount commonly associated with (pre-)seed and early-stage funding rounds [@series_abc].
 - Medium-funded startups have raised between $20M and $70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation [@series_abc].
