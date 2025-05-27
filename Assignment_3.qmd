@@ -1,6 +1,6 @@
 ---
 title: "Assignment 3 - ALZ Alliance"
-subtitle: "Why do startups fail?: Analysis on 483 startups post-mortem"
+subtitle: "Why do startups fail? - Analysis on 483 startups post-mortem"
 author:   
   - Ayush Pandia - 35613424
   - Thuy Ngo - 35776064
@@ -96,12 +96,6 @@ duplicated_names <- startup_combined |>
   filter(n > 1) |> 
   pull(name)
 
-# Take a look to pick out which rows to remove
-startup_combined |> 
-  mutate(id = row_number()) |> 
-  filter(name %in% duplicated_names) |> 
-  arrange(name)
-
 # Handpicked the rows to remove
 removed_rows <- c(264, 89, 175, 306, 66, 259)
 startup_combined <- startup_combined |> 
@@ -152,7 +146,7 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
 
 ## Executive Summary (Linh)
 
-## Introduction (Linh)
+## Introduction
 
 Startups have long been engines of innovation, yet their failure rate remains notoriously high — more than two-thirds of them are unable to generate positive returns (HBR). In recent years, macroeconomic challenges and a venture funding freeze since 2022 have made startup survival even more difficult (source). This environment raises an urgent question: **Why and when do startups fail, and how do factors like industry and funding levels influence these outcomes?** To answer this, we analyzed post-mortems from 483 failed startups compiled by CB Insights, where founders shared the reasons behind their collapse (source). These candid reflections offer rare, unfiltered insights into the internal and external pressures startups face. 
 
@@ -187,11 +181,9 @@ Considering the various funding rounds startups may undergo, we defined funding 
 - Medium-funded startups have raised between $20M and $70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation (source).
 - High-funded startups have secured over $70M—an amount often reached by Series C companies. At this stage, startups have usually been in operation for several years, proven their business model, and are seeking international expansion, an initial public offering, or acquisition by private equity firms or investment banks (source).
 
+## Results
 
-
-## Results (Zul + Linh)
-
-### Why startups fail (Linh)
+### Why startups fail
 
 #### Failure reasons by sector
 ```{r overall failure reasons}
@@ -297,13 +289,13 @@ sector_percent |>
 
 ```
 
-Top reasons for startup failure is competition with market giants, cited by 70% of startups. Poor market fit, post-acquisition stagnation, and budget constraints are also common across all sectors.
+70% of startups cited competition and market giants as their failure reasons. Poor market fit, post-acquisition stagnation, and budget constraints are also common challenges across sectors.
 
-Additionally, each sector demonstrates their unique challenges, for example: 
+@fig-sector-percent demonstrates sector-specific challenges:
 
-- In Accommodation and Food Services, 52% of startups failed due to high operational costs.
-- In Healthcare, the main reasons were poor market fit, monetization failure, and execution flaws.
-- In Manufacturing, 55% cited lack of budget, followed by 28% pointing to execution flaws.
+- **Accommodation and Food Services**: 52% of startups failed due to high operational costs.
+- **Healthcare**: the main reasons were poor market fit, monetization failure, and execution flaws.
+- **Manufacturing**: 55% cited lack of budget, 28% reported execution flaws.
 
 #### Failure reasons by Funding groups
 
@@ -354,17 +346,18 @@ funding_group_percent |>
 
 ```
 
-Besides the universal attribution of competitive rivalries, startups faced distinct challenges depending on their funding levels (@fig-funding-reason). 
+@fig-funding-reason demonstrates distinct challenges across different funding levels.
 
-- Low-funded startups reported facing challenges in scalability limits to niche product (29%), product-market fit (26%) and budget limits (21%).
-- While poor market fit was also a hurdle for medium-funded startups (19%), they faced bigger obstacles in post-acquisition stagnation (25%) and monetization (21%).
-- Execution flaws (23%), acquisition stagnation (23%), budget limits (20%), monetization failures (16%) and trend shifts (16%) are primary contributors to failures among high-funded startups.
+- Low-funded startups struggled with scalability limits to niche product (29%), product-market fit (26%) and budget limits (21%).
+- While product-market fit was also a hurdle for medium-funded startups (19%), their bigger obstacles are acquisition stagnation (25%) and monetization (21%).
+- Execution flaws (23%), acquisition stagnation (23%), budget limits (20%), monetization failures (16%) and trend shifts (16%) are primary failure factors for high-funded startups.
 
-### Temporal analysis of start-up failures (Zul)
+### Temporal analysis of start-up failures 
 
-The U.S. startup ecosystem experienced significant fluctuations in activity, driven by economic cycles and external shocks. From year 2000 onwards, illustrated in the @fig-temporalplot, the number of active startups surged to a peak of 326 in 2015, fueled by a post-2008 recovery that encouraged new ventures, with formations reaching a high of 62 in 2012. However, closures escalated sharply to 61 in 2020, reflecting the economic fallout from the COVID-19 pandemic, which disrupted funding and operations. A decline in formations after 2015 suggests increasing market saturation, while rising closures highlight external pressures. These trends, illustrated in the accompanying plot, underscore the volatile nature of startups, aligning with earlier findings on competition and financial challenges.
+```{r}
+#| label: fig-temporalplot
+#| fig-cap: The U.S. startup ecosystem experienced significant fluctuations in activity, driven by economic cycles and external shocks.
 
-```{r label="fig-temporalplot", echo=FALSE}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -431,11 +424,17 @@ ggplot(df_combined, aes(x = year, y = count)) +
         legend.key.width = unit(1, "cm"))
 ```
 
-## Discussion, Recommendations and Conclusions (Zul + Linh)
+The U.S. startups experienced significant fluctuations in activity, driven by economic cycles and external shocks (@fig-temporalplot). 
+
+- The number of active startups peaked at 243 in 2015, fueled by post-2008 recovery. 
+- Closures plummeted to 61 in 2020, reflecting COVID-19’s impact on funding and operations. 
+- Post-2015 decline in new startups suggests market saturation, while rising closures emphasize external pressures. 
+
+## Discussion, Recommendations and Conclusions
 
 ### Discussion
 
-#### Why startups fail (Linh)
+#### Why startups fail
 
 Fierce competition and pressure from dominant players permeate every corner of the market, contributing to the failure of over 70% of reported startups. Acquisition stagnation, poor product-market fit, and budget constraints are also common reasons for startup failures across sectors. These causes are widely recognized in entrepreneurship literature and industry reports (source).
 
@@ -465,14 +464,13 @@ Medium-funded startups ($20M–$70M), likely in Series A or B stages, are focuse
 
 High-funded startups (>$70M), often long-time Series C companies, have usually validated their business model. Therefore, they reported fewer issues with product-market fit (11%) compared to low-funded ones and monetization (17%) compared to medium-funded ones. However, as operations scale and markets evolve, they failed due to execution flaws and operation stagnation post-acquisition (23%), limited budget (20%) and inability to transform themselves with market trend (16%). 
 
-#### Temporal analysis of start-up failures (Zul)
+#### Temporal analysis of start-up failures
 
 The dataset of 403 failed startups in US shows they typically lasted in average 8.2 years, with half surviving 8 years or less, pointing to how tough it is to keep a startup going. Most were active from 2009 to 2021, with the busiest year being 2015, when 326 startups were running, likely boosted by the economic rebound after the 2008 crash and heavy investment in tech and finance startups. These sectors, as mentioned earlier, struggled with fierce competition due to easy market entry. Failures jumped sharply in 2020–2023, with 64 shutting down in 2020 alone, likely due to the COVID-19 pandemic’s economic hit, which hurt funding, supply chains, and customer demand. This shows outside events made internal problems like poor product fit or bad management worse. 
 
 For example, food and hospitality startups, with 52% failing due to high running costs, were hit hard by pandemic restrictions, and 24% ran out of money. Health care startups, where 40% faced funding shortages, likely saw more closures in 2020 as privacy rules made it hard to connect with customers. Retail startups, with issues like niche markets (33%), suffered when spending dropped in 2020. Well-funded startups (over $70M), often more established, lasted longer pre-2018 but struggled post-2020 due to management errors (23%) or failing to keep up with market changes (16%). Small startups (under $20M) with poor market fit (26%) were hit hardest in 2020–2021, lacking cash to adapt. Finance startups like LendingClub and Circle lasted longer (16 and 11 years) but closed in 2023, losing to giants like PayPal. 
 
 Tech startups like Digg and MySpace peaked early (2004–2010) but faded by 2018–2020 as Facebook and Reddit took over. Manufacturing startups like Faraday Future, needing lots of money, saw failures rise post-2020 due to bad management and competition from Tesla. The 2020–2023 failure spike shows how the pandemic worsened money and competition problems from earlier sections. Startups in costly sectors struggled most during economic slumps, while tech and finance faced constant rivalry. This pattern shows startups need flexible plans to survive tough economic times, especially in sectors with high costs or heavy competition.
-
 
 ### Conclusions
 

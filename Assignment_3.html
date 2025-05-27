@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -32,10 +32,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="Assignment_3_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="Assignment_3_files/libs/quarto-html/anchor.min.js"></script>
 <link href="Assignment_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Assignment_3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="Assignment_3_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="Assignment_3_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Assignment_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Assignment_3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="Assignment_3_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="Assignment_3_files/libs/kePrint-0.0.1/kePrint.js"></script>
 
 <link href="Assignment_3_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
@@ -54,12 +54,12 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#data-processing" id="toc-data-processing" class="nav-link active" data-scroll-target="#data-processing">Data processing</a></li>
   <li><a href="#executive-summary-linh" id="toc-executive-summary-linh" class="nav-link" data-scroll-target="#executive-summary-linh">Executive Summary (Linh)</a></li>
-  <li><a href="#introduction-linh" id="toc-introduction-linh" class="nav-link" data-scroll-target="#introduction-linh">Introduction (Linh)</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#methodology-ayush" id="toc-methodology-ayush" class="nav-link" data-scroll-target="#methodology-ayush">Methodology (Ayush)</a></li>
-  <li><a href="#results-zul-linh" id="toc-results-zul-linh" class="nav-link" data-scroll-target="#results-zul-linh">Results (Zul + Linh)</a>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
   <ul class="collapse">
-  <li><a href="#why-startups-fail-linh" id="toc-why-startups-fail-linh" class="nav-link" data-scroll-target="#why-startups-fail-linh">Why startups fail (Linh)</a></li>
-  <li><a href="#temporal-analysis-of-start-up-failures-zul" id="toc-temporal-analysis-of-start-up-failures-zul" class="nav-link" data-scroll-target="#temporal-analysis-of-start-up-failures-zul">Temporal analysis of start-up failures (Zul)</a></li>
+  <li><a href="#why-startups-fail" id="toc-why-startups-fail" class="nav-link" data-scroll-target="#why-startups-fail">Why startups fail</a></li>
+  <li><a href="#temporal-analysis-of-start-up-failures" id="toc-temporal-analysis-of-start-up-failures" class="nav-link" data-scroll-target="#temporal-analysis-of-start-up-failures">Temporal analysis of start-up failures</a></li>
   </ul></li>
   <li><a href="#discussion-recommendations-and-conclusions-zul-linh" id="toc-discussion-recommendations-and-conclusions-zul-linh" class="nav-link" data-scroll-target="#discussion-recommendations-and-conclusions-zul-linh">Discussion, Recommendations and Conclusions (Zul + Linh)</a>
   <ul class="collapse">
@@ -68,14 +68,14 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#implications-recommendations" id="toc-implications-recommendations" class="nav-link" data-scroll-target="#implications-recommendations">Implications &amp; Recommendations</a></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Assignment_3.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="..\..\..\..\..\..\..\..\..\Windows\System32\WindowsPowerShell\v1.0\Assignment_3.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Assignment 3 - ALZ Alliance</h1>
-<p class="subtitle lead">Why do startups fail?: Analysis on 483 startups post-mortem</p>
+<p class="subtitle lead">Why do startups fail? - Analysis on 483 startups post-mortem</p>
 </div>
 
 
@@ -115,31 +115,6 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="remove-duplicated-rows" class="level5">
 <h5 class="anchored" data-anchor-id="remove-duplicated-rows">Remove duplicated rows</h5>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 11 × 25
-   name    sector    what_they_did how_much_they_raised why_they_failed takeaway
-   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;                &lt;chr&gt;           &lt;chr&gt;   
- 1 Bitpass Finance … Micropayment… $2M                  Lost to PayPal… Micropa…
- 2 Bitpass Informat… Micropayment… $1.5M                Shut down 2008… Frictio…
- 3 Clinkle Finance … Mobile wallet $30M                 No product vs … Executi…
- 4 Clinkle Health C… Mobile walle… $30M                 Leadership and… Executi…
- 5 Jawbone Health C… Fitness trac… $930M                Competition an… Differe…
- 6 Jawbone Informat… Fitness trac… $930M                Shut down 2017… Executi…
- 7 Jawbone Manufact… Fitness trac… $930M                Competition an… Fitness…
- 8 Sprig   Accommod… Organic meal… $57M                 Closed 2017; h… Organic…
- 9 Sprig   Health C… Healthy meal… $56M                 High costs and… Need co…
-10 Zume    Informat… Predictive p… $375M                Shut down 2022… Tech ne…
-11 Zume    Manufact… Robotic pizz… $375M                High costs vs … Food te…
-# ℹ 19 more variables: giants &lt;dbl&gt;, no_budget &lt;dbl&gt;, competition &lt;dbl&gt;,
-#   poor_market_fit &lt;dbl&gt;, acquisition_stagnation &lt;dbl&gt;,
-#   platform_dependency &lt;dbl&gt;, monetization_failure &lt;dbl&gt;, niche_limits &lt;dbl&gt;,
-#   execution_flaws &lt;dbl&gt;, trend_shifts &lt;dbl&gt;, toxicity_trust_issues &lt;dbl&gt;,
-#   regulatory_pressure &lt;dbl&gt;, overhype &lt;dbl&gt;, high_operational_costs &lt;dbl&gt;,
-#   funding_millions &lt;dbl&gt;, start_year &lt;dbl&gt;, end_year &lt;dbl&gt;,
-#   business_operation_year &lt;dbl&gt;, id &lt;int&gt;</code></pre>
-</div>
-</div>
 </section>
 </section>
 <section id="understanding-dataset" class="level4">
@@ -246,8 +221,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="executive-summary-linh" class="level2">
 <h2 class="anchored" data-anchor-id="executive-summary-linh">Executive Summary (Linh)</h2>
 </section>
-<section id="introduction-linh" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-linh">Introduction (Linh)</h2>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Startups have long been engines of innovation, yet their failure rate remains notoriously high — more than two-thirds of them are unable to generate positive returns (HBR). In recent years, macroeconomic challenges and a venture funding freeze since 2022 have made startup survival even more difficult (source). This environment raises an urgent question: <strong>Why and when do startups fail, and how do factors like industry and funding levels influence these outcomes?</strong> To answer this, we analyzed post-mortems from 483 failed startups compiled by CB Insights, where founders shared the reasons behind their collapse (source). These candid reflections offer rare, unfiltered insights into the internal and external pressures startups face.</p>
 <p>Our analysis focuses on two key dimensions: (1) the reasons for failure (broken down by sector and funding levels), and (2) a temporal analysis to identify shifts in causes over time. Understanding these patterns can help startup founders, investors, and policymakers better anticipate pitfalls and design more resilient strategies. Ultimately, this research aims to uncover not only on what goes wrong — but also when and for whom — to inform smarter decision-making in the startup ecosystem.</p>
 </section>
@@ -275,10 +250,10 @@ Figure&nbsp;1: Funding amount has a heavy right-skewed distribution, which is se
 <li>High-funded startups have secured over $70M—an amount often reached by Series C companies. At this stage, startups have usually been in operation for several years, proven their business model, and are seeking international expansion, an initial public offering, or acquisition by private equity firms or investment banks (source).</li>
 </ul>
 </section>
-<section id="results-zul-linh" class="level2">
-<h2 class="anchored" data-anchor-id="results-zul-linh">Results (Zul + Linh)</h2>
-<section id="why-startups-fail-linh" class="level3">
-<h3 class="anchored" data-anchor-id="why-startups-fail-linh">Why startups fail (Linh)</h3>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<section id="why-startups-fail" class="level3">
+<h3 class="anchored" data-anchor-id="why-startups-fail">Why startups fail</h3>
 <section id="failure-reasons-by-sector" class="level4">
 <h4 class="anchored" data-anchor-id="failure-reasons-by-sector">Failure reasons by sector</h4>
 <div class="cell">
@@ -295,12 +270,12 @@ Figure&nbsp;2: Besides universal reasons of Competition and Giants, each sector 
 </div>
 </div>
 </div>
-<p>Top reasons for startup failure is competition with market giants, cited by 70% of startups. Poor market fit, post-acquisition stagnation, and budget constraints are also common across all sectors.</p>
-<p>Additionally, each sector demonstrates their unique challenges, for example:</p>
+<p>70% of startups cited competition and market giants as their failure reasons. Poor market fit, post-acquisition stagnation, and budget constraints are also common challenges across sectors.</p>
+<p><a href="#fig-sector-percent" class="quarto-xref">Figure&nbsp;2</a> demonstrates sector-specific challenges:</p>
 <ul>
-<li>In Accommodation and Food Services, 52% of startups failed due to high operational costs.</li>
-<li>In Healthcare, the main reasons were poor market fit, monetization failure, and execution flaws.</li>
-<li>In Manufacturing, 55% cited lack of budget, followed by 28% pointing to execution flaws.</li>
+<li><strong>Accommodation and Food Services</strong>: 52% of startups failed due to high operational costs.</li>
+<li><strong>Healthcare</strong>: the main reasons were poor market fit, monetization failure, and execution flaws.</li>
+<li><strong>Manufacturing</strong>: 55% cited lack of budget, 28% reported execution flaws.</li>
 </ul>
 </section>
 <section id="failure-reasons-by-funding-groups" class="level4">
@@ -319,39 +294,44 @@ Figure&nbsp;3: While low-funded startup struggled with product-market fit and pr
 </div>
 </div>
 </div>
-<p>Besides the universal attribution of competitive rivalries, startups faced distinct challenges depending on their funding levels (<a href="#fig-funding-reason" class="quarto-xref">Figure&nbsp;3</a>).</p>
+<p><a href="#fig-funding-reason" class="quarto-xref">Figure&nbsp;3</a> demonstrates distinct challenges across different funding levels.</p>
 <ul>
-<li>Low-funded startups reported facing challenges in scalability limits to niche product (29%), product-market fit (26%) and budget limits (21%).</li>
-<li>While poor market fit was also a hurdle for medium-funded startups (19%), they faced bigger obstacles in post-acquisition stagnation (25%) and monetization (21%).</li>
-<li>Execution flaws (23%), acquisition stagnation (23%), budget limits (20%), monetization failures (16%) and trend shifts (16%) are primary contributors to failures among high-funded startups.</li>
+<li>Low-funded startups struggled with scalability limits to niche product (29%), product-market fit (26%) and budget limits (21%).</li>
+<li>While product-market fit was also a hurdle for medium-funded startups (19%), their bigger obstacles are acquisition stagnation (25%) and monetization (21%).</li>
+<li>Execution flaws (23%), acquisition stagnation (23%), budget limits (20%), monetization failures (16%) and trend shifts (16%) are primary failure factors for high-funded startups.</li>
 </ul>
 </section>
 </section>
-<section id="temporal-analysis-of-start-up-failures-zul" class="level3">
-<h3 class="anchored" data-anchor-id="temporal-analysis-of-start-up-failures-zul">Temporal analysis of start-up failures (Zul)</h3>
-<p>The U.S. startup ecosystem experienced significant fluctuations in activity, driven by economic cycles and external shocks. From 2000 onwards, illustrated in the <a href="#fig-temporalplot" class="quarto-xref">Figure&nbsp;4</a>, the number of active startups surged to a peak of 326 in 2015, fueled by a post-2008 recovery that encouraged new ventures, with formations reaching a high of 62 in 2012. However, closures escalated sharply to 61 in 2020, reflecting the economic fallout from the COVID-19 pandemic, which disrupted funding and operations. A decline in formations after 2015 suggests increasing market saturation, while rising closures highlight external pressures. These trends, illustrated in the accompanying plot, underscore the volatile nature of startups, aligning with earlier findings on competition and financial challenges.</p>
+<section id="temporal-analysis-of-start-up-failures" class="level3">
+<h3 class="anchored" data-anchor-id="temporal-analysis-of-start-up-failures">Temporal analysis of start-up failures</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-temporalplot" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<div id="fig-temporalplot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-temporalplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Assignment_3_files/figure-html/fig-temporalplot-1.png" id="fig-temporalplot" class="img-fluid figure-img" width="672">
+<img src="Assignment_3_files/figure-html/fig-temporalplot-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-temporalplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-temporalplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: The U.S. startup ecosystem experienced significant fluctuations in activity, driven by economic cycles and external shocks.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>The U.S. startups experienced significant fluctuations in activity, driven by economic cycles and external shocks (<a href="#fig-temporalplot" class="quarto-xref">Figure&nbsp;4</a>).</p>
+<ul>
+<li>The number of active startups peaked at 243 in 2015, fueled by post-2008 recovery.</li>
+<li>Closures plummeted to 61 in 2020, reflecting COVID-19’s impact on funding and operations.</li>
+<li>Post-2015 decline in new startups suggests market saturation, while rising closures emphasize external pressures.</li>
+</ul>
 </section>
 </section>
 <section id="discussion-recommendations-and-conclusions-zul-linh" class="level2">
 <h2 class="anchored" data-anchor-id="discussion-recommendations-and-conclusions-zul-linh">Discussion, Recommendations and Conclusions (Zul + Linh)</h2>
 <section id="discussion" class="level3">
 <h3 class="anchored" data-anchor-id="discussion">Discussion</h3>
-<section id="why-startups-fail-linh-1" class="level4">
-<h4 class="anchored" data-anchor-id="why-startups-fail-linh-1">Why startups fail (Linh)</h4>
+<section id="why-startups-fail-1" class="level4">
+<h4 class="anchored" data-anchor-id="why-startups-fail-1">Why startups fail</h4>
 <p>Fierce competition and pressure from dominant players permeate every corner of the market, contributing to the failure of over 70% of reported startups. Acquisition stagnation, poor product-market fit, and budget constraints are also common reasons for startup failures across sectors. These causes are widely recognized in entrepreneurship literature and industry reports (source).</p>
 <p>Beyond these universal factors, there are sector-specific and funding-related attributes that shape startup failures, reflecting the unique business practices tied to different marketplaces and stages in the startup lifecycle.</p>
 <p><strong>Differences in failure reason across sectors</strong></p>
@@ -367,9 +347,9 @@ Figure&nbsp;4
 <p>Medium-funded startups ($20M–$70M), likely in Series A or B stages, are focused on market expansion and revenue generation. Their key challenges shift to Acquisition stagnation (25%), Monetization failure (21%), and Execution flaws (16%).</p>
 <p>High-funded startups (&gt;$70M), often long-time Series C companies, have usually validated their business model. Therefore, they reported fewer issues with product-market fit (11%) compared to low-funded ones and monetization (17%) compared to medium-funded ones. However, as operations scale and markets evolve, they failed due to execution flaws and operation stagnation post-acquisition (23%), limited budget (20%) and inability to transform themselves with market trend (16%).</p>
 </section>
-<section id="temporal-analysis-of-start-up-failures-zul-1" class="level4">
-<h4 class="anchored" data-anchor-id="temporal-analysis-of-start-up-failures-zul-1">Temporal analysis of start-up failures (Zul)</h4>
-<p>The dataset of 403 failed startups in US shows they typically lasted in average 8.2 years, with half surviving 8 years or less, pointing to how tough it is to keep a startup going. Most were active from 2009 to 2021, with the busiest year being 2015, when 243 startups were running, likely boosted by the economic rebound after the 2008 crash and heavy investment in tech and finance startups. These sectors, as mentioned earlier, struggled with fierce competition due to easy market entry. Failures jumped sharply in 2020–2023, with 64 shutting down in 2020 alone, likely due to the COVID-19 pandemic’s economic hit, which hurt funding, supply chains, and customer demand. This shows outside events made internal problems like poor product fit or bad management worse.</p>
+<section id="temporal-analysis-of-start-up-failures-1" class="level4">
+<h4 class="anchored" data-anchor-id="temporal-analysis-of-start-up-failures-1">Temporal analysis of start-up failures</h4>
+<p>The dataset of 403 failed startups in US shows they typically lasted in average 8.2 years, with half surviving 8 years or less, pointing to how tough it is to keep a startup going. Most were active from 2009 to 2021, with the busiest year being 2015, when 326 startups were running, likely boosted by the economic rebound after the 2008 crash and heavy investment in tech and finance startups. These sectors, as mentioned earlier, struggled with fierce competition due to easy market entry. Failures jumped sharply in 2020–2023, with 64 shutting down in 2020 alone, likely due to the COVID-19 pandemic’s economic hit, which hurt funding, supply chains, and customer demand. This shows outside events made internal problems like poor product fit or bad management worse.</p>
 <p>For example, food and hospitality startups, with 52% failing due to high running costs, were hit hard by pandemic restrictions, and 24% ran out of money. Health care startups, where 40% faced funding shortages, likely saw more closures in 2020 as privacy rules made it hard to connect with customers. Retail startups, with issues like niche markets (33%), suffered when spending dropped in 2020. Well-funded startups (over $70M), often more established, lasted longer pre-2018 but struggled post-2020 due to management errors (23%) or failing to keep up with market changes (16%). Small startups (under $20M) with poor market fit (26%) were hit hardest in 2020–2021, lacking cash to adapt. Finance startups like LendingClub and Circle lasted longer (16 and 11 years) but closed in 2023, losing to giants like PayPal.</p>
 <p>Tech startups like Digg and MySpace peaked early (2004–2010) but faded by 2018–2020 as Facebook and Reddit took over. Manufacturing startups like Faraday Future, needing lots of money, saw failures rise post-2020 due to bad management and competition from Tesla. The 2020–2023 failure spike shows how the pandemic worsened money and competition problems from earlier sections. Startups in costly sectors struggled most during economic slumps, while tech and finance faced constant rivalry. This pattern shows startups need flexible plans to survive tough economic times, especially in sectors with high costs or heavy competition.</p>
 </section>
@@ -466,8 +446,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -578,7 +556,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
