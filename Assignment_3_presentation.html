@@ -9,9 +9,9 @@
 <link href="Assignment_3_presentation_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.42">
 
-  <meta name="author" content="Ayush Pandia - 35613424">
-  <meta name="author" content="Thuy Ngo - 35776064">
-  <meta name="author" content="Mohammad Zulkifli Falaqi - 35531916">
+  <meta name="author" content="Ayush Pandia (35613424)">
+  <meta name="author" content="Thuy Ngo (35776064)">
+  <meta name="author" content="Mohammad Zulkifli Falaqi (35531916)">
   <title>Assignment 3 - ALZ Alliance</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -135,34 +135,29 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Ayush Pandia - 35613424 
+Ayush Pandia (35613424) 
 </div>
 </div>
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Thuy Ngo - 35776064 
+Thuy Ngo (35776064) 
 </div>
 </div>
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Mohammad Zulkifli Falaqi - 35531916 
+Mohammad Zulkifli Falaqi (35531916) 
 </div>
 </div>
 </div>
 
 </section>
-<section id="assigment-3---alz-alliance" class="slide level2">
-<h2>Assigment 3 - ALZ Alliance</h2>
-<p><strong>Why do startups fail?: Analysis on 483 startups post-mortem</strong></p>
-<ul>
-<li>Ayush Pandia - 35613424</li>
-<li>Thuy Ngo - 35776064</li>
-<li>Mohammad Zulkifli Falaqi - 35531916</li>
-</ul>
-</section>
 <section id="problem-introduction" class="slide level2">
 <h2>Problem introduction</h2>
-<p><strong>More than 2/3 of startups failed</strong> to generate positive returns to investors</p>
+<br><br>
+<div style="text-align: center; font-size: 1.2em; font-weight: bold">
+<strong>More than 2/3 of startups failed</strong> to generate positive returns to investors
+</div>
+<p><em>Why and when do startups fail, and how do factors like industry and funding levels influence these outcomes?</em></p>
 </section>
 <section id="dataset-description" class="slide level2">
 <h2>Dataset description</h2>
@@ -183,19 +178,34 @@ Mohammad Zulkifli Falaqi - 35531916
 </section>
 <section id="results" class="slide level2">
 <h2>Results</h2>
+
+<img data-src="images/overall-reason.png" class="r-stretch quarto-figure-center"><p class="caption">sector</p><p><strong>Top universal reasons</strong> for failure: - Competition (70%) - Poor market fit, acquisition stagnation, budget constraints</p>
+<p>But nuances emerge across sectors and funding groups…</p>
 </section>
 <section class="slide level2">
 
-<h3 id="startups-in-different-sector-failed-differently">Startups in different sector failed differently</h3>
+<h3 id="startups-in-different-sector-failed-differently-for-example">Startups in different sector failed differently, for example …</h3>
+
+<img data-src="images/sector-reason.png" class="r-stretch quarto-figure-center"><p class="caption">sector</p><ul>
+<li><strong>Accommodation &amp; Food</strong>: 52% cite high operational costs</li>
+<li><strong>Healthcare &amp; Manufacturing</strong>: Over 50% cite budget/resource shortages</li>
+<li><strong>Retail Trade</strong>: Diverse causes – niche limits, poor market fit, execution flaws</li>
+<li><strong>Finance &amp; Tech</strong>: Competition dominates, fewer financial challenges lowering barrier to entry</li>
+</ul>
 </section>
 <section class="slide level2">
 
 <h3 id="startups-in-different-funding-groups-failed-differently">Startups in different funding groups failed differently</h3>
-<ul>
+
+<img data-src="images/funding-reason.png" class="r-stretch quarto-figure-center"><p class="caption">funding</p><ul>
 <li><strong>Low-funded (&lt;$20M)</strong>: Niche limits (29%), market fit issues (26%), budget (21%) - challenges in market validation</li>
 <li><strong>Medium-funded ($20M–$70M)</strong>: Acquisition stagnation (25%), monetization (21%), execution flaws (16%) - challenges in revenue generation and executions</li>
 <li><strong>High-funded (&gt;$70M)</strong>: Execution flaws (23%), stagnation (23%), trend shifts (16%) - challenges in adaptation to market shifts and executions</li>
 </ul>
+</section>
+<section class="slide level2">
+
+<h3 id="number-of-startup-failures-increased-in-the-past-few-years">Number of startup failures increased in the past few years</h3>
 </section>
 <section id="conclusions-andor-recommendations" class="slide level2">
 <h2>Conclusions and/or recommendations</h2>
@@ -420,82 +430,6 @@ Mohammad Zulkifli Falaqi - 35531916
         ]
       });
     </script>
-    
-
-    <script>
-
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
-      // slide changes (different for each slide format).
-
-      (function () {
-
-        // dispatch for htmlwidgets
-
-        function fireSlideEnter() {
-
-          const event = window.document.createEvent("Event");
-
-          event.initEvent("slideenter", true, true);
-
-          window.document.dispatchEvent(event);
-
-        }
-
-    
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          fireSlideEnter();
-
-    
-
-          // dispatch for shiny
-
-          if (window.jQuery) {
-
-            if (previousSlide) {
-
-              window.jQuery(previousSlide).trigger("hidden");
-
-            }
-
-            if (currentSlide) {
-
-              window.jQuery(currentSlide).trigger("shown");
-
-            }
-
-          }
-
-        }
-
-    
-
-        // hookup for slidy
-
-        if (window.w3c_slidy) {
-
-          window.w3c_slidy.add_observer(function (slide_num) {
-
-            // slide_num starts at position 1
-
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
-          });
-
-        }
-
-    
-
-      })();
-
-    </script>
-
-    
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

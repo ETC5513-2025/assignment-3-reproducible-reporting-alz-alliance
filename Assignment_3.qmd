@@ -8,6 +8,8 @@ author:
 format:
   html:
     toc: true
+  pdf:
+    toc: true
 execute: 
   warning: false
 ---
@@ -21,6 +23,8 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = FALSE,
   echo = FALSE
+  #fig.width = 6,
+  #fig.height = 4 
 )
 ```
 
@@ -221,6 +225,29 @@ failure_counts <- startup_combined |>
   summarise(count = sum(present)) |> 
   ungroup() |> 
   mutate(percent = (count/nrow(startup_combined))*100)
+```
+
+```{r plot overall failure reason}
+#| eval: false
+#| label: fig-overall-reason
+#| fig-cap: "The majority of startups failed due to intense competition, especially with giant players in the market."
+
+failure_counts |> 
+  ggplot(aes(x = reorder(reason, count), y = count)) +
+  geom_bar(stat = "identity", fill = "#2166ac") +
+  geom_text(aes(label = paste0(count, " (", round(percent, 1), "%", ")")), 
+            hjust = -0.1,
+            color = "black", size = 3) +
+  coord_flip() +
+  labs(title = "Count of Startups by Failure Reason",
+    x = "Failure Reason",
+    y = "Number of Startups",
+    fill = "Sector") +
+  scale_x_discrete(labels = col_pivot_labels) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+    axis.text.x = element_blank())
+
 ```
 
 ```{r percentage of failures by sector}
