@@ -145,6 +145,10 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
 
 ## Introduction (Linh)
 
+Startups have long been engines of innovation, yet their failure rate remains notoriously high — more than two-thirds of them are unable to generate positive returns (HBR). In recent years, macroeconomic challenges and a venture funding freeze since 2022 have made startup survival even more difficult (source). This environment raises an urgent question: **Why and when do startups fail, and how do factors like industry and funding levels influence these outcomes?** To answer this, we analyzed post-mortems from 483 failed startups compiled by CB Insights, where founders shared the reasons behind their collapse (source). These candid reflections offer rare, unfiltered insights into the internal and external pressures startups face. 
+
+Our analysis focuses on two key dimensions: (1) the reasons for failure (broken down by sector and funding levels), and (2) a temporal analysis to identify shifts in causes over time. Understanding these patterns can help startup founders, investors, and policymakers better anticipate pitfalls and design more resilient strategies. Ultimately, this research aims to uncover not only on what goes wrong — but also when and for whom — to inform smarter decision-making in the startup ecosystem.
+
 ## Methodology (Ayush)
 
 **Linh's suggestion to put funding distribution in methodology**
