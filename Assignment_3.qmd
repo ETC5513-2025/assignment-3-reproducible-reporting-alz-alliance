@@ -5,10 +5,12 @@ author:
   - Ayush Pandia - 35613424
   - Thuy Ngo - 35776064
   - Mohammad Zulkifli Falaqi - 35531916
+bibliography: bibliography/citations.bib
+csl: bibliography/apa.csl
 format:
-  html:
-    toc: true
   pdf:
+    toc: true
+  html:
     toc: true
 execute: 
   warning: false
@@ -22,9 +24,9 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   error = FALSE,
-  echo = FALSE
-  #fig.width = 6,
-  #fig.height = 4 
+  echo = FALSE,
+  fig.width = 10,
+  fig.height = 6 
 )
 ```
 
@@ -148,7 +150,7 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
 
 ## Introduction
 
-Startups have long been engines of innovation, yet their failure rate remains notoriously high — more than two-thirds of them are unable to generate positive returns (HBR). In recent years, macroeconomic challenges and a venture funding freeze since 2022 have made startup survival even more difficult (source). This environment raises an urgent question: **Why and when do startups fail, and how do factors like industry and funding levels influence these outcomes?** To answer this, we analyzed post-mortems from 483 failed startups compiled by CB Insights, where founders shared the reasons behind their collapse (source). These candid reflections offer rare, unfiltered insights into the internal and external pressures startups face. 
+Startups have long been engines of innovation, yet their failure rate remains notoriously high — more than two-thirds of them are unable to generate positive returns [@eisenmann_why_2021]. In recent years, macroeconomic challenges and a venture funding freeze since 2022 have made startup survival even more difficult [@cbinsights_data; @vc_funnel]. This environment raises an urgent question: **Why and when do startups fail?** To answer this, we analyzed post-mortems from 483 failed startups compiled by CB Insights, where founders shared the reasons behind their collapse [@cbinsights_data]. These candid reflections offer rare, unfiltered insights into the internal and external pressures startups face. 
 
 Our analysis focuses on two key dimensions: (1) the reasons for failure (broken down by sector and funding levels), and (2) a temporal analysis to identify shifts in causes over time. Understanding these patterns can help startup founders, investors, and policymakers better anticipate pitfalls and design more resilient strategies. Ultimately, this research aims to uncover not only on what goes wrong — but also when and for whom — to inform smarter decision-making in the startup ecosystem.
 
@@ -177,13 +179,13 @@ startup_combined |>
 
 Considering the various funding rounds startups may undergo, we defined funding brackets to align with the typical stages of startup development.
 
-- Low-funded startups are those that have raised less than $20M—an amount commonly associated with (pre-)seed and early-stage funding rounds (source).
-- Medium-funded startups have raised between $20M and $70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation (source).
-- High-funded startups have secured over $70M—an amount often reached by Series C companies. At this stage, startups have usually been in operation for several years, proven their business model, and are seeking international expansion, an initial public offering, or acquisition by private equity firms or investment banks (source).
+- Low-funded startups are those that have raised less than $20M—an amount commonly associated with (pre-)seed and early-stage funding rounds [@series_abc].
+- Medium-funded startups have raised between $20M and $70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation [@series_abc].
+- High-funded startups have secured over $70M—an amount often reached by Series C companies. At this stage, startups have usually been in operation for several years, proven their business model, and are seeking international expansion, an initial public offering, or acquisition by private equity firms or investment banks [@series_abc].
 
 ## Results
 
-### Why startups fail
+### Reasons for startup failures
 
 #### Failure reasons by sector
 ```{r overall failure reasons}
@@ -436,7 +438,7 @@ The U.S. startups experienced significant fluctuations in activity, driven by ec
 
 #### Why startups fail
 
-Fierce competition and pressure from dominant players permeate every corner of the market, contributing to the failure of over 70% of reported startups. Acquisition stagnation, poor product-market fit, and budget constraints are also common reasons for startup failures across sectors. These causes are widely recognized in entrepreneurship literature and industry reports (source).
+Fierce competition and pressure from dominant players permeate every corner of the market, contributing to the failure of over 70% of reported startups. Acquisition stagnation, poor product-market fit, and budget constraints are also common reasons for startup failures across sectors. These causes are widely recognized in entrepreneurship literature and industry reports [@blank2018lean; @giardino2014early].
 
 Beyond these universal factors, there are sector-specific and funding-related attributes that shape startup failures, reflecting the unique business practices tied to different marketplaces and stages in the startup lifecycle.
 
@@ -476,4 +478,4 @@ Tech startups like Digg and MySpace peaked early (2004–2010) but faded by 2018
 
 ### Implications & Recommendations
 
-
+## References
