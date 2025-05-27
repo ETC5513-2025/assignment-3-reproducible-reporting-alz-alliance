@@ -1,10 +1,17 @@
 ---
-title: "Assignment 3"
-author: "ALZ Alliance"
+title: "Assignment 3 - ALZ Alliance"
+subtitle: "Why do startups fail? - Analysis on 483 startups post-mortem"
+author:   
+  - Ayush Pandia - 35613424
+  - Thuy Ngo - 35776064
+  - Mohammad Zulkifli Falaqi - 35531916
+bibliography: bibliography/citations.bib
+csl: bibliography/apa.csl
 format:
-    html:
-        toc: true
-editor: visual
+  pdf:
+    toc: true
+  html:
+    toc: true
 execute: 
   warning: false
 ---
@@ -14,12 +21,14 @@ execute:
 
 knitr::opts_chunk$set(
   eval = TRUE,
-  message = TRUE,
-  warning = TRUE,
-  error = TRUE
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE,
+  echo = FALSE,
+  fig.width = 10,
+  fig.height = 6 
 )
 ```
-
 
 ```{r}
 # Loading the required library
@@ -28,6 +37,9 @@ library(janitor)
 library(knitr)
 library(kableExtra)
 library(stringr)
+library(ggplot2)
+library(ggtext)
+library(plotly)
 ```
 
 ## Data processing
@@ -59,34 +71,22 @@ startup_combined <- bind_rows(
 
 #### Data cleaning
 
-```{r}
-# Convert years of operation into `start_year` and `end_year`
+#####   Convert `how_much_they_raised` into numeric
+```{r convert funding}
+startup_combined <- startup_combined |>
+  mutate(funding_millions = str_extract(how_much_they_raised, "\\d+\\.?\\d*") |> as.numeric())
+```
 
+##### Convert years of operation into `start_year` and `end_year`
+```{r convert years of operations}
 startup_combined <- startup_combined |>
   mutate(
     year_range = str_extract(years_of_operation, "\\d{4}[-–]\\d{4}"), #extracting year range
         start_year = as.numeric(str_extract(year_range, "^\\d{4}")), # extracting start year and end year
-    end_year = as.numeric(str_extract(year_range, "\\d{4}$"))
-  )
-head(startup_combined)
-```
-
-
-```{r}
-#  Mutate a col for length of business
-startup_combined <- startup_combined |>
-  mutate(business_operation_year = end_year - start_year)
-head(startup_combined)
-```
-
-```{r}
-# Dropping extra column in terms of year
-startup_combined <- startup_combined |>
+    end_year = as.numeric(str_extract(year_range, "\\d{4}$")),
+    business_operation_year = end_year - start_year + 1) |> 
   select(-year_range, -years_of_operation)
-
-head(startup_combined)
 ```
-
 
 ##### Remove duplicated rows
 
@@ -98,12 +98,6 @@ duplicated_names <- startup_combined |>
   filter(n > 1) |> 
   pull(name)
 
-# Take a look to pick out which rows to remove
-startup_combined |> 
-  mutate(id = row_number()) |> 
-  filter(name %in% duplicated_names) |> 
-  arrange(name)
-
 # Handpicked the rows to remove
 removed_rows <- c(264, 89, 175, 306, 66, 259)
 startup_combined <- startup_combined |> 
@@ -113,8 +107,7 @@ startup_combined <- startup_combined |>
 
 #### Understanding Dataset
 
-```{r}
-# adding table for data description
+```{r adding table for data description}
 
 variable_description <- tibble::tibble(
   Variable = c(
@@ -155,18 +148,334 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
 
 ## Executive Summary (Linh)
 
-## Introduction (Linh)
+## Introduction
+
+Startups have long been engines of innovation, yet their failure rate remains notoriously high — more than two-thirds of them are unable to generate positive returns [@eisenmann_why_2021]. In recent years, macroeconomic challenges and a venture funding freeze since 2022 have made startup survival even more difficult [@cbinsights_data; @vc_funnel]. This environment raises an urgent question: **Why and when do startups fail?** To answer this, we analyzed post-mortems from 483 failed startups compiled by CB Insights, where founders shared the reasons behind their collapse [@cbinsights_data]. These candid reflections offer rare, unfiltered insights into the internal and external pressures startups face. 
+
+Our analysis focuses on two key dimensions: (1) the reasons for failure (broken down by sector and funding levels), and (2) a temporal analysis to identify shifts in causes over time. Understanding these patterns can help startup founders, investors, and policymakers better anticipate pitfalls and design more resilient strategies. Ultimately, this research aims to uncover not only on what goes wrong — but also when and for whom — to inform smarter decision-making in the startup ecosystem.
 
 ## Methodology (Ayush)
 
-## Results (Zul + Linh)
+**Linh's suggestion to put funding distribution in methodology**
 
-### Why startups fail (Linh)
+```{r funding distribution by sector}
+#| label: fig-funding-distribution
+#| fig-cap: Funding amount has a heavy right-skewed distribution, which is seen across all sectors. 
 
-### Temporal analysis of start-up failures (Zul)
+startup_combined |>
+  ggplot(aes(x = sector, y = funding_millions)) +
+  geom_violin(fill = "#2166ac") +
+  labs(
+    title = "Funding Raised by Sector",
+    x = "Sector",
+    y = "Funding Raised (Millions)"
+  ) +
+  theme_minimal(base_family = "sans") +
+  theme(
+    panel.grid = element_blank(),
+    axis.text.x = element_text(angle = 45, hjust = 1)  )
 
-## Conclusion (Zul + Linh)
+```
 
-### Why startups fail (Linh)
+Considering the various funding rounds startups may undergo, we defined funding brackets to align with the typical stages of startup development.
 
-### Temporal analysis of start-up failures (Zul)
+- Low-funded startups are those that have raised less than $20M—an amount commonly associated with (pre-)seed and early-stage funding rounds [@series_abc].
+- Medium-funded startups have raised between $20M and $70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation [@series_abc].
+- High-funded startups have secured over $70M—an amount often reached by Series C companies. At this stage, startups have usually been in operation for several years, proven their business model, and are seeking international expansion, an initial public offering, or acquisition by private equity firms or investment banks [@series_abc].
+
+## Results
+
+### Reasons for startup failures
+
+#### Failure reasons by sector
+```{r overall failure reasons}
+
+col_pivot <- c("giants", "no_budget", "competition", "poor_market_fit", "acquisition_stagnation",
+"platform_dependency", "monetization_failure", "niche_limits", "execution_flaws",
+"trend_shifts", "toxicity_trust_issues", "regulatory_pressure", "overhype", "high_operational_costs")
+
+col_pivot_labels <- c(
+  giants = "Giants",
+  no_budget = "No budget",
+  competition = "Competition",
+  poor_market_fit = "Poor market fit",
+  acquisition_stagnation = "Acquisition stagnation",
+  platform_dependency = "Platform dependency",
+  monetization_failure = "Monetization failure",
+  niche_limits = "Niche limits",
+  execution_flaws = "Execution flaws",
+  trend_shifts = "Trend shifts",
+  toxicity_trust_issues = "Toxicity & trust issues",
+  regulatory_pressure = "Regulatory pressure",
+  overhype = "Overhype",
+  high_operational_costs = "High operational costs"
+)
+
+failure_counts <- startup_combined |> 
+  select(col_pivot) |> 
+  mutate_all(~replace_na(., 0)) |> 
+  pivot_longer(cols = col_pivot, names_to = "reason", values_to = "present") |> 
+  group_by(reason) |> 
+  summarise(count = sum(present)) |> 
+  ungroup() |> 
+  mutate(percent = (count/nrow(startup_combined))*100)
+```
+
+```{r plot overall failure reason}
+#| eval: false
+#| label: fig-overall-reason
+#| fig-cap: "The majority of startups failed due to intense competition, especially with giant players in the market."
+
+failure_counts |> 
+  ggplot(aes(x = reorder(reason, count), y = count)) +
+  geom_bar(stat = "identity", fill = "#2166ac") +
+  geom_text(aes(label = paste0(count, " (", round(percent, 1), "%", ")")), 
+            hjust = -0.1,
+            color = "black", size = 3) +
+  coord_flip() +
+  labs(title = "Count of Startups by Failure Reason",
+    x = "Failure Reason",
+    y = "Number of Startups",
+    fill = "Sector") +
+  scale_x_discrete(labels = col_pivot_labels) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+    axis.text.x = element_blank())
+
+```
+
+```{r percentage of failures by sector}
+#| label: fig-sector-percent
+#| fig-cap: "Besides universal reasons of Competition and Giants, each sector carried their own set of reasons for startup failures."
+
+sector_counts <- startup_combined |> 
+  group_by(sector) |> 
+  summarise(sector_counts = n()) |> 
+  ungroup() 
+
+sector_percent <- startup_combined |> 
+  select(sector, col_pivot) |> 
+  mutate_all(~replace_na(., 0)) |> 
+  pivot_longer(cols = col_pivot, names_to = "reason", values_to = "present") |> 
+  group_by(sector, reason) |> 
+  summarise(company_fail_counts = sum(present, na.rm = TRUE)) |> 
+  ungroup() |> 
+  left_join(sector_counts, by = "sector") |> 
+  mutate(percent_fail = (company_fail_counts/sector_counts)*100)
+
+sector_percent |> 
+  bind_rows(
+    failure_counts |> 
+      rename(company_fail_counts = count, percent_fail = percent) |> 
+      mutate(sector = "All sector")
+  ) |> 
+  mutate(
+    #sector = factor(sector, levels = c("All sector", sort(unique(sector)[unique(sector) != "All sector"]))),
+    label = ifelse(sector == "All sector", paste0("**", round(percent_fail, 1), "**"), as.character(round(percent_fail, 1))),
+    sector_fmt = ifelse(sector == "All sector", paste0("**", sector, "**"), as.character(sector))
+  ) |> 
+  ggplot(aes(x = reorder(reason, company_fail_counts), y = sector_fmt, fill = percent_fail)) +
+  geom_tile(color = "white") +
+  geom_richtext(aes(label = label), size = 3, fill = NA, label.color = NA) +
+  coord_flip() +
+  scale_fill_gradient(low = "#f0f0f0", high = "#2166ac", name = "% Failed") +
+  scale_x_discrete(labels = col_pivot_labels) +
+  theme_minimal() +
+  labs(title = "Startup Failure Reasons by Sector",
+       x = "Failure Reason",
+       y = "Sector") +
+  theme(
+    axis.text.x = element_markdown(angle = 45, hjust = 1),  # enables bold in y-axis
+    panel.grid = element_blank()
+  )
+
+```
+
+70% of startups cited competition and market giants as their failure reasons. Poor market fit, post-acquisition stagnation, and budget constraints are also common challenges across sectors.
+
+@fig-sector-percent demonstrates sector-specific challenges:
+
+- **Accommodation and Food Services**: 52% of startups failed due to high operational costs.
+- **Healthcare**: the main reasons were poor market fit, monetization failure, and execution flaws.
+- **Manufacturing**: 55% cited lack of budget, 28% reported execution flaws.
+
+#### Failure reasons by Funding groups
+
+```{r funding by reason}
+#| label: fig-funding-reason
+#| fig-cap: "While low-funded startup struggled with product-market fit and product scalability due to niche market, higher-funded ones faced challenged in monetization, business executitions and post-acquisition operations. "
+
+startup_combined <- startup_combined |>
+  mutate(funding_millions = str_extract(how_much_they_raised, "\\d+\\.?\\d*") |> as.numeric())
+
+threshold <- quantile(startup_combined$funding_millions, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
+
+startup_combined <- startup_combined |> 
+  mutate(funding_group = cut(funding_millions, breaks = c(-Inf, 20, 70, Inf),   
+        labels = c("Low (< $20M)", "Medium ($20M - $70M)", "High (> $70M)"))) 
+        
+funding_group_counts <- startup_combined |> 
+  group_by(funding_group) |> 
+  summarise(funding_group_counts = n())
+
+funding_group_percent <- startup_combined |> 
+  select(col_pivot, funding_group) |>
+  pivot_longer(cols = col_pivot, names_to = "reason", values_to = "present") |> 
+  group_by(reason, funding_group) |> 
+  summarise(count = sum(present, na.rm = TRUE)) |> 
+  ungroup() |> 
+  left_join(funding_group_counts, by = "funding_group") |> 
+  mutate(percent_fail = (count/funding_group_counts)*100) |> 
+  filter(!is.na(funding_group))
+  
+funding_group_percent |>
+  ggplot(aes(x = reorder(reason, percent_fail), y = percent_fail)) +
+  geom_col(fill = "#2166ac") +
+  geom_text(aes(label = paste0(round(percent_fail, 1), "%")), 
+            hjust = -0.1, color = "black", size = 3) +
+  coord_flip() +
+  facet_wrap(~funding_group, ncol = 4) +
+  scale_x_discrete(labels = col_pivot_labels) + 
+  labs(title = "Startup Failure Reasons by Funding Group",
+    x = "Failure Reason",
+    y = "Failure Percentage") +
+  theme_minimal(base_family = "sans") +
+  theme(panel.grid = element_blank(),
+    strip.text = element_text(face = "bold"),
+    axis.text.y = element_text(face = "plain"),
+    axis.text.x = element_blank()) +
+  expand_limits(y = max(funding_group_percent$percent_fail) * 1.1)
+
+```
+
+@fig-funding-reason demonstrates distinct challenges across different funding levels.
+
+- Low-funded startups struggled with scalability limits to niche product (29%), product-market fit (26%) and budget limits (21%).
+- While product-market fit was also a hurdle for medium-funded startups (19%), their bigger obstacles are acquisition stagnation (25%) and monetization (21%).
+- Execution flaws (23%), acquisition stagnation (23%), budget limits (20%), monetization failures (16%) and trend shifts (16%) are primary failure factors for high-funded startups.
+
+### Temporal analysis of start-up failures 
+
+```{r}
+#| label: fig-temporalplot
+#| fig-cap: The U.S. startup ecosystem experienced significant fluctuations in activity, driven by economic cycles and external shocks.
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Create data frame for active startups per year
+df_active <- startup_combined %>%
+  mutate(year = map2(start_year, end_year, ~ seq(.x, .y))) %>%
+  unnest(year) %>%
+  filter(year >= 2000) %>%
+  group_by(year) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  mutate(event = "Active Startups")
+
+# Create data frame for start_year and end_year counts
+df_years <- startup_combined %>%
+  select(start_year, end_year) %>%
+  pivot_longer(cols = c(start_year, end_year), 
+               names_to = "event", 
+               values_to = "year") %>%
+  filter(year >= 2000) %>%
+  mutate(event = recode(event, start_year = "Start Year", end_year = "End Year")) %>%
+  group_by(event, year) %>%
+  summarise(count = n(), .groups = "drop")
+
+# Combine data for plotting
+df_combined <- bind_rows(
+  df_years %>% mutate(type = "Line"),
+  df_active %>% mutate(type = "Bar")
+) %>%
+  mutate(event = factor(event, levels = c("Start Year", "End Year", "Active Startups")))
+
+# Create plot with geom_bar in background and geom_line overlay
+ggplot(df_combined, aes(x = year, y = count)) +
+  geom_bar(data = df_combined %>% filter(type == "Bar"), 
+           aes(fill = event), stat = "identity", alpha = 0.3) +
+  geom_line(data = df_combined %>% filter(type == "Line"), 
+            aes(color = event), size = 1.2) +
+  geom_point(data = df_combined %>% filter(type == "Line"), 
+             aes(color = event), size = 2) +
+  geom_text(data = df_combined %>% filter(type == "Line"), 
+            aes(label = count, color = event, 
+                vjust = ifelse(event == "End Year" & year <= 2015, 1.5, -1.5)), 
+            size = 3) +
+  geom_text(data = df_combined %>% filter(type == "Bar"), 
+            aes(label = count, 
+                vjust = ifelse(year <= 2006, -3, -0.5)), 
+            color = "black", size = 2.5) +
+  labs(title = "Startup Activity with Formation and Closure Frequencies (2000 Onwards)",
+       x = "Year",
+       y = "Number of Startups",
+       color = "",
+       fill = "") +
+  scale_x_continuous(breaks = seq(2000, 2024, by = 1), labels = seq(2000, 2024, by = 1)) +
+  scale_color_manual(values = c("Start Year" = "#2166ac", "End Year" = "#f28e2b", "Active Startups" = "#b3cde3")) +
+  scale_fill_manual(values = c("Start Year" = "#2166ac", "End Year" = "#f28e2b", "Active Startups" = "#b3cde3")) +
+  theme_minimal(base_family = "sans") +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8, face = "plain"),
+        axis.text.y = element_text(size = 10, face = "plain"),
+        plot.title = element_text(hjust = 0.5),
+        legend.position = "bottom",
+        legend.text = element_text(size = 10, face = "plain"),
+        legend.key = element_rect(color = NA, fill = NA),
+        legend.key.width = unit(1, "cm"))
+```
+
+The U.S. startups experienced significant fluctuations in activity, driven by economic cycles and external shocks (@fig-temporalplot). 
+
+- The number of active startups peaked at 243 in 2015, fueled by post-2008 recovery. 
+- Closures plummeted to 61 in 2020, reflecting COVID-19’s impact on funding and operations. 
+- Post-2015 decline in new startups suggests market saturation, while rising closures emphasize external pressures. 
+
+## Discussion, Recommendations and Conclusions
+
+### Discussion
+
+#### Why startups fail
+
+Fierce competition and pressure from dominant players permeate every corner of the market, contributing to the failure of over 70% of reported startups. Acquisition stagnation, poor product-market fit, and budget constraints are also common reasons for startup failures across sectors. These causes are widely recognized in entrepreneurship literature and industry reports [@blank2018lean; @giardino2014early].
+
+Beyond these universal factors, there are sector-specific and funding-related attributes that shape startup failures, reflecting the unique business practices tied to different marketplaces and stages in the startup lifecycle.
+
+**Differences in failure reason across sectors**
+
+Each sector has a different mix of reasons on why their startups failed. 
+
+Accommodation and Food services startups reported 52% of their failures were due to High operational costs, which is unsurprising given the industry nature of heavy overheads into physical sites, e.g., hotels, restaurant. High financial requirement is also seen in 24% of startups attributing No budget to their failures. 
+
+Similarly, Health Care and Manufacturing require substantial upfront investments into product development, which was a major hurdle that left 40% of startups in Health Care and 55% of startups in Manufacturing out of business due to insufficient financial capability. 
+
+Beyond financial shortages, Health Care startups struggled with product-market fit, monetization failure and business execution. This tells a story of difficulties getting close to and empathize with customers, probably due to the industry nature of data confidentiality, discouraging people to share their health status.
+
+Unlike sectors with a few dominant failure factors, startups in Retail Trade reported a broad range of reasons, with Niche limits (33%), Poor market fit (22%), and Execution flaws (22%) as the most common. With lower figures for Competition (49%), Retail Trade is characterised by numerous niches, yet, whether these niches can scale sustainably remains a key uncertainty. Such scalability problem also underpins the financial and monetization challenges faced by 19% of startups in the sector.
+
+Both Finance and Insurance, and Information startups blamed market competition and major players for their failure, while budget limits or monetization challenges were not as considerable as other sectors. This means prolific revenue potential and low barriers to entry, especially financial capital - factors that itensify market rivalry.
+
+**Differences in failure reason across funding levels**
+
+A closer look through the lens of funding reveals fundamental differences in failure reasons.
+
+Low-funded startups (<$20M) often overlap with early-stage companies that typically have only a proof-of-concept or minimum viable product. These startups are still exploring market fit, which explains their struggles with Poor market fit (26%) and Niche limits (29%).
+
+Medium-funded startups ($20M–$70M), likely in Series A or B stages, are focused on market expansion and revenue generation. Their key challenges shift to Acquisition stagnation (25%), Monetization failure (21%), and Execution flaws (16%).
+
+High-funded startups (>$70M), often long-time Series C companies, have usually validated their business model. Therefore, they reported fewer issues with product-market fit (11%) compared to low-funded ones and monetization (17%) compared to medium-funded ones. However, as operations scale and markets evolve, they failed due to execution flaws and operation stagnation post-acquisition (23%), limited budget (20%) and inability to transform themselves with market trend (16%). 
+
+#### Temporal analysis of start-up failures
+
+The dataset of 403 failed startups in US shows they typically lasted in average 8.2 years, with half surviving 8 years or less, pointing to how tough it is to keep a startup going. Most were active from 2009 to 2021, with the busiest year being 2015, when 326 startups were running, likely boosted by the economic rebound after the 2008 crash and heavy investment in tech and finance startups. These sectors, as mentioned earlier, struggled with fierce competition due to easy market entry. Failures jumped sharply in 2020–2023, with 64 shutting down in 2020 alone, likely due to the COVID-19 pandemic’s economic hit, which hurt funding, supply chains, and customer demand. This shows outside events made internal problems like poor product fit or bad management worse. 
+
+For example, food and hospitality startups, with 52% failing due to high running costs, were hit hard by pandemic restrictions, and 24% ran out of money. Health care startups, where 40% faced funding shortages, likely saw more closures in 2020 as privacy rules made it hard to connect with customers. Retail startups, with issues like niche markets (33%), suffered when spending dropped in 2020. Well-funded startups (over $70M), often more established, lasted longer pre-2018 but struggled post-2020 due to management errors (23%) or failing to keep up with market changes (16%). Small startups (under $20M) with poor market fit (26%) were hit hardest in 2020–2021, lacking cash to adapt. Finance startups like LendingClub and Circle lasted longer (16 and 11 years) but closed in 2023, losing to giants like PayPal. 
+
+Tech startups like Digg and MySpace peaked early (2004–2010) but faded by 2018–2020 as Facebook and Reddit took over. Manufacturing startups like Faraday Future, needing lots of money, saw failures rise post-2020 due to bad management and competition from Tesla. The 2020–2023 failure spike shows how the pandemic worsened money and competition problems from earlier sections. Startups in costly sectors struggled most during economic slumps, while tech and finance faced constant rivalry. This pattern shows startups need flexible plans to survive tough economic times, especially in sectors with high costs or heavy competition.
+
+### Conclusions
+
+### Implications & Recommendations
+
+## References

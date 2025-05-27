@@ -6,9 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="ALZ Alliance">
+<meta name="author" content="Ayush Pandia - 35613424">
+<meta name="author" content="Thuy Ngo - 35776064">
+<meta name="author" content="Mohammad Zulkifli Falaqi - 35531916">
 
-<title>Assignment 3</title>
+<title>Assignment 3 - ALZ Alliance</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -67,22 +35,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="Assignment_3_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="Assignment_3_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Assignment_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Assignment_3_files/libs/bootstrap/bootstrap-c0367b04c37547644fece4185067e4a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="Assignment_3_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="Assignment_3_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
 <link href="Assignment_3_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data-processing" id="toc-data-processing" class="nav-link active" data-scroll-target="#data-processing">Data processing</a></li>
+  <li><a href="#executive-summary-linh" id="toc-executive-summary-linh" class="nav-link" data-scroll-target="#executive-summary-linh">Executive Summary (Linh)</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#methodology-ayush" id="toc-methodology-ayush" class="nav-link" data-scroll-target="#methodology-ayush">Methodology (Ayush)</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#why-startups-fail" id="toc-why-startups-fail" class="nav-link" data-scroll-target="#why-startups-fail">Why startups fail</a></li>
+  <li><a href="#temporal-analysis-of-start-up-failures" id="toc-temporal-analysis-of-start-up-failures" class="nav-link" data-scroll-target="#temporal-analysis-of-start-up-failures">Temporal analysis of start-up failures</a></li>
+  </ul></li>
+  <li><a href="#discussion-recommendations-and-conclusions-zul-linh" id="toc-discussion-recommendations-and-conclusions-zul-linh" class="nav-link" data-scroll-target="#discussion-recommendations-and-conclusions-zul-linh">Discussion, Recommendations and Conclusions (Zul + Linh)</a>
+  <ul class="collapse">
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  <li><a href="#implications-recommendations" id="toc-implications-recommendations" class="nav-link" data-scroll-target="#implications-recommendations">Implications &amp; Recommendations</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="..\..\..\..\..\..\..\..\..\Windows\System32\WindowsPowerShell\v1.0\Assignment_3.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Assignment 3</h1>
+<h1 class="title">Assignment 3 - ALZ Alliance</h1>
+<p class="subtitle lead">Why do startups fail? - Analysis on 483 startups post-mortem</p>
 </div>
 
 
@@ -90,9 +83,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Authors</div>
     <div class="quarto-title-meta-contents">
-             <p>ALZ Alliance </p>
+             <p>Ayush Pandia - 35613424 </p>
+             <p>Thuy Ngo - 35776064 </p>
+             <p>Mohammad Zulkifli Falaqi - 35531916 </p>
           </div>
   </div>
     
@@ -105,80 +100,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading the required library</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">DATA</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data </span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>startup_overall <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"Finance_and_Insurance.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>startup_finance <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Finance_and_Insurance.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>startup_food <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Food_and_services.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>startup_health <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Health_Care.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>startup_it <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Information_Sector.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>startup_manufacture <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Manufactures.csv"</span>)) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>startup_retail <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Retail_Trade.csv"</span>)) <span class="sc">|&gt;</span>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="data-processing" class="level2">
+<h2 class="anchored" data-anchor-id="data-processing">Data processing</h2>
 <section id="combining-dataset-into-one" class="level4">
 <h4 class="anchored" data-anchor-id="combining-dataset-into-one">Combining dataset into one</h4>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combining the dataset into one</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>startup_combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  startup_finance,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  startup_food,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  startup_health,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  startup_it,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  startup_manufacture,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  startup_retail</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+</section>
+<section id="data-cleaning" class="level4">
+<h4 class="anchored" data-anchor-id="data-cleaning">Data cleaning</h4>
+<section id="convert-how_much_they_raised-into-numeric" class="level5">
+<h5 class="anchored" data-anchor-id="convert-how_much_they_raised-into-numeric">Convert <code>how_much_they_raised</code> into numeric</h5>
+</section>
+<section id="convert-years-of-operation-into-start_year-and-end_year" class="level5">
+<h5 class="anchored" data-anchor-id="convert-years-of-operation-into-start_year-and-end_year">Convert years of operation into <code>start_year</code> and <code>end_year</code></h5>
+</section>
+<section id="remove-duplicated-rows" class="level5">
+<h5 class="anchored" data-anchor-id="remove-duplicated-rows">Remove duplicated rows</h5>
+</section>
 </section>
 <section id="understanding-dataset" class="level4">
 <h4 class="anchored" data-anchor-id="understanding-dataset">Understanding Dataset</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adding table for data description</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>variable_description <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"name"</span>, <span class="st">"sector"</span>, <span class="st">"years_of_operation"</span>, <span class="st">"what_they_did"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"how_much_they_raised"</span>, <span class="st">"why_they_failed"</span>, <span class="st">"takeaway"</span>, <span class="st">"giants"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"no_budget"</span>, <span class="st">"competition"</span>, <span class="st">"poor_market_fit"</span>, <span class="st">"acquisition_stagnation"</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"platform_dependency"</span>, <span class="st">"monetization_failure"</span>, <span class="st">"niche_limits"</span>, <span class="st">"execution_flaws"</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"trend_shifts"</span>, <span class="st">"toxicity_trust_issues"</span>, <span class="st">"regulatory_pressure"</span>, <span class="st">"overhype"</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Description =</span> <span class="fu">c</span>(</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Name of the startup"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Business sector or industry"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Number of years the startup operated"</span>,</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Description of what the startup did"</span>,</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Total funds raised before failure (if available)"</span>,</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary reason for startup failure"</span>,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Key takeaway or lesson from the failure"</span>,</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Whether the startup competed with major players"</span>,</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Failed due to budget constraints"</span>,</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Faced tough competition"</span>,</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Did not fit well with market demand"</span>,</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Growth plateaued or stagnated"</span>,</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Depended heavily on external platforms"</span>,</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Could not effectively monetize"</span>,</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Had limited market potential"</span>,</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Poor execution or management issues"</span>,</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Impact of changing industry trends"</span>,</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Trust or toxicity issues in the team"</span>,</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Faced legal or regulatory hurdles"</span>,</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Failure due to excessive hype or unrealistic expectations"</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Display as a table</span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(variable_description, <span class="at">caption =</span> <span class="st">"Variable Descriptions for Startup Combined Dataset"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>), <span class="at">full_width =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
 <caption>Variable Descriptions for Startup Combined Dataset</caption>
@@ -277,8 +218,148 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="methadology" class="level3">
-<h3 class="anchored" data-anchor-id="methadology">Methadology</h3>
+<section id="executive-summary-linh" class="level2">
+<h2 class="anchored" data-anchor-id="executive-summary-linh">Executive Summary (Linh)</h2>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Startups have long been engines of innovation, yet their failure rate remains notoriously high — more than two-thirds of them are unable to generate positive returns (HBR). In recent years, macroeconomic challenges and a venture funding freeze since 2022 have made startup survival even more difficult (source). This environment raises an urgent question: <strong>Why and when do startups fail, and how do factors like industry and funding levels influence these outcomes?</strong> To answer this, we analyzed post-mortems from 483 failed startups compiled by CB Insights, where founders shared the reasons behind their collapse (source). These candid reflections offer rare, unfiltered insights into the internal and external pressures startups face.</p>
+<p>Our analysis focuses on two key dimensions: (1) the reasons for failure (broken down by sector and funding levels), and (2) a temporal analysis to identify shifts in causes over time. Understanding these patterns can help startup founders, investors, and policymakers better anticipate pitfalls and design more resilient strategies. Ultimately, this research aims to uncover not only on what goes wrong — but also when and for whom — to inform smarter decision-making in the startup ecosystem.</p>
+</section>
+<section id="methodology-ayush" class="level2">
+<h2 class="anchored" data-anchor-id="methodology-ayush">Methodology (Ayush)</h2>
+<p><strong>Linh’s suggestion to put funding distribution in methodology</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-funding-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-funding-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Assignment_3_files/figure-html/fig-funding-distribution-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-funding-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Funding amount has a heavy right-skewed distribution, which is seen across all sectors.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Considering the various funding rounds startups may undergo, we defined funding brackets to align with the typical stages of startup development.</p>
+<ul>
+<li>Low-funded startups are those that have raised less than $20M—an amount commonly associated with (pre-)seed and early-stage funding rounds (source).</li>
+<li>Medium-funded startups have raised between $20M and $70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation (source).</li>
+<li>High-funded startups have secured over $70M—an amount often reached by Series C companies. At this stage, startups have usually been in operation for several years, proven their business model, and are seeking international expansion, an initial public offering, or acquisition by private equity firms or investment banks (source).</li>
+</ul>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<section id="why-startups-fail" class="level3">
+<h3 class="anchored" data-anchor-id="why-startups-fail">Why startups fail</h3>
+<section id="failure-reasons-by-sector" class="level4">
+<h4 class="anchored" data-anchor-id="failure-reasons-by-sector">Failure reasons by sector</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sector-percent" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sector-percent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Assignment_3_files/figure-html/fig-sector-percent-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sector-percent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Besides universal reasons of Competition and Giants, each sector carried their own set of reasons for startup failures.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>70% of startups cited competition and market giants as their failure reasons. Poor market fit, post-acquisition stagnation, and budget constraints are also common challenges across sectors.</p>
+<p><a href="#fig-sector-percent" class="quarto-xref">Figure&nbsp;2</a> demonstrates sector-specific challenges:</p>
+<ul>
+<li><strong>Accommodation and Food Services</strong>: 52% of startups failed due to high operational costs.</li>
+<li><strong>Healthcare</strong>: the main reasons were poor market fit, monetization failure, and execution flaws.</li>
+<li><strong>Manufacturing</strong>: 55% cited lack of budget, 28% reported execution flaws.</li>
+</ul>
+</section>
+<section id="failure-reasons-by-funding-groups" class="level4">
+<h4 class="anchored" data-anchor-id="failure-reasons-by-funding-groups">Failure reasons by Funding groups</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-funding-reason" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-funding-reason-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Assignment_3_files/figure-html/fig-funding-reason-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-funding-reason-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: While low-funded startup struggled with product-market fit and product scalability due to niche market, higher-funded ones faced challenged in monetization, business executitions and post-acquisition operations.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-funding-reason" class="quarto-xref">Figure&nbsp;3</a> demonstrates distinct challenges across different funding levels.</p>
+<ul>
+<li>Low-funded startups struggled with scalability limits to niche product (29%), product-market fit (26%) and budget limits (21%).</li>
+<li>While product-market fit was also a hurdle for medium-funded startups (19%), their bigger obstacles are acquisition stagnation (25%) and monetization (21%).</li>
+<li>Execution flaws (23%), acquisition stagnation (23%), budget limits (20%), monetization failures (16%) and trend shifts (16%) are primary failure factors for high-funded startups.</li>
+</ul>
+</section>
+</section>
+<section id="temporal-analysis-of-start-up-failures" class="level3">
+<h3 class="anchored" data-anchor-id="temporal-analysis-of-start-up-failures">Temporal analysis of start-up failures</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-temporalplot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-temporalplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Assignment_3_files/figure-html/fig-temporalplot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-temporalplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: The U.S. startup ecosystem experienced significant fluctuations in activity, driven by economic cycles and external shocks.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The U.S. startups experienced significant fluctuations in activity, driven by economic cycles and external shocks (<a href="#fig-temporalplot" class="quarto-xref">Figure&nbsp;4</a>).</p>
+<ul>
+<li>The number of active startups peaked at 243 in 2015, fueled by post-2008 recovery.</li>
+<li>Closures plummeted to 61 in 2020, reflecting COVID-19’s impact on funding and operations.</li>
+<li>Post-2015 decline in new startups suggests market saturation, while rising closures emphasize external pressures.</li>
+</ul>
+</section>
+</section>
+<section id="discussion-recommendations-and-conclusions-zul-linh" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-recommendations-and-conclusions-zul-linh">Discussion, Recommendations and Conclusions (Zul + Linh)</h2>
+<section id="discussion" class="level3">
+<h3 class="anchored" data-anchor-id="discussion">Discussion</h3>
+<section id="why-startups-fail-1" class="level4">
+<h4 class="anchored" data-anchor-id="why-startups-fail-1">Why startups fail</h4>
+<p>Fierce competition and pressure from dominant players permeate every corner of the market, contributing to the failure of over 70% of reported startups. Acquisition stagnation, poor product-market fit, and budget constraints are also common reasons for startup failures across sectors. These causes are widely recognized in entrepreneurship literature and industry reports (source).</p>
+<p>Beyond these universal factors, there are sector-specific and funding-related attributes that shape startup failures, reflecting the unique business practices tied to different marketplaces and stages in the startup lifecycle.</p>
+<p><strong>Differences in failure reason across sectors</strong></p>
+<p>Each sector has a different mix of reasons on why their startups failed.</p>
+<p>Accommodation and Food services startups reported 52% of their failures were due to High operational costs, which is unsurprising given the industry nature of heavy overheads into physical sites, e.g., hotels, restaurant. High financial requirement is also seen in 24% of startups attributing No budget to their failures.</p>
+<p>Similarly, Health Care and Manufacturing require substantial upfront investments into product development, which was a major hurdle that left 40% of startups in Health Care and 55% of startups in Manufacturing out of business due to insufficient financial capability.</p>
+<p>Beyond financial shortages, Health Care startups struggled with product-market fit, monetization failure and business execution. This tells a story of difficulties getting close to and empathize with customers, probably due to the industry nature of data confidentiality, discouraging people to share their health status.</p>
+<p>Unlike sectors with a few dominant failure factors, startups in Retail Trade reported a broad range of reasons, with Niche limits (33%), Poor market fit (22%), and Execution flaws (22%) as the most common. With lower figures for Competition (49%), Retail Trade is characterised by numerous niches, yet, whether these niches can scale sustainably remains a key uncertainty. Such scalability problem also underpins the financial and monetization challenges faced by 19% of startups in the sector.</p>
+<p>Both Finance and Insurance, and Information startups blamed market competition and major players for their failure, while budget limits or monetization challenges were not as considerable as other sectors. This means prolific revenue potential and low barriers to entry, especially financial capital - factors that itensify market rivalry.</p>
+<p><strong>Differences in failure reason across funding levels</strong></p>
+<p>A closer look through the lens of funding reveals fundamental differences in failure reasons.</p>
+<p>Low-funded startups (&lt;$20M) often overlap with early-stage companies that typically have only a proof-of-concept or minimum viable product. These startups are still exploring market fit, which explains their struggles with Poor market fit (26%) and Niche limits (29%).</p>
+<p>Medium-funded startups ($20M–$70M), likely in Series A or B stages, are focused on market expansion and revenue generation. Their key challenges shift to Acquisition stagnation (25%), Monetization failure (21%), and Execution flaws (16%).</p>
+<p>High-funded startups (&gt;$70M), often long-time Series C companies, have usually validated their business model. Therefore, they reported fewer issues with product-market fit (11%) compared to low-funded ones and monetization (17%) compared to medium-funded ones. However, as operations scale and markets evolve, they failed due to execution flaws and operation stagnation post-acquisition (23%), limited budget (20%) and inability to transform themselves with market trend (16%).</p>
+</section>
+<section id="temporal-analysis-of-start-up-failures-1" class="level4">
+<h4 class="anchored" data-anchor-id="temporal-analysis-of-start-up-failures-1">Temporal analysis of start-up failures</h4>
+<p>The dataset of 403 failed startups in US shows they typically lasted in average 8.2 years, with half surviving 8 years or less, pointing to how tough it is to keep a startup going. Most were active from 2009 to 2021, with the busiest year being 2015, when 326 startups were running, likely boosted by the economic rebound after the 2008 crash and heavy investment in tech and finance startups. These sectors, as mentioned earlier, struggled with fierce competition due to easy market entry. Failures jumped sharply in 2020–2023, with 64 shutting down in 2020 alone, likely due to the COVID-19 pandemic’s economic hit, which hurt funding, supply chains, and customer demand. This shows outside events made internal problems like poor product fit or bad management worse.</p>
+<p>For example, food and hospitality startups, with 52% failing due to high running costs, were hit hard by pandemic restrictions, and 24% ran out of money. Health care startups, where 40% faced funding shortages, likely saw more closures in 2020 as privacy rules made it hard to connect with customers. Retail startups, with issues like niche markets (33%), suffered when spending dropped in 2020. Well-funded startups (over $70M), often more established, lasted longer pre-2018 but struggled post-2020 due to management errors (23%) or failing to keep up with market changes (16%). Small startups (under $20M) with poor market fit (26%) were hit hardest in 2020–2021, lacking cash to adapt. Finance startups like LendingClub and Circle lasted longer (16 and 11 years) but closed in 2023, losing to giants like PayPal.</p>
+<p>Tech startups like Digg and MySpace peaked early (2004–2010) but faded by 2018–2020 as Facebook and Reddit took over. Manufacturing startups like Faraday Future, needing lots of money, saw failures rise post-2020 due to bad management and competition from Tesla. The 2020–2023 failure spike shows how the pandemic worsened money and competition problems from earlier sections. Startups in costly sectors struggled most during economic slumps, while tech and finance faced constant rivalry. This pattern shows startups need flexible plans to survive tough economic times, especially in sectors with high costs or heavy competition.</p>
+</section>
+</section>
+<section id="conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
+</section>
+<section id="implications-recommendations" class="level3">
+<h3 class="anchored" data-anchor-id="implications-recommendations">Implications &amp; Recommendations</h3>
+</section>
 </section>
 
 </main>
