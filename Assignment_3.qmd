@@ -148,8 +148,11 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
 ## Methodology (Ayush)
 
 **Linh's suggestion to put funding distribution in methodology**
+
 ```{r funding distribution by sector}
 #| eval: false
+#| label: fig-funding-distribution
+#| fig-cap: Funding amount has a heavy right-skewed distribution, which is seen across all sectors. 
 
 startup_combined |>
   ggplot(aes(x = sector, y = funding_millions)) +
@@ -165,6 +168,14 @@ startup_combined |>
     axis.text.x = element_text(angle = 45, hjust = 1)  )
 
 ```
+
+Considering the various funding rounds startups may undergo, we defined funding brackets to align with the typical stages of startup development.
+
+- Low-funded startups are those that have raised less than $20M—an amount commonly associated with (pre-)seed and early-stage funding rounds (source).
+- Medium-funded startups have raised between $20M and $70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation (source).
+- High-funded startups have secured over $70M—an amount often reached by Series C companies. At this stage, startups have usually been in operation for several years, proven their business model, and are seeking international expansion, an initial public offering, or acquisition by private equity firms or investment banks (source).
+
+
 
 ## Results (Zul + Linh)
 
@@ -347,8 +358,42 @@ p <- ggplot(df_active_years, aes(x = year, y = count, text = paste("Year:", year
 # Convert to interactive plot with ggplotly
 ggplotly(p, tooltip = "text")
 ```
-## Conclusion (Zul + Linh)
+## Discussion, Recommendations and Conclusions (Zul + Linh)
 
-### Why startups fail (Linh)
+### Discussion
 
-### Temporal analysis of start-up failures (Zul)
+#### Why startups fail (Linh)
+
+Fierce competition and pressure from dominant players permeate every corner of the market, contributing to the failure of over 70% of reported startups. Acquisition stagnation, poor product-market fit, and budget constraints are also common reasons for startup failures across sectors. These causes are widely recognized in entrepreneurship literature and industry reports (source).
+
+Beyond these universal factors, there are sector-specific and funding-related attributes that shape startup failures, reflecting the unique business practices tied to different marketplaces and stages in the startup lifecycle.
+
+**Differences in failure reason across sectors**
+
+Each sector has a different mix of reasons on why their startups failed. 
+
+Accommodation and Food services startups reported 52% of their failures were due to High operational costs, which is unsurprising given the industry nature of heavy overheads into physical sites, e.g., hotels, restaurant. High financial requirement is also seen in 24% of startups attributing No budget to their failures. 
+
+Similarly, Health Care and Manufacturing require substantial upfront investments into product development, which was a major hurdle that left 40% of startups in Health Care and 55% of startups in Manufacturing out of business due to insufficient financial capability. 
+
+Beyond financial shortages, Health Care startups struggled with product-market fit, monetization failure and business execution. This tells a story of difficulties getting close to and empathize with customers, probably due to the industry nature of data confidentiality, discouraging people to share their health status.
+
+Unlike sectors with a few dominant failure factors, startups in Retail Trade reported a broad range of reasons, with Niche limits (33%), Poor market fit (22%), and Execution flaws (22%) as the most common. With lower figures for Competition (49%), Retail Trade is characterised by numerous niches, yet, whether these niches can scale sustainably remains a key uncertainty. Such scalability problem also underpins the financial and monetization challenges faced by 19% of startups in the sector.
+
+Both Finance and Insurance, and Information startups blamed market competition and major players for their failure, while budget limits or monetization challenges were not as considerable as other sectors. This means prolific revenue potential and low barriers to entry, especially financial capital - factors that itensify market rivalry.
+
+**Differences in failure reason across funding levels**
+
+A closer look through the lens of funding reveals fundamental differences in failure reasons.
+
+Low-funded startups (<$20M) often overlap with early-stage companies that typically have only a proof-of-concept or minimum viable product. These startups are still exploring market fit, which explains their struggles with Poor market fit (26%) and Niche limits (29%).
+
+Medium-funded startups ($20M–$70M), likely in Series A or B stages, are focused on market expansion and revenue generation. Their key challenges shift to Acquisition stagnation (25%), Monetization failure (21%), and Execution flaws (16%).
+
+High-funded startups (>$70M), often long-time Series C companies, have usually validated their business model. Therefore, they reported fewer issues with product-market fit (11%) compared to low-funded ones and monetization (17%) compared to medium-funded ones. However, as operations scale and markets evolve, they failed due to execution flaws and operation stagnation post-acquisition (23%), limited budget (20%) and inability to transform themselves with market trend (16%). 
+
+#### Temporal analysis of start-up failures (Zul)
+
+### Implications & Recommendations
+
+### Conclusions
