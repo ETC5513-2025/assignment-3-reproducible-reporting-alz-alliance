@@ -15,7 +15,8 @@ knitr::opts_chunk$set(
   eval = TRUE,
   message = TRUE,
   warning = TRUE,
-  error = TRUE
+  error = TRUE,
+  echo = FALSE
 )
 ```
 
@@ -159,8 +160,9 @@ startup_combined |>
 
 ### Why startups fail (Linh)
 
-#### Overall reason
+#### Failure reasons by sector
 ```{r overall failure reasons}
+
 col_pivot <- c("giants", "no_budget", "competition", "poor_market_fit", "acquisition_stagnation",
 "platform_dependency", "monetization_failure", "niche_limits", "execution_flaws",
 "trend_shifts", "toxicity_trust_issues", "regulatory_pressure", "overhype", "high_operational_costs")
@@ -191,30 +193,6 @@ failure_counts <- startup_combined |>
   ungroup() |> 
   mutate(percent = (count/nrow(startup_combined))*100)
 ```
-
-```{r plot overall failure reason}
-#| label: fig-overall-reason
-#| fig-cap: "The majority of startups failed due to intense competition, especially with giant players in the market."
-
-failure_counts |> 
-  ggplot(aes(x = reorder(reason, count), y = count)) +
-  geom_bar(stat = "identity", fill = "#2166ac") +
-  geom_text(aes(label = paste0(count, " (", round(percent, 1), "%", ")")), 
-            hjust = -0.1,
-            color = "black", size = 3) +
-  coord_flip() +
-  labs(title = "Count of Startups by Failure Reason",
-    x = "Failure Reason",
-    y = "Number of Startups",
-    fill = "Sector") +
-  scale_x_discrete(labels = col_pivot_labels) +
-  theme_minimal() +
-  theme(panel.grid = element_blank(),
-    axis.text.x = element_blank())
-
-```
-
-#### Reasons by sector
 
 ```{r percentage of failures by sector}
 #| label: fig-sector-percent
@@ -271,7 +249,7 @@ Additionally, each sector demonstrates their unique challenges, for example:
 - In Healthcare, the main reasons were poor market fit, monetization failure, and execution flaws.
 - In Manufacturing, 55% cited lack of budget, followed by 28% pointing to execution flaws.
 
-#### Funding
+#### Failure reasons by Funding groups
 
 ```{r funding by reason}
 #| label: fig-funding-reason
@@ -320,7 +298,7 @@ funding_group_percent |>
 
 ```
 
-Besides the universal attribution of competitive rivalries, startups faced distinct challenges depending on their funding levels. 
+Besides the universal attribution of competitive rivalries, startups faced distinct challenges depending on their funding levels (@fig-funding-reason). 
 
 - Low-funded startups reported facing challenges in scalability limits to niche product (29%), product-market fit (26%) and budget limits (21%).
 - While poor market fit was also a hurdle for medium-funded startups (19%), they faced bigger obstacles in post-acquisition stagnation (25%) and monetization (21%).
