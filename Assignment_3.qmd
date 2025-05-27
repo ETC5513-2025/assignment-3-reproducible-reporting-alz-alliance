@@ -331,37 +331,77 @@ Besides the universal attribution of competitive rivalries, startups faced disti
 
 ### Temporal analysis of start-up failures (Zul)
 
-The dataset of 403 failed startups in US reveals that most operated for a short duration, with an average lifespan of approximately 7.5 years. Startups were primarily active between 2009 and 2021, with a peak in activity around 2015, likely driven by economic recovery post-2008. Closures spiked around 2021, possibly due to the COVID-19 pandemic’s economic impact. This suggests external factors like market instability influenced failures. The plot below shows the number of active startups per year, highlighting periods of high activity and sharp declines, reflecting economic trends and challenges faced by startups.
+The U.S. startup ecosystem experienced significant fluctuations in activity, driven by economic cycles and external shocks. From 2000 onwards, the number of active startups surged to a peak of 243 in 2015, fueled by a post-2008 recovery that encouraged new ventures, with formations reaching a high of 33 in 2013. However, closures escalated sharply to 64 in 2020, reflecting the economic fallout from the COVID-19 pandemic, which disrupted funding and operations. A decline in formations after 2015 suggests increasing market saturation, while rising closures highlight external pressures. These trends, illustrated in the accompanying plot, underscore the volatile nature of startups, aligning with earlier findings on competition and financial challenges.
 
-```{r}
+
+
+```{r plot-temporal, echo=FALSE}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
-library(plotly)
 
-# Assuming your dataset is named 'startup_combined'
-# Create a data frame with one row per startup per active year
-df_active_years <- startup_combined %>%
+# Create data frame for active startups per year
+df_active <- startup_combined %>%
   mutate(year = map2(start_year, end_year, ~ seq(.x, .y))) %>%
   unnest(year) %>%
-  select(year) %>%
+  filter(year >= 2000) %>%
   group_by(year) %>%
-  summarise(count = n())
+  summarise(count = n(), .groups = "drop") %>%
+  mutate(event = "Active Startups")
 
-# Create a ggplot2 line plot
-p <- ggplot(df_active_years, aes(x = year, y = count, text = paste("Year:", year, "<br>Active Startups:", count))) +
-  geom_line(color = "#4e79a7", size = 1.2) +
-  geom_point(color = "#4e79a7", size = 3) +
-  labs(title = "Number of Active Startups per Year",
+# Create data frame for start_year and end_year counts
+df_years <- startup_combined %>%
+  select(start_year, end_year) %>%
+  pivot_longer(cols = c(start_year, end_year), 
+               names_to = "event", 
+               values_to = "year") %>%
+  filter(year >= 2000) %>%
+  mutate(event = recode(event, start_year = "Start Year", end_year = "End Year")) %>%
+  group_by(event, year) %>%
+  summarise(count = n(), .groups = "drop")
+
+# Combine data for plotting
+df_combined <- bind_rows(
+  df_years %>% mutate(type = "Line"),
+  df_active %>% mutate(type = "Bar")
+) %>%
+  mutate(event = factor(event, levels = c("Start Year", "End Year", "Active Startups")))
+
+# Create plot with geom_bar in background and geom_line overlay
+ggplot(df_combined, aes(x = year, y = count)) +
+  geom_bar(data = df_combined %>% filter(type == "Bar"), 
+           aes(fill = event), stat = "identity", alpha = 0.3) +
+  geom_line(data = df_combined %>% filter(type == "Line"), 
+            aes(color = event), size = 1.2) +
+  geom_point(data = df_combined %>% filter(type == "Line"), 
+             aes(color = event), size = 2) +
+  geom_text(data = df_combined %>% filter(type == "Line"), 
+            aes(label = count, color = event, 
+                vjust = ifelse(event == "End Year" & year <= 2015, 1.5, -1.5)), 
+            size = 3) +
+  geom_text(data = df_combined %>% filter(type == "Bar"), 
+            aes(label = count, 
+                vjust = ifelse(year <= 2006, -3, -0.5)), 
+            color = "black", size = 2.5) +
+  labs(title = "Startup Activity with Formation and Closure Frequencies (2000 Onwards)",
        x = "Year",
-       y = "Number of Active Startups") +
-  theme_minimal() +
-  theme(axis.text = element_text(size = 10),
-        plot.title = element_text(hjust = 0.5))
-
-# Convert to interactive plot with ggplotly
-ggplotly(p, tooltip = "text")
+       y = "Number of Startups",
+       color = "",
+       fill = "") +
+  scale_x_continuous(breaks = seq(2000, 2024, by = 1), labels = seq(2000, 2024, by = 1)) +
+  scale_color_manual(values = c("Start Year" = "#2166ac", "End Year" = "#f28e2b", "Active Startups" = "#b3cde3")) +
+  scale_fill_manual(values = c("Start Year" = "#2166ac", "End Year" = "#f28e2b", "Active Startups" = "#b3cde3")) +
+  theme_minimal(base_family = "sans") +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8, face = "plain"),
+        axis.text.y = element_text(size = 10, face = "plain"),
+        plot.title = element_text(hjust = 0.5),
+        legend.position = "bottom",
+        legend.text = element_text(size = 10, face = "plain"),
+        legend.key = element_rect(color = NA, fill = NA),
+        legend.key.width = unit(1, "cm"))
 ```
+
 ## Discussion, Recommendations and Conclusions (Zul + Linh)
 
 ### Discussion
@@ -398,6 +438,15 @@ High-funded startups (>$70M), often long-time Series C companies, have usually v
 
 #### Temporal analysis of start-up failures (Zul)
 
-### Implications & Recommendations
+The dataset of 403 failed startups in US shows they typically lasted in average 8.2 years, with half surviving 8 years or less, pointing to how tough it is to keep a startup going. Most were active from 2009 to 2021, with the busiest year being 2015, when 243 startups were running, likely boosted by the economic rebound after the 2008 crash and heavy investment in tech and finance startups. These sectors, as mentioned earlier, struggled with fierce competition due to easy market entry. Failures jumped sharply in 2020–2023, with 64 shutting down in 2020 alone, likely due to the COVID-19 pandemic’s economic hit, which hurt funding, supply chains, and customer demand. This shows outside events made internal problems like poor product fit or bad management worse. 
+
+For example, food and hospitality startups, with 52% failing due to high running costs, were hit hard by pandemic restrictions, and 24% ran out of money. Health care startups, where 40% faced funding shortages, likely saw more closures in 2020 as privacy rules made it hard to connect with customers. Retail startups, with issues like niche markets (33%), suffered when spending dropped in 2020. Well-funded startups (over $70M), often more established, lasted longer pre-2018 but struggled post-2020 due to management errors (23%) or failing to keep up with market changes (16%). Small startups (under $20M) with poor market fit (26%) were hit hardest in 2020–2021, lacking cash to adapt. Finance startups like LendingClub and Circle lasted longer (16 and 11 years) but closed in 2023, losing to giants like PayPal. 
+
+Tech startups like Digg and MySpace peaked early (2004–2010) but faded by 2018–2020 as Facebook and Reddit took over. Manufacturing startups like Faraday Future, needing lots of money, saw failures rise post-2020 due to bad management and competition from Tesla. The 2020–2023 failure spike shows how the pandemic worsened money and competition problems from earlier sections. Startups in costly sectors struggled most during economic slumps, while tech and finance faced constant rivalry. This pattern shows startups need flexible plans to survive tough economic times, especially in sectors with high costs or heavy competition.
+
 
 ### Conclusions
+
+### Implications & Recommendations
+
+
