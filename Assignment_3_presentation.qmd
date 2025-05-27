@@ -1,0 +1,54 @@
+---
+title: "Assignment 3 - ALZ Alliance"
+subtitle: "Why do startups fail?: Analysis on 483 startups post-mortem"
+author:
+  - Ayush Pandia - 35613424
+  - Thuy Ngo - 35776064
+  - Mohammad Zulkifli Falaqi - 35531916
+format: revealjs
+---
+
+
+## Problem introduction
+
+**More than 2/3 of startups failed** to generate positive returns to investors
+
+---
+
+## Dataset description
+- Source: CB Insights’ public database of 483 startup post-mortems
+- Data covers:
+  - Startup name, sector, country
+  - Funding raised
+  - Duration of operation
+  - Self-reported reasons for failure (multi-label)
+- Analyses include failure reason by sector, funding groups and temporal analysis
+
+---
+
+## Methods
+
+---
+
+## Results
+
+---
+
+### Startups in different sector failed differently
+
+
+---
+
+### Startups in different funding groups failed differently
+
+- **Low-funded (<$20M)**: Niche limits (29%), market fit issues (26%), budget (21%) - challenges in market validation
+- **Medium-funded ($20M–$70M)**: Acquisition stagnation (25%), monetization (21%), execution flaws (16%) - challenges in revenue generation and executions
+- **High-funded (>$70M)**: Execution flaws (23%), stagnation (23%), trend shifts (16%) - challenges in adaptation to market shifts and executions
+
+---
+
+## Conclusions and/or recommendations
+
+--
+
+## Thank you
