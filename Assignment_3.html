@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -30,10 +30,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="Assignment_3_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="Assignment_3_files/libs/quarto-html/anchor.min.js"></script>
 <link href="Assignment_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Assignment_3_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="Assignment_3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="Assignment_3_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Assignment_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Assignment_3_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="Assignment_3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script src="Assignment_3_files/libs/kePrint-0.0.1/kePrint.js"></script>
 
 <link href="Assignment_3_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
@@ -113,8 +113,99 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+
+Attaching package: 'janitor'
+
+
+The following objects are masked from 'package:stats':
+
+    chisq.test, fisher.test
+
+
+
+Attaching package: 'kableExtra'
+
+
+The following object is masked from 'package:dplyr':
+
+    group_rows</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(ggtext): there is no package called 'ggtext'</code></pre>
+</div>
+</div>
 <section id="data-processing" class="level2">
 <h2 class="anchored" data-anchor-id="data-processing">Data processing</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 47 Columns: 20
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (13): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 26 Columns: 17
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (10): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 60 Columns: 20
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (13): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 156 Columns: 20
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (13): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 30 Columns: 20
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (13): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 90 Columns: 20
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Name, Sector, Years of Operation, What They Did, How Much They Rai...
+dbl (13): Giants, No Budget, Competition, Poor Market Fit, Acquisition Stagn...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
 <section id="combining-dataset-into-one" class="level4">
 <h4 class="anchored" data-anchor-id="combining-dataset-into-one">Combining dataset into one</h4>
 </section>
@@ -158,6 +249,11 @@ ul.task-list li input[type="checkbox"] {
 <section id="understanding-dataset" class="level4">
 <h4 class="anchored" data-anchor-id="understanding-dataset">Understanding Dataset</h4>
 <div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in attr(x, "align"): 'xfun::attr()' is deprecated.
+Use 'xfun::attr2()' instead.
+See help("Deprecated")</code></pre>
+</div>
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
 <caption>Variable Descriptions for Startup Combined Dataset</caption>
@@ -454,6 +550,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -564,6 +662,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
