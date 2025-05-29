@@ -66,7 +66,9 @@ But nuances emerge across sectors and funding groups...
 
 ---
 
-### Number of startup failures increased in the past few years
+### External factors also play a role in the failure of startups
+
+![temporalplot](images/fig-temporalplot.png)
 
 ---
 
