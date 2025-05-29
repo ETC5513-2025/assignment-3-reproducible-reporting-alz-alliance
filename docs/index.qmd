@@ -8,10 +8,12 @@ institute:
  - Mohammad Zulkifli Falaqi - 35531916
 format:
   revealjs: 
+    theme: sky
     slide-number: true
     chalkboard: 
       buttons: true
     preview-links: auto
+    smaller: true
     logo: images/alz-alliance.png
     css: styles.css
     footer: 'Why do startups fail?'
