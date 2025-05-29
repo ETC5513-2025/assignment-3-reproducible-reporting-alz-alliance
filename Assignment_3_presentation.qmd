@@ -72,6 +72,17 @@ But nuances emerge across sectors and funding groups...
 
 ## Conclusions and/or recommendations
 
---
+- Competition drives failures (70% of startups).
+-	Sector-specific: High costs in Food Services (52%), budget issues in Manufacturing (55%), poor market fit in Healthcare (40%).
+-	Funding levels: Low-funded face market fit issues (26%); high-funded struggle with execution flaws (23%).
+- Startup formations peaked at 62 in 2012 lead to active startups peaked at 326 in 2015. Startup closures spiked to 64 in 2020 due to COVID-19.
+::: {.callout-tip title="Recommendation"}
+
+- Founders: Develop flexible strategies to handle market shifts (lesson learnt from post-2015 saturation).
+- Investors/Incubators: Provide mentorship, market access, and operational guidance.
+- Anticipate policy changes from the 2025 U.S. administration, such as potential tariff increases on tech components or stricter data privacy laws, and adjust strategies to capitalize on these shifts by adopting local sourcing or developing privacy-focused solutions.
+
+:::
+
 
 ## Thank you
