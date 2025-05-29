@@ -153,5 +153,5 @@ covid-19 impact
 :::
 
 ---
-## Closing {background="#43464B" background-image="images/closing.jpg"}
+## Thank You! {background-image="images/alz-alliance.jpg"}
 
