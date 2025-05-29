@@ -142,7 +142,7 @@ variable_description <- tibble::tibble(
     "Business start year",
     "business end year",
     "Business operational year",
-    "To track row number"
+    "Refrence for company ID"
   )
 )
 
