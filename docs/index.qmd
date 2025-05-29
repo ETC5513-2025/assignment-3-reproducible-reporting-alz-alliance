@@ -19,7 +19,8 @@ format:
 ## Problem introduction
 
 <br></br>
-<div style="text-align: center; font-size: 1.2em; font-weight: bold">**More than 2/3 of startups failed** to generate positive returns to investors</div>  
+<div style="text-align: center; font-size: 1.2em; font-weight: bold">**More than 2/3 of startups failed** to generate positive returns to investors (Eisenmann, 2021).^[Eisenmann, T. (2021). Why Start-ups Fail. Harvard Business Review. Retrieved May 27, 2025, from https://hbr.org/2021/05/why-start-ups-fail
+]</div>  
 
 
 *Why and when do startups fail, and how do factors like industry and funding levels influence these outcomes?*
@@ -46,17 +47,14 @@ format:
 
 ---
 
-## Results {.smaller}
+## Results - Why do startups fail? {.smaller}
 
 ::: columns
-::: {.column width="45%"}
-![sector](images/overall-reason.png)
+::: {.column width="60%"}
+![](images/overall-reason.png)
 :::
 
-::: {.column width="3%"}
-:::
-
-::: {.column width="52%"}
+::: {.column width="40%"}
 **Top universal reasons** for failure:
 
   - Competition (70%)
@@ -68,17 +66,14 @@ But nuances emerge across sectors and funding groups...
 
 ---
 
-## Startups in different sector failed differently, for example ... {.smaller}
+## Startups in different sector failed differently {.smaller}
 
 ::: columns
-::: {.column width="45%"}
-![sector](images/sector-reason.png)
+::: {.column width="60%"}
+![](images/sector-reason.png){width=115%}
 :::
 
-::: {.column width="3%"}
-:::
-
-::: {.column width="52%"}
+::: {.column width="40%"}
 - **Accommodation & Food**: 52% cite high operational costs
 - **Healthcare & Manufacturing**: Over 50% cite budget/resource shortages
 - **Retail Trade**: Diverse causes – niche limits, poor market fit, execution flaws
@@ -91,14 +86,11 @@ But nuances emerge across sectors and funding groups...
 ## Startups in different funding groups failed differently {.smaller}
 
 ::: columns
+::: {.column width="55%"}
+![](images/funding-reason.png){width=115%}
+:::
+
 ::: {.column width="45%"}
-![funding](images/funding-reason.png)
-:::
-
-::: {.column width="3%"}
-:::
-
-::: {.column width="52%"}
 - **Low-funded (<$20M)**: Niche limits (29%), market fit issues (26%), budget (21%) - challenges in market validation
 - **Medium-funded ($20M–$70M)**: Acquisition stagnation (25%), monetization (21%), execution flaws (16%) - challenges in revenue generation and executions
 - **High-funded (>$70M)**: Execution flaws (23%), stagnation (23%), trend shifts (16%) - challenges in adaptation to market shifts and executions
@@ -111,7 +103,7 @@ But nuances emerge across sectors and funding groups...
 
 ::: columns
 ::: {.column width="76%"}
-![temporalplot](images/fig-temporalplot.png)
+![](images/fig-temporalplot.png)
 :::
 
 ::: {.column width="3%"}
