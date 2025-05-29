@@ -27,9 +27,61 @@ format: revealjs
   - Self-reported reasons for failure (multi-label)
 - Analyses include failure reason by sector, funding groups and temporal analysis
 
+```{r Data description, echo=false}
+
+library(tidyverse)
+library(kableExtra)
+
+variable_description <- tibble::tibble(
+  Variable = c(
+    "name", "sector", "what_they_did",
+    "how_much_they_raised", "why_they_failed", "takeaway", "giants",
+    "no_budget", "competition", "poor_market_fit", "acquisition_stagnation",
+    "platform_dependency", "monetization_failure", "niche_limits", "execution_flaws",
+    "trend_shifts", "toxicity_trust_issues", "regulatory_pressure", "overhype","high_operation_costs","funding_millions","start_year","end_year","business_operation_year","id"
+  ),
+  Description = c(
+    "Name of the startup",
+    "Business sector or industry",
+    "Description of what the startup did",
+    "Total funds raised before failure",
+    "Primary reason for startup failure",
+    "Key takeaway or lesson from the failure",
+    "Whether the startup competed with major players",
+    "Failed due to budget constraints",
+    "Faced tough competition",
+    "Did not fit well with market demand",
+    "Growth plateaued or stagnated",
+    "Depended heavily on external platforms",
+    "Could not effectively monetize",
+    "Had limited market potential",
+    "Poor execution or management issues",
+    "Impact of changing industry trends",
+    "Trust or toxicity issues in the team",
+    "Faced legal or regulatory hurdles",
+    "Failure due to excessive hype or unrealistic expectations",
+    "High operational cost",
+    "Amount raised in millions",
+    "Business start year",
+    "business end year",
+    "Business operational year",
+    "Refrence for company ID"
+  )
+)
+
+# Display as a table
+kbl(variable_description, caption = "Variable Descriptions for Startup Combined Dataset") |>
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+```
+
 ---
 
 ## Methods
+
+1. Where we got our idea ?
+2. Where we got out data from ?
+3. What we did ?
+4. What is our aim ?
 
 ---
 
@@ -66,12 +118,25 @@ But nuances emerge across sectors and funding groups...
 
 ---
 
-### Number of startup failures increased in the past few years
+### External factors also play a role in the failure of startups
+
+![temporalplot](images/fig-temporalplot.png)
 
 ---
 
 ## Conclusions and/or recommendations
 
---
+- Competition drives failures (70% of startups).
+-	Sector-specific: High costs in Food Services (52%), budget issues in Manufacturing (55%), poor market fit in Healthcare (40%).
+-	Funding levels: Low-funded face market fit issues (26%); high-funded struggle with execution flaws (23%).
+- Startup formations peaked at 62 in 2012 lead to active startups peaked at 326 in 2015. Startup closures spiked to 64 in 2020 due to COVID-19.
+::: {.callout-tip title="Recommendation"}
+
+- Founders: Develop flexible strategies to handle market shifts (lesson learnt from post-2015 saturation).
+- Investors/Incubators: Provide mentorship, market access, and operational guidance.
+- Anticipate policy changes from the 2025 U.S. administration, such as potential tariff increases on tech components or stricter data privacy laws, and adjust strategies to capitalize on these shifts by adopting local sourcing or developing privacy-focused solutions.
+
+:::
+
 
 ## Thank you
