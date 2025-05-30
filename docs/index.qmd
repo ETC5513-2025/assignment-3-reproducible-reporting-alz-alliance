@@ -39,13 +39,13 @@ format:
 ---
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="40%"}
 <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-<img src="images/method.jpg" style="width:100%;" />
+<img src="images/method.png" style="width:100%;" />
 </div>
 :::
 
-::: {.column width="50%"}
+::: {.column width="60%"}
 ### Methods
 
 **Data cleaning**
