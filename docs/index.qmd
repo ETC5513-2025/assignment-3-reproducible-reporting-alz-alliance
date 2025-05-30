@@ -36,7 +36,7 @@ format:
   - Funding raised
   - Duration of operation
   - Self-reported reasons for failure (multi-label)
-- Analyses include failure reason by sector, funding groups and temporal analysis
+  - Analyses include failure reason by sector, funding groups and temporal analysis
 
 ---
 
@@ -44,8 +44,8 @@ format:
 
 1. Where we got our idea ?
 2. Where we got out data from ?
-3. What we did ?
-4. What is our aim ?
+3. What is our aim ?
+4. What we did ?
 
 ---
 
