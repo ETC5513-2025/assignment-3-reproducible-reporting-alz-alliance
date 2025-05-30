@@ -49,12 +49,15 @@ format:
 ### Methods
 
 **Data cleaning**
+
 - Data type conversion, including amount of fundings, and years of operations
 - Categorize startups based on their funding amount - Low-funded (<$20M); Medium-funded ($20M - $70M); High-funded (>$70M)
 
 **Data analysis**
+
 - Analysis on failure reason by sector, funding groups 
 - Temporal analysis on years and duration of operations
+
 :::
 :::
 ---
