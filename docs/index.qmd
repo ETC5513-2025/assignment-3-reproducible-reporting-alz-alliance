@@ -16,7 +16,7 @@ format:
     smaller: true
     logo: images/alz-alliance.png
     css: styles.css
-    footer: 'Why do startups fail?'
+    footer: 'https://tinyurl.com/ALZ-presentation - Why do startups fail?'
 ---
 ### Problem introduction
 
@@ -36,25 +36,25 @@ format:
   - Funding raised
   - Duration of operation
   - Self-reported reasons for failure (multi-label)
-- Analyses include failure reason by sector, funding groups and temporal analysis
-
 ---
 
 ::: columns
 ::: {.column width="50%"}
-![Illustration of startup process](images/method.jpg){width=100%}
+<div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+<img src="images/method.jpg" style="width:100%;" />
+</div>
 :::
 
 ::: {.column width="50%"}
 ### Methods
 
-**1. Why are we researching about startup? -** 11% increase in funding since 2023 and we can say that we are in the year of startup  
+**Data cleaning**
+- Data type conversion, including amount of fundings, and years of operations
+- Categorize startups based on their funding amount - Low-funded (<$20M); Medium-funded ($20M - $70M); High-funded (>$70M)
 
-**2. Importance of a reliable dataset -** The data should be from a trustworthy source and it should include relevant information  
-
-**3. How do we plan to approach this dataset -**Focus on various sectors and reasons for failure and use R to visualize patterns  
-
-**4. What is our main goal -** Understand the root causes of startup failure and help prevent similar failures in the future  
+**Data analysis**
+- Analysis on failure reason by sector, funding groups 
+- Temporal analysis on years and duration of operations
 :::
 :::
 ---
@@ -167,5 +167,6 @@ covid-19 impact
 :::
 
 ---
+<div style="text-align: center; font-size: 1.2em; font-weight: bold"> 
 ### Thank You! {background-image="images/alz-alliance.jpg"}
-
+</div>
