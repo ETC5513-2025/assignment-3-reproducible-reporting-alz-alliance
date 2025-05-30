@@ -151,18 +151,20 @@ ALZ - Alliance
 </div>
 
 </section>
-<section id="problem-introduction" class="slide level2">
-<h2>Problem introduction</h2>
+<section class="slide level2">
+
+<h3 id="problem-introduction">Problem introduction</h3>
 <br><br>
 <div style="text-align: center; font-size: 1.2em; font-weight: bold">
 <strong>More than 2/3 of startups failed</strong> to generate positive returns to investors (Eisenmann, 2021).<sup>1</sup>
 </div>
-<p><em>Why and when do startups fail, and how do factors like industry and funding levels influence these outcomes?</em></p>
+<p><br><br> <em>Why and when do startups fail, and how do factors like industry and funding levels influence these outcomes?</em></p>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Eisenmann, T. (2021). Why Start-ups Fail. Harvard Business Review. Retrieved May 27, 2025, from https://hbr.org/2021/05/why-start-ups-fail</p></li></ol></aside></section>
-<section id="dataset-description" class="slide level2">
-<h2>Dataset description</h2>
+<section class="slide level2">
+
+<h3 id="dataset-description">Dataset description</h3>
 <ul>
-<li>Source: CB Insights’ public database of 483 startup post-postmortems</li>
+<li>Source: CB Insights’ public database of 483 startup post-mortems</li>
 <li>Data covers:
 <ul>
 <li>Startup name, sector, country</li>
@@ -170,20 +172,22 @@ ALZ - Alliance
 <li>Duration of operation</li>
 <li>Self-reported reasons for failure (multi-label)</li>
 </ul></li>
-<li>Analysis includes failure reason by sector, funding groups and temporal analysis</li>
+<li>Analyses include failure reason by sector, funding groups and temporal analysis</li>
 </ul>
 </section>
-<section id="methods" class="slide level2">
-<h2>Methods</h2>
+<section class="slide level2">
+
+<h3 id="methods">Methods</h3>
 <div class="columns">
-<div class="column" style="width:60%;">
+<div class="column" style="width:4%;">
 <p><img data-src="images/method.jpg" style="width:115.0%"></p>
-</div><div class="column" style="width:40%;">
+</div><div class="column" style="width:50%;">
 <p><strong>Why are we researching about startup ?</strong> - 11 % increase since 2023 in funding - We are in the year of startup <strong>Importance of a reliable dataset</strong> - The datas hould be from a trustworthy source - It is important it has the information that we are looking for <strong>How do we plan to approach this dataset</strong> - Focus on various sector and the reason for their failure - Using R to visualiase the pattern <strong>What is our main goal</strong> - Understanding the main reason for failure - To ensure that this can prevent future failure</p>
 </div></div>
 </section>
-<section id="results---why-do-startups-fail" class="slide level2 smaller">
-<h2>Results - Why do startups fail?</h2>
+<section class="slide level2">
+
+<h3 class="smaller" id="results---why-do-startups-fail">Results - Why do startups fail?</h3>
 <div class="columns">
 <div class="column" style="width:60%;">
 <p><img data-src="images/overall-reason.png"></p>
@@ -196,35 +200,59 @@ ALZ - Alliance
 <p>But nuances emerge across sectors and funding groups…</p>
 </div></div>
 </section>
-<section id="startups-in-different-sector-failed-differently" class="slide level2 smaller">
-<h2>Startups in different sector failed differently</h2>
+<section class="slide level2">
+
+<h3 class="smaller" id="startups-in-different-sector-failed-differently">Startups in different sector failed differently</h3>
 <div class="columns">
 <div class="column" style="width:60%;">
 <p><img data-src="images/sector-reason.png" style="width:115.0%"></p>
 </div><div class="column" style="width:40%;">
+<div style="font-size: 0.95em;">
 <ul>
 <li><strong>Accommodation &amp; Food</strong>: 52% cite high operational costs</li>
 <li><strong>Healthcare &amp; Manufacturing</strong>: Over 50% cite budget/resource shortages</li>
 <li><strong>Retail Trade</strong>: Diverse causes – niche limits, poor market fit, execution flaws</li>
 <li><strong>Finance &amp; Tech</strong>: Competition dominates, fewer financial challenges lowering barrier to entry</li>
 </ul>
+</div>
 </div></div>
 </section>
-<section id="startups-in-different-funding-groups-failed-differently" class="slide level2 smaller">
-<h2>Startups in different funding groups failed differently</h2>
+<section class="slide level2">
+
+<h3 class="smaller" id="startups-in-different-funding-groups-failed-differently">Startups in different funding groups failed differently</h3>
 <div class="columns">
-<div class="column" style="width:55%;">
+<div class="column" style="width:60%;">
 <p><img data-src="images/funding-reason.png" style="width:115.0%"></p>
-</div><div class="column" style="width:45%;">
+</div><div class="column" style="width:40%;">
+<div style="font-size: 0.95em;">
+<ul>
+<li><strong>Low-funded (&lt;$20M)</strong> - challenges in market validation</li>
+<li><strong>Medium-funded ($20M–$70M)</strong> - challenges in revenue generation and executions</li>
+<li><strong>High-funded (&gt;$70M)</strong> - challenges in adaptation to market shifts and executions</li>
+</ul>
+</div>
+</div></div>
+<aside class="notes">
 <ul>
 <li><strong>Low-funded (&lt;$20M)</strong>: Niche limits (29%), market fit issues (26%), budget (21%) - challenges in market validation</li>
 <li><strong>Medium-funded ($20M–$70M)</strong>: Acquisition stagnation (25%), monetization (21%), execution flaws (16%) - challenges in revenue generation and executions</li>
 <li><strong>High-funded (&gt;$70M)</strong>: Execution flaws (23%), stagnation (23%), trend shifts (16%) - challenges in adaptation to market shifts and executions</li>
 </ul>
-</div></div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="external-factors-also-play-a-role-in-the-failure-of-startups" class="slide level2 smaller">
-<h2>External factors also play a role in the failure of startups</h2>
+<section class="slide level2">
+
+<h3 class="smaller" id="external-factors-also-play-a-role-in-the-failure-of-startups">External factors also play a role in the failure of startups</h3>
 <div class="columns">
 <div class="column" style="width:76%;">
 <p><img data-src="images/fig-temporalplot.png"></p>
@@ -238,8 +266,9 @@ ALZ - Alliance
 </ul>
 </div></div>
 </section>
-<section id="conclusions-and-recommendations" class="slide level2 smaller">
-<h2>Conclusions and recommendations</h2>
+<section class="slide level2">
+
+<h3 class="smaller" id="conclusions-and-recommendations">Conclusions and recommendations</h3>
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
@@ -272,8 +301,9 @@ ALZ - Alliance
 </div>
 </div></div>
 </section>
-<section id="thank-you" class="slide level2" data-background-image="images/alz-alliance.jpg">
-<h2>Thank You!</h2>
+<section class="slide level2">
+
+<h3 data-background-image="images/alz-alliance.jpg" id="thank-you">Thank You!</h3>
 
 </section>
 

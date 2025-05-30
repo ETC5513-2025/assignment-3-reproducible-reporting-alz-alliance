@@ -18,36 +18,36 @@ format:
     css: styles.css
     footer: 'Why do startups fail?'
 ---
-## Problem introduction
+### Problem introduction
 
 <br></br>
 <div style="text-align: center; font-size: 1.2em; font-weight: bold">**More than 2/3 of startups failed** to generate positive returns to investors (Eisenmann, 2021).^[Eisenmann, T. (2021). Why Start-ups Fail. Harvard Business Review. Retrieved May 27, 2025, from https://hbr.org/2021/05/why-start-ups-fail
 ]</div>  
 
-
+<br></br>
 *Why and when do startups fail, and how do factors like industry and funding levels influence these outcomes?*
 
 ---
 
-## Dataset description
-- Source: CB Insights’ public database of 483 startup post-postmortems
+### Dataset description
+- Source: CB Insights’ public database of 483 startup post-mortems
 - Data covers:
   - Startup name, sector, country
   - Funding raised
   - Duration of operation
   - Self-reported reasons for failure (multi-label)
-- Analysis includes failure reason by sector, funding groups and temporal analysis
+- Analyses include failure reason by sector, funding groups and temporal analysis
 
 ---
 
-## Methods
+### Methods
 
 ::: columns
-::: {.column width="60%"}
+::: {.column width="4%"}
 ![](images/method.jpg){width=115%}
 :::
 
-::: {.column width="40%"}
+::: {.column width="50%"}
 **Why are we researching about startup ?** 
   - 11 % increase since 2023 in funding
   - We are in the year of startup
@@ -66,7 +66,7 @@ format:
 
 ---
 
-## Results - Why do startups fail? {.smaller}
+### Results - Why do startups fail? {.smaller}
 
 ::: columns
 ::: {.column width="60%"}
@@ -85,7 +85,7 @@ But nuances emerge across sectors and funding groups...
 
 ---
 
-## Startups in different sector failed differently {.smaller}
+### Startups in different sector failed differently {.smaller}
 
 ::: columns
 ::: {.column width="60%"}
@@ -93,32 +93,42 @@ But nuances emerge across sectors and funding groups...
 :::
 
 ::: {.column width="40%"}
+<div style="font-size: 0.95em;">
 - **Accommodation & Food**: 52% cite high operational costs
 - **Healthcare & Manufacturing**: Over 50% cite budget/resource shortages
 - **Retail Trade**: Diverse causes – niche limits, poor market fit, execution flaws
 - **Finance & Tech**: Competition dominates, fewer financial challenges lowering barrier to entry
+</div>
 :::
 :::
 
 ---
 
-## Startups in different funding groups failed differently {.smaller}
+### Startups in different funding groups failed differently {.smaller}
 
 ::: columns
-::: {.column width="55%"}
+::: {.column width="60%"}
 ![](images/funding-reason.png){width=115%}
 :::
 
-::: {.column width="45%"}
+::: {.column width="40%"}
+<div style="font-size: 0.95em;">
+- **Low-funded (<$20M)** - challenges in market validation
+- **Medium-funded ($20M–$70M)** - challenges in revenue generation and executions
+- **High-funded (>$70M)** - challenges in adaptation to market shifts and executions
+</div>
+:::
+:::
+
+::: {.notes}
 - **Low-funded (<$20M)**: Niche limits (29%), market fit issues (26%), budget (21%) - challenges in market validation
 - **Medium-funded ($20M–$70M)**: Acquisition stagnation (25%), monetization (21%), execution flaws (16%) - challenges in revenue generation and executions
 - **High-funded (>$70M)**: Execution flaws (23%), stagnation (23%), trend shifts (16%) - challenges in adaptation to market shifts and executions
 :::
-:::
 
 ---
 
-## External factors also play a role in the failure of startups {.smaller}
+### External factors also play a role in the failure of startups {.smaller}
 
 ::: columns
 ::: {.column width="76%"}
@@ -140,7 +150,7 @@ covid-19 impact
 :::
 ---
 
-## Conclusions and recommendations {.smaller}
+### Conclusions and recommendations {.smaller}
 
 ::: columns
 ::: {.column width="60%"}
@@ -164,5 +174,5 @@ covid-19 impact
 :::
 
 ---
-## Thank You! {background-image="images/alz-alliance.jpg"}
+### Thank You! {background-image="images/alz-alliance.jpg"}
 
