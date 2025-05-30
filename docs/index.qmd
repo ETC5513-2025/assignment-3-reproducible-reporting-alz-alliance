@@ -36,7 +36,7 @@ format:
   - Funding raised
   - Duration of operation
   - Self-reported reasons for failure (multi-label)
-  - Analyses include failure reason by sector, funding groups and temporal analysis
+- Analysis includes failure reason by sector, funding groups and temporal analysis
 
 ---
 
