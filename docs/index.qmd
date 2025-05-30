@@ -40,30 +40,23 @@ format:
 
 ---
 
-### Methods
-
 ::: columns
-::: {.column width="4%"}
-![](images/method.jpg){width=115%}
+::: {.column width="50%"}
+![Illustration of startup process](images/method.jpg){width=100%}
 :::
 
 ::: {.column width="50%"}
-**Why are we researching about startup ?** 
-  - 11 % increase since 2023 in funding
-  - We are in the year of startup
-**Importance of a reliable dataset**
-  - The datas hould be from a trustworthy source
-  - It is important it has the information that we are looking for
-**How do we plan to approach this dataset**
-  - Focus on various sector and the reason for their failure
-  - Using R to visualiase the pattern
-**What is our main goal** 
-  - Understanding the main reason for failure
-  - To ensure that this can prevent future failure
+### Methods
+
+**1. Why are we researching about startup? -** 11% increase in funding since 2023 and we can say that we are in the year of startup  
+
+**2. Importance of a reliable dataset -** The data should be from a trustworthy source and it should include relevant information  
+
+**3. How do we plan to approach this dataset -**Focus on various sectors and reasons for failure and use R to visualize patterns  
+
+**4. What is our main goal -** Understand the root causes of startup failure and help prevent similar failures in the future  
 :::
 :::
-
-
 ---
 
 ### Results - Why do startups fail? {.smaller}
