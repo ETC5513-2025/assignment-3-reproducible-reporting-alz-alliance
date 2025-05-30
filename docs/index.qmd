@@ -44,7 +44,7 @@ format:
 
 ::: columns
 ::: {.column width="60%"}
-![](images/method.png){width=115%}
+![](images/method.jpg){width=115%}
 :::
 
 ::: {.column width="40%"}
