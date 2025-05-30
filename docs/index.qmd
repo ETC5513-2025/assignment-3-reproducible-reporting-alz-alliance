@@ -18,18 +18,18 @@ format:
     css: styles.css
     footer: 'Why do startups fail?'
 ---
-## Problem introduction
+### Problem introduction
 
 <br></br>
 <div style="text-align: center; font-size: 1.2em; font-weight: bold">**More than 2/3 of startups failed** to generate positive returns to investors (Eisenmann, 2021).^[Eisenmann, T. (2021). Why Start-ups Fail. Harvard Business Review. Retrieved May 27, 2025, from https://hbr.org/2021/05/why-start-ups-fail
 ]</div>  
 
-
+<br></br>
 *Why and when do startups fail, and how do factors like industry and funding levels influence these outcomes?*
 
 ---
 
-## Dataset description
+### Dataset description
 - Source: CB Insights’ public database of 483 startup post-mortems
 - Data covers:
   - Startup name, sector, country
@@ -40,7 +40,7 @@ format:
 
 ---
 
-## Methods
+### Methods
 
 1. Where we got our idea ?
 2. Where we got out data from ?
@@ -49,7 +49,7 @@ format:
 
 ---
 
-## Results - Why do startups fail? {.smaller}
+### Results - Why do startups fail? {.smaller}
 
 ::: columns
 ::: {.column width="60%"}
@@ -68,7 +68,7 @@ But nuances emerge across sectors and funding groups...
 
 ---
 
-## Startups in different sector failed differently {.smaller}
+### Startups in different sector failed differently {.smaller}
 
 ::: columns
 ::: {.column width="60%"}
@@ -85,7 +85,7 @@ But nuances emerge across sectors and funding groups...
 
 ---
 
-## Startups in different funding groups failed differently {.smaller}
+### Startups in different funding groups failed differently {.smaller}
 
 ::: columns
 ::: {.column width="55%"}
@@ -101,7 +101,7 @@ But nuances emerge across sectors and funding groups...
 
 ---
 
-## External factors also play a role in the failure of startups {.smaller}
+### External factors also play a role in the failure of startups {.smaller}
 
 ::: columns
 ::: {.column width="76%"}
@@ -123,7 +123,7 @@ covid-19 impact
 :::
 ---
 
-## Conclusions and recommendations {.smaller}
+### Conclusions and recommendations {.smaller}
 
 ::: columns
 ::: {.column width="60%"}
@@ -147,5 +147,5 @@ covid-19 impact
 :::
 
 ---
-## Thank You! {background-image="images/alz-alliance.jpg"}
+### Thank You! {background-image="images/alz-alliance.jpg"}
 
