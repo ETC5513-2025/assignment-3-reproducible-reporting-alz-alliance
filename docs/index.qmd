@@ -30,7 +30,7 @@ format:
 ---
 
 ## Dataset description
-- Source: CB Insights’ public database of 483 startup post-mortems
+- Source: CB Insights’ public database of 483 startup post-postmortems
 - Data covers:
   - Startup name, sector, country
   - Funding raised
@@ -42,10 +42,27 @@ format:
 
 ## Methods
 
-1. Where we got our idea ?
-2. Where we got out data from ?
-3. What is our aim ?
-4. What we did ?
+::: columns
+::: {.column width="60%"}
+![](images/method.png){width=115%}
+:::
+
+::: {.column width="40%"}
+**Why are we researching about startup ?** 
+  - 11 % increase since 2023 in funding
+  - We are in the year of startup
+**Importance of a reliable dataset**
+  - The datas hould be from a trustworthy source
+  - It is important it has the information that we are looking for
+**How do we plan to approach this dataset**
+  - Focus on various sector and the reason for their failure
+  - Using R to visualiase the pattern
+**What is our main goal** 
+  - Understanding the main reason for failure
+  - To ensure that this can prevent future failure
+:::
+:::
+
 
 ---
 
