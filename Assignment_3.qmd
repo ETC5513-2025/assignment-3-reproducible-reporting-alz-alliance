@@ -5,15 +5,16 @@ author:
   - Ayush Pandia - 35613424
   - Thuy Ngo - 35776064
   - Mohammad Zulkifli Falaqi - 35531916
-bibliography: bibliography/citations.bib
-csl: bibliography/apa.csl
+
 format:
-  pdf:
+  quarto-monash-report-pdf:
     toc: true
   html:
     toc: true
-execute: 
-  warning: false
+    number-sections: true
+    theme: cosmo
+bibliography: bibliography/citations.bib
+csl: bibliography/apa.csl
 ---
 
 ```{r}
