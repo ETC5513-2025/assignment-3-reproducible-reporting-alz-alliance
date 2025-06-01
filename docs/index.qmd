@@ -16,11 +16,7 @@ format:
     smaller: true
     logo: images/alz-alliance.png
     css: styles.css
-<<<<<<< HEAD
     footer: 'https://tinyurl.com/ALZ-presentation - Why do startups fail?'
-=======
-    footer: 'Why do startups fail?'
->>>>>>> methodology
 ---
 ### Problem introduction
 
