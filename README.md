@@ -1,18 +1,21 @@
 # ETC5513 Assignment 3
 
-## Group Members:
-ALZ - Alliance
+## Group 4:
+**Group Name:** ALZ - Alliance
+
+**Group Member:**
 * Ayush Pandia - 35613424
 * Thuy Ngo - 35776064
 * Mohammad Zulkifli Falaqi - 35531916
 
 ## About The Project  
-**Topic:** Analysing failed startup business in US and examining the trend
-**Research Question:** Why and when do startups fail?
+- **Topic:** Analysing failed startup business in US and examining the trend
+
+- **Research Question:** Why and when do startups fail?
 
 ## Project Output
 - `Assignment_3.pdf` - The final project report renderred in PDF
-- `docs/index.html` - The reproducible project presentation that can be directly accessed through `https://tinyurl.com/ALZ-presentation` 
+- `docs/index.html` - The reproducible project presentation that can be directly accessed through [`https://tinyurl.com/ALZ-presentation`](https://tinyurl.com/ALZ-presentation) 
 
 ## Project Folder Structure
 
