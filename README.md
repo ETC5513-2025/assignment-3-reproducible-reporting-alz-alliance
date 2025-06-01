@@ -21,12 +21,13 @@
 .
 ├── Assignment_3.qmd                                        # Quarto source file for the main report
 ├── Assignment_3.pdf                                        # Final Rendered PDF for main report
+├── Assignment_3_files/                                     # Folder that contains resources and files that are required for qmd renderring
 ├── docs/                                                   # Folder for the project presentation slides
 │   ├──index.qmd                                            # Quarto source file for presentation slides
 │   ├──index.html                                           # Rendered HTML presentation slides
 |   ├──styles.css                                           # CSS setting file for additional styling in preseentation slides
 |   ├──images/                                              # Additional images folder used in presentation slides
-|   ├──index_files/                                         # Folder that contains resources and files that are required by the index.HTML file 
+|   └──index_files/                                         # Folder that contains resources and files that are required by the index.HTML file 
 ├── data/                                                   # Folder for dataset used in this project
 │   ├── Finance_and_Insurance.csv                           # Raw data for Finance and Insurance sector
 │   ├── Food_and_services.csv                               # Raw data for Food and Service sector
@@ -35,13 +36,20 @@
 │   ├── Manufactures.csv                                    # Raw data for Manufactur sector
 │   ├── Retail_Trade.csv                                    # Raw data for Retail Trade sector
 │   ├── startup_combined.csv                                # Processed combined data for all sector
-│   ├── Startup_Failures_overall.csv                        # Processed data for failures overall
+│   └── Startup_Failures_overall.csv                        # Processed data for failures overall
+├── bibliography/                                           # Folder that contains the bibliographic references and citation files used
+├── extensions/                                             # Quarto-report-template extensions folder used in this project report
 ├── images/                                                 # Main images folder used in this project
-├── assignment-3-reproducible-reporting-alz-alliance.Rproj  # RStudio project file
 ├── renv/                                                   # renv environment files for reproducibility
 ├── renv.lock                                               # Exact R package versions for reproducibility
 ├── .Rprofile                                               # R session configuration
 ├── .gitignore                                              # Files and directories to exclude from version control
+├── assignment-3-reproducible-reporting-alz-alliance.Rproj  # RStudio project file
+├── AACSB.png                                               # AACSB accredited Logo, generated from monash-report-template
+├── AMBA.png                                                # AMBA accredited Logo, generated from monash-report-template
+├── EQUIS.png                                               # EQUIS accredited Logo, generated from monash-report-template
+├── MBSportrait.jpg                                         # Monash Business School Logo, generated from monash-report-template
+├── monash2.png                                             # Monash University Logo, generated from monash-report-template
 └── README.md                                               # This README file
 ```
 

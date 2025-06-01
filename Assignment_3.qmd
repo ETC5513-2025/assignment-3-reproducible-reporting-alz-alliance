@@ -1,11 +1,11 @@
 ---
-title: "Assignment 3 - ALZ Alliance"
-subtitle: "Why do startups fail? - Analysis on 483 startups post-mortem"
+title: "Why do startups fail?"
+subtitle: "Analysis on 483 startups post-mortem"
 author:   
-  - Ayush Pandia - 35613424
-  - Thuy Ngo - 35776064
-  - Mohammad Zulkifli Falaqi - 35531916
-
+  - 35613424 - Ayush Pandia
+  - 35776064 - Thuy Ngo
+  - 35531916 - Mohammad Zulkifli Falaqi 
+organization: "ETC5513 Assignment 3 - ALZ Alliance"
 format:
   quarto-monash-report-pdf:
     toc: true
