@@ -64,15 +64,23 @@ startup_combined <- bind_rows(
 ```
 
 ```{r convert funding}
+# convert col `how_much_they_raised` into numeric values
 startup_combined <- startup_combined |>
   mutate(funding_millions = str_extract(how_much_they_raised, "\\d+\\.?\\d*") |> as.numeric())
+
+# categorize startup funding into groups
+startup_combined <- startup_combined |> 
+  mutate(funding_group = cut(funding_millions, breaks = c(-Inf, 20, 70, Inf),   
+        labels = c("Low (< $20M)", "Medium ($20M - $70M)", "High (> $70M)"))) 
 ```
 
 ```{r convert years of operations}
+
+# convert years of operation into start_year, end_year and compute number of operating years
 startup_combined <- startup_combined |>
   mutate(
-    year_range = str_extract(years_of_operation, "\\d{4}[-–]\\d{4}"), #extracting year range
-        start_year = as.numeric(str_extract(year_range, "^\\d{4}")), # extracting start year and end year
+    year_range = str_extract(years_of_operation, "\\d{4}[-–]\\d{4}"), # extracting year range
+    start_year = as.numeric(str_extract(year_range, "^\\d{4}")), # extracting start year and end year
     end_year = as.numeric(str_extract(year_range, "\\d{4}$")),
     business_operation_year = end_year - start_year + 1) |> 
   select(-year_range, -years_of_operation)
@@ -201,10 +209,12 @@ kbl(variable_description) |>
 #### Failure reasons by sector
 ```{r overall failure reasons}
 
+# specify col to pivot
 col_pivot <- c("giants", "no_budget", "competition", "poor_market_fit", "acquisition_stagnation",
 "platform_dependency", "monetization_failure", "niche_limits", "execution_flaws",
 "trend_shifts", "toxicity_trust_issues", "regulatory_pressure", "overhype", "high_operational_costs")
 
+# specific labels for each col in later plots
 col_pivot_labels <- c(
   giants = "Giants",
   no_budget = "No budget",
@@ -222,6 +232,7 @@ col_pivot_labels <- c(
   high_operational_costs = "High operational costs"
 )
 
+# pivot dataset to longer form for plotting
 failure_counts <- startup_combined |> 
   select(col_pivot) |> 
   mutate_all(~replace_na(., 0)) |> 
@@ -259,11 +270,13 @@ failure_counts |>
 #| label: fig-sector-percent
 #| fig-cap: "Besides universal reasons of Competition and Giants, each sector carried their own set of reasons for startup failures."
 
+# count number of companies in each sector
 sector_counts <- startup_combined |> 
   group_by(sector) |> 
   summarise(sector_counts = n()) |> 
   ungroup() 
 
+# calculate the percentage of each failure reason by sector
 sector_percent <- startup_combined |> 
   select(sector, col_pivot) |> 
   mutate_all(~replace_na(., 0)) |> 
@@ -274,6 +287,7 @@ sector_percent <- startup_combined |>
   left_join(sector_counts, by = "sector") |> 
   mutate(percent_fail = (company_fail_counts/sector_counts)*100)
 
+# plot the heat map
 sector_percent |> 
   bind_rows(
     failure_counts |> 
@@ -281,7 +295,6 @@ sector_percent |>
       mutate(sector = "All sector")
   ) |> 
   mutate(
-    #sector = factor(sector, levels = c("All sector", sort(unique(sector)[unique(sector) != "All sector"]))),
     label = ifelse(sector == "All sector", paste0("**", round(percent_fail, 1), "**"), as.character(round(percent_fail, 1))),
     sector_fmt = ifelse(sector == "All sector", paste0("**", sector, "**"), as.character(sector))
   ) |> 
@@ -319,20 +332,13 @@ sector_percent |>
 ```{r funding by reason}
 #| label: fig-funding-reason
 #| fig-cap: "While low-funded startup struggled with product-market fit and product scalability due to niche market, higher-funded ones faced challenged in monetization, business executitions and post-acquisition operations. "
-
-startup_combined <- startup_combined |>
-  mutate(funding_millions = str_extract(how_much_they_raised, "\\d+\\.?\\d*") |> as.numeric())
-
-threshold <- quantile(startup_combined$funding_millions, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
-
-startup_combined <- startup_combined |> 
-  mutate(funding_group = cut(funding_millions, breaks = c(-Inf, 20, 70, Inf),   
-        labels = c("Low (< $20M)", "Medium ($20M - $70M)", "High (> $70M)"))) 
-        
+    
+# calculate the number of startups in each funding group
 funding_group_counts <- startup_combined |> 
   group_by(funding_group) |> 
   summarise(funding_group_counts = n())
 
+# calculate the percentage of each failure reason by funding group
 funding_group_percent <- startup_combined |> 
   select(col_pivot, funding_group) |>
   pivot_longer(cols = col_pivot, names_to = "reason", values_to = "present") |> 
@@ -343,6 +349,7 @@ funding_group_percent <- startup_combined |>
   mutate(percent_fail = (count/funding_group_counts)*100) |> 
   filter(!is.na(funding_group))
   
+# plot the graph
 funding_group_percent |>
   ggplot(aes(x = reorder(reason, percent_fail), y = percent_fail)) +
   geom_col(fill = "#2166ac") +
@@ -380,50 +387,46 @@ funding_group_percent |>
 #| label: fig-temporalplot
 #| fig-cap: The U.S. startup ecosystem experienced significant fluctuations in activity, driven by economic cycles and external shocks.
 
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-
 # Create data frame for active startups per year
-df_active <- startup_combined %>%
-  mutate(year = map2(start_year, end_year, ~ seq(.x, .y))) %>%
-  unnest(year) %>%
-  filter(year >= 2000) %>%
-  group_by(year) %>%
-  summarise(count = n(), .groups = "drop") %>%
+df_active <- startup_combined |>
+  mutate(year = map2(start_year, end_year, ~ seq(.x, .y))) |>
+  unnest(year) |>
+  filter(year >= 2000) |>
+  group_by(year) |>
+  summarise(count = n(), .groups = "drop") |>
   mutate(event = "Active Startups")
 
 # Create data frame for start_year and end_year counts
-df_years <- startup_combined %>%
-  select(start_year, end_year) %>%
+df_years <- startup_combined |>
+  select(start_year, end_year) |>
   pivot_longer(cols = c(start_year, end_year), 
                names_to = "event", 
-               values_to = "year") %>%
-  filter(year >= 2000) %>%
-  mutate(event = recode(event, start_year = "Start Year", end_year = "End Year")) %>%
-  group_by(event, year) %>%
+               values_to = "year") |>
+  filter(year >= 2000) |>
+  mutate(event = recode(event, start_year = "Start Year", end_year = "End Year")) |>
+  group_by(event, year) |>
   summarise(count = n(), .groups = "drop")
 
 # Combine data for plotting
 df_combined <- bind_rows(
-  df_years %>% mutate(type = "Line"),
-  df_active %>% mutate(type = "Bar")
-) %>%
+  df_years |> mutate(type = "Line"),
+  df_active |> mutate(type = "Bar")
+) |>
   mutate(event = factor(event, levels = c("Start Year", "End Year", "Active Startups")))
 
-# Create plot with geom_bar in background and geom_line overlay
+# Plot geom_bar in background and geom_line overlay
 ggplot(df_combined, aes(x = year, y = count)) +
-  geom_bar(data = df_combined %>% filter(type == "Bar"), 
+  geom_bar(data = df_combined |> filter(type == "Bar"), 
            aes(fill = event), stat = "identity", alpha = 0.3) +
-  geom_line(data = df_combined %>% filter(type == "Line"), 
+  geom_line(data = df_combined |> filter(type == "Line"), 
             aes(color = event), size = 1.2) +
-  geom_point(data = df_combined %>% filter(type == "Line"), 
+  geom_point(data = df_combined |> filter(type == "Line"), 
              aes(color = event), size = 2) +
-  geom_text(data = df_combined %>% filter(type == "Line"), 
+  geom_text(data = df_combined |> filter(type == "Line"), 
             aes(label = count, color = event, 
                 vjust = ifelse(event == "End Year" & year <= 2015, 1.5, -1.5)), 
             size = 3) +
-  geom_text(data = df_combined %>% filter(type == "Bar"), 
+  geom_text(data = df_combined |> filter(type == "Bar"), 
             aes(label = count, 
                 vjust = ifelse(year <= 2006, -3, -0.5)), 
             color = "black", size = 2.5) +
