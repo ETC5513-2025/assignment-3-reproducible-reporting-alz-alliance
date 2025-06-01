@@ -38,7 +38,7 @@
 │   ├── startup_combined.csv                                # Processed combined data for all sector
 │   └── Startup_Failures_overall.csv                        # Processed data for failures overall
 ├── bibliography/                                           # Folder that contains the bibliographic references and citation files used
-├── extensions/                                             # Quarto-report-template extensions folder used in this project report
+├── _extensions/                                            # Quarto-report-template extensions folder used in this project report
 ├── images/                                                 # Main images folder used in this project
 ├── renv/                                                   # renv environment files for reproducibility
 ├── renv.lock                                               # Exact R package versions for reproducibility
