@@ -122,7 +122,44 @@ The dataset was sourced from CB Insights' public dataset [@cbinsights_data], sha
 
 Data cleaning and transformation were performed using R and the tidyverse suite. Column names were standardized, and duplicated observations were removed. To conduct temporal analysis on the operation of all failed startups in the dataset, the `years_of_operation` field was parsed to extract `start_year` and `end_year`, from which the business duration was calculated. 
 
-To investigate the relationship between funding levels and failure reasons, funding data was cleaned by extracting numeric values and converted into millions for consistency across records. 
+To investigate the relationship between funding levels and failure reasons, funding data was cleaned by extracting numeric values and converted into millions for consistency across records. The dataset varaible description can be found @tbl-data-dic in the @Apendix section 
+
+```{r tabular representation of funding raised by sector}
+#| label: tbl-funding-sector
+#| tbl-cap: Number of startup by sector and funding bracket
+
+
+# Define funding brackets using the same funding_millions variable
+startup_combined_sector <- startup_combined |>
+  mutate(funding_bracket = case_when(
+    funding_millions < 20 ~ "< $20M",
+    funding_millions >= 20 & funding_millions <= 70 ~ "$20M-$70M",
+    funding_millions > 70 ~ "$70M >"
+  )) |>
+  filter(!is.na(funding_millions), !is.na(sector))
+
+# Set bracket order
+startup_combined_sector$funding_bracket <- factor(
+  startup_combined_sector$funding_bracket,
+  levels = c("< $20M", "$20M-$70M", "$70M >")
+)
+
+# Count number of startups per sector and bracket
+funding_table <- startup_combined_sector |>
+  group_by(sector, funding_bracket) |>
+  summarise(num_startups = n(), .groups = "drop") |>
+  pivot_wider(
+    names_from = funding_bracket,
+    values_from = num_startups,
+    values_fill = 0
+  )
+
+# Display clean table
+kbl(funding_table, caption = "Number of startup by sector and funding bracket") |>
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+```
+
+@tbl-funding-sector provides an overview of the funds raised by companies in different sector. It is important to have an overview before we deep dive into the illustruative representational below which talks further on skew distribution.
 
 ```{r funding distribution by sector}
 #| label: fig-funding-distribution
@@ -145,54 +182,6 @@ startup_combined |>
 - Low-funded startups are those that have raised less than $20M—an amount commonly associated with (pre-)seed and early-stage funding rounds [@series_abc].
 - Medium-funded startups have raised between $20M and $70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation [@series_abc].
 - High-funded startups have secured over $70M—an amount often reached by Series C companies. At this stage, startups have usually been in operation for several years, proven their business model, and are seeking international expansion, an initial public offering, or acquisition by private equity firms or investment banks [@series_abc].
-
-```{r adding table for data description}
-#| label: tbl-data-dict
-#| tbl-cap: Description of variables available in the dataset
-
-variable_description <- tibble::tibble(
-  Variable = c(
-    "name", "sector", "what_they_did",
-    "how_much_they_raised", "why_they_failed", "takeaway", "giants",
-    "no_budget", "competition", "poor_market_fit", "acquisition_stagnation",
-    "platform_dependency", "monetization_failure", "niche_limits", "execution_flaws",
-    "trend_shifts", "toxicity_trust_issues", "regulatory_pressure", "overhype","high_operation_costs","funding_millions","start_year","end_year","business_operation_year","id"
-  ),
-  Description = c(
-    "Name of the startup",
-    "Business sector or industry",
-    "Description of what the startup did",
-    "Total funds raised before failure",
-    "Primary reason for startup failure",
-    "Key takeaway or lesson from the failure",
-    "Whether the startup competed with major players",
-    "Failed due to budget constraints",
-    "Faced tough competition",
-    "Did not fit well with market demand",
-    "Growth plateaued or stagnated",
-    "Depended heavily on external platforms",
-    "Could not effectively monetize",
-    "Had limited market potential",
-    "Poor execution or management issues",
-    "Impact of changing industry trends",
-    "Trust or toxicity issues in the team",
-    "Faced legal or regulatory hurdles",
-    "Failure due to excessive hype or unrealistic expectations",
-    "High operational cost",
-    "Amount raised in millions",
-    "Business start year",
-    "business end year",
-    "Business operational year",
-    "Refrence for company ID"
-  )
-)
-
-# Display as a table
-kbl(variable_description, caption = "Variable Descriptions for Startup Combined Dataset") |>
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
-```
-
-@tbl-data-dict provides an overview on all included variables upon data processing. 
 
 ## Results
 
@@ -488,5 +477,56 @@ Tech startups like Digg and MySpace peaked early (2004–2010) but faded by 2018
 ### Conclusions
 
 ### Implications & Recommendations
+
+## Apendix
+
+```{r dataset variable explanation}
+#| label: tbl-data-dict
+#| tbl-cap: Description of variables available in the dataset
+
+variable_description <- tibble::tibble(
+  Variable = c(
+    "name", "sector", "what_they_did",
+    "how_much_they_raised", "why_they_failed", "takeaway", "giants",
+    "no_budget", "competition", "poor_market_fit", "acquisition_stagnation",
+    "platform_dependency", "monetization_failure", "niche_limits", "execution_flaws",
+    "trend_shifts", "toxicity_trust_issues", "regulatory_pressure", "overhype","high_operation_costs","funding_millions","start_year","end_year","business_operation_year","id","funding_group"
+  ),
+  Description = c(
+    "Name of the startup",
+    "Business sector or industry",
+    "Description of what the startup did",
+    "Total funds raised before failure",
+    "Primary reason for startup failure",
+    "Key takeaway or lesson from the failure",
+    "Whether the startup competed with major players",
+    "Failed due to budget constraints",
+    "Faced tough competition",
+    "Did not fit well with market demand",
+    "Growth plateaued or stagnated",
+    "Depended heavily on external platforms",
+    "Could not effectively monetize",
+    "Had limited market potential",
+    "Poor execution or management issues",
+    "Impact of changing industry trends",
+    "Trust or toxicity issues in the team",
+    "Faced legal or regulatory hurdles",
+    "Failure due to excessive hype or unrealistic expectations",
+    "High operational cost",
+    "Amount raised in millions",
+    "Business start year",
+    "business end year",
+    "Business operational year",
+    "Refrence for company ID",
+    "Determining which funding category a company falls into"
+  )
+)
+
+# Display as a table
+kbl(variable_description, caption = "Variable Descriptions for Startup Combined Dataset") |>
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+
+```
+
 
 ## References
