@@ -78,3 +78,10 @@ renv::activate()
 ```r
 renv::restore()
 ```
+
+## Reproducibility Tooling Used
+
+- `renv`
+- git issue
+- `.gitignore`
+- git tag
