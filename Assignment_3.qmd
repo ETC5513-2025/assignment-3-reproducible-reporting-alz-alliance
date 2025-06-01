@@ -121,7 +121,7 @@ Our analysis focuses on two key dimensions: (1) the reasons for failure (broken 
 
 The dataset was sourced from CB Insights' public dataset [@cbinsights_data] shared via [Kaggle](https://www.kaggle.com/datasets/dagloxkankwanda/startup-failures/data?select=Startup+Failure+%28Finance+and+Insurance%29.csv). The dataset offers insights into the name, years of operation and funding amounts of 483 failed startups across sectors like Finance, Health, Retail and IT. Each sector was a separate CSV file and merged into a single dataset for analysis.
 
-Data cleaning and transformation were performed using R and the tidyverse suite. Column names were standardized and duplicate observations were removed. To conduct temporal analysis, all failed startups in the dataset, the `years_of_operation` varaible was parsed to extract `start_year` and `end_year` from which the business duration was calculated.
+Data cleaning and transformation were performed using R and the tidyverse suite. Column names were standardized and duplicate observations were removed. To conduct temporal analysis, all failed startups in the dataset, the `years_of_operation` variable was parsed to extract `start_year` and `end_year` from which the business duration was calculated.
 
 To investigate the relationship between funding levels and failure reasons, funding data was cleaned by extracting numeric values and converted into millions for consistency across records. The dataset variable description can be found @tbl-data-dict (see @sec-appendix)
 
