@@ -1,9 +1,7 @@
 # ETC5513 Assignment 3
 
-## Group 4:
-**Group Name:** ALZ - Alliance
-
-**Group Member:**
+## Group 4 - ALZ Alliance
+**Group Members:**
 * Ayush Pandia - 35613424
 * Thuy Ngo - 35776064
 * Mohammad Zulkifli Falaqi - 35531916
@@ -15,15 +13,15 @@
 
 ## Project Output
 - `Assignment_3.pdf` - The final project report renderred in PDF
-- `docs/index.html` - The reproducible project presentation that can be directly accessed through [`https://tinyurl.com/ALZ-presentation`](https://tinyurl.com/ALZ-presentation) 
+- `docs/index.html` - The reproducible project presentation, which can be accessed directly at [`https://tinyurl.com/ALZ-presentation`](https://tinyurl.com/ALZ-presentation) 
 
 ## Project Folder Structure
 
 ```
 .
 ├── Assignment_3.qmd                                        # Quarto source file for the main report
-├── Assignment_3.pdf                                        # Rendered PDF final report
-├── docs/
+├── Assignment_3.pdf                                        # Final Rendered PDF for main report
+├── docs/                                                   # Folder for the project presentation slides
 │   ├──index.qmd                                            # Quarto source file for presentation slides
 │   ├──index.html                                           # Rendered HTML presentation slides
 |   ├──styles.css                                           # CSS setting file for additional styling in preseentation slides
