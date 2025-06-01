@@ -330,7 +330,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Why do startups fail?</h1>
-  <p class="subtitle">Analysis on 483 startups post-mortem</p>
+  <p class="subtitle">Analysis on failed startups post-mortem</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -375,13 +375,13 @@ ALZ - Alliance
 </section>
 <section class="slide level2">
 
+<h3 id="methods">Methods</h3>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-<p><img src="images/method.png" style="width:100%;"></p>
+<p><img src="images/method.jpg" style="width:100%;"></p>
 </div>
 </div><div class="column" style="width:60%;">
-<h3 id="methods">Methods</h3>
 <p><strong>Data cleaning</strong></p>
 <ul>
 <li>Data type conversion, including amount of fundings, and years of operations</li>
@@ -399,7 +399,15 @@ ALZ - Alliance
 <h3 class="smaller" id="results---why-do-startups-fail">Results - Why do startups fail?</h3>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p><img data-src="images/overall-reason.png"></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/plot%20overall%20failure%20reason-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
 </div><div class="column" style="width:40%;">
 <p><strong>Top universal reasons</strong> for failure:</p>
 <ul>
@@ -414,7 +422,15 @@ ALZ - Alliance
 <h3 class="smaller" id="startups-in-different-sector-failed-differently">Startups in different sector failed differently</h3>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p><img data-src="images/sector-reason.png" style="width:115.0%"></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/percentage%20of%20failures%20by%20sector-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
 </div><div class="column" style="width:40%;">
 <div style="font-size: 0.95em;">
 <ul>
@@ -431,7 +447,15 @@ ALZ - Alliance
 <h3 class="smaller" id="startups-in-different-funding-groups-failed-differently">Startups in different funding groups failed differently</h3>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p><img data-src="images/funding-reason.png" style="width:115.0%"></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/funding%20by%20reason-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
 </div><div class="column" style="width:40%;">
 <div style="font-size: 0.95em;">
 <ul>
@@ -464,7 +488,15 @@ ALZ - Alliance
 <h3 class="smaller" id="external-factors-also-play-a-role-in-the-failure-of-startups">External factors also play a role in the failure of startups</h3>
 <div class="columns">
 <div class="column" style="width:76%;">
-<p><img data-src="images/fig-temporalplot.png"></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-1-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
 </div><div class="column" style="width:3%;">
 
 </div><div class="column" style="width:21%;">
@@ -735,6 +767,82 @@ ALZ - Alliance
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
