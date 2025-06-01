@@ -16,7 +16,6 @@ format:
 bibliography: bibliography/citations.bib
 csl: bibliography/apa.csl
 ---
-
 ```{r}
 #| echo: false
 
@@ -94,6 +93,9 @@ startup_combined <- startup_combined |>
   filter(!id %in% removed_rows)
 ```
 
+```{=latex}
+\pagebreak
+```
 
 ## Executive Summary
 
@@ -107,7 +109,7 @@ Our analysis focuses on two key dimensions: (1) the reasons for failure (broken 
 
 ## Methodology
 
-The dataset was sourced from CB Insights' public dataset [@cbinsights_data], shared via [Kaggle](https://www.kaggle.com/datasets/dagloxkankwanda/startup-failures/data?select=Startup+Failure+%28Finance+and+Insurance%29.csv). The dataset offers insights into the name, years of operation and funding amounts of 483 failed startups across sectors such as Finance, Health, Retail, and IT. Each sector was originally provided as a separate CSV file and merged into a single dataset for analysis. 
+The dataset was sourced from CB Insights' public dataset [@cbinsights_data], shared via [Kaggle](https://www.kaggle.com/datasets/dagloxkankwanda/startup-failures/data?select=Startup+Failure+%28Finance+and+Insurance%29.csv). The dataset offers insights into the name, years of operation and funding amounts of 483 failed startups across sectors such as Finance, Healthcare, Retail, and IT. Each sector was originally provided as a separate CSV file and merged into a single dataset for analysis. 
 
 Data cleaning and transformation were performed using R and the tidyverse suite. Column names were standardized, and duplicated observations were removed. To conduct temporal analysis on the operation of all failed startups in the dataset, the `years_of_operation` field was parsed to extract `start_year` and `end_year`, from which the business duration was calculated. 
 
@@ -134,6 +136,11 @@ startup_combined |>
 - Low-funded startups are those that have raised less than $20M—an amount commonly associated with (pre-)seed and early-stage funding rounds [@series_abc].
 - Medium-funded startups have raised between $20M and $70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation [@series_abc].
 - High-funded startups have secured over $70M—an amount often reached by Series C companies. At this stage, startups have usually been in operation for several years, proven their business model, and are seeking international expansion, an initial public offering, or acquisition by private equity firms or investment banks [@series_abc].
+
+```{=latex}
+\pagebreak
+```
+
 
 ```{r adding table for data description}
 #| label: tbl-data-dict
@@ -182,7 +189,11 @@ kbl(variable_description) |>
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
 ```
 
-@tbl-data-dict provides an overview on all included variables upon data processing. 
+@tbl-data-dict provides an overview on all included variables upon data processing.
+
+```{=latex}
+\pagebreak
+```
 
 ## Results
 
@@ -300,6 +311,10 @@ sector_percent |>
 - **Healthcare**: the main reasons were poor market fit, monetization failure, and execution flaws.
 - **Manufacturing**: 55% cited lack of budget, 28% reported execution flaws.
 
+```{=latex}
+\pagebreak
+```
+
 #### Failure reasons by Funding groups
 
 ```{r funding by reason}
@@ -355,7 +370,12 @@ funding_group_percent |>
 - While product-market fit was also a hurdle for medium-funded startups (19%), their bigger obstacles are acquisition stagnation (25%) and monetization (21%).
 - Execution flaws (23%), acquisition stagnation (23%), budget limits (20%), monetization failures (16%) and trend shifts (16%) are primary failure factors for high-funded startups.
 
-### Temporal analysis of start-up failures 
+```{=latex}
+\pagebreak
+```
+
+
+### Temporal aspects of start-up failures 
 
 ```{r}
 #| label: fig-temporalplot
@@ -427,13 +447,17 @@ ggplot(df_combined, aes(x = year, y = count)) +
         legend.key.width = unit(1, "cm"))
 ```
 
-The U.S. startups experienced significant fluctuations in activity, driven by economic cycles and external shocks (@fig-temporalplot). 
+The U.S. failed startups experienced significant fluctuations in activity, driven by economic cycles and external shocks (@fig-temporalplot). 
 
-- The number of active startups peaked at 243 in 2015, fueled by post-2008 recovery. 
+- The number of active startups peaked at 326 in 2015, fueled by post-2008 recovery. 
 - Closures plummeted to 61 in 2020, reflecting COVID-19’s impact on funding and operations. 
 - Post-2015 decline in new startups suggests market saturation, while rising closures emphasize external pressures. 
 
-## Discussion, Recommendations and Conclusions
+```{=latex}
+\pagebreak
+```
+
+## Discussion, Conclusions, and Recommendations
 
 ### Discussion
 
@@ -445,9 +469,7 @@ Beyond these universal factors, there are sector-specific and funding-related at
 
 **Differences in failure reason across sectors**
 
-Each sector has a different mix of reasons on why their startups failed. 
-
-Accommodation and Food services startups reported 52% of their failures were due to High operational costs, which is unsurprising given the industry nature of heavy overheads into physical sites, e.g., hotels, restaurant. High financial requirement is also seen in 24% of startups attributing No budget to their failures. 
+Each sector has a different mix of reasons on why their startups failed. Accommodation and Food services startups reported 52% of their failures were due to High operational costs, which is unsurprising given the industry nature of heavy overheads into physical sites, e.g., hotels, restaurant. High financial requirement is also seen in 24% of startups attributing No budget to their failures. 
 
 Similarly, Health Care and Manufacturing require substantial upfront investments into product development, which was a major hurdle that left 40% of startups in Health Care and 55% of startups in Manufacturing out of business due to insufficient financial capability. 
 
@@ -459,9 +481,7 @@ Both Finance and Insurance, and Information startups blamed market competition a
 
 **Differences in failure reason across funding levels**
 
-A closer look through the lens of funding reveals fundamental differences in failure reasons.
-
-Low-funded startups (<$20M) often overlap with early-stage companies that typically have only a proof-of-concept or minimum viable product. These startups are still exploring market fit, which explains their struggles with Poor market fit (26%) and Niche limits (29%).
+A closer look through the lens of funding reveals fundamental differences in failure reasons. Low-funded startups (<$20M) often overlap with early-stage companies that typically have only a proof-of-concept or minimum viable product. These startups are still exploring market fit, which explains their struggles with Poor market fit (26%) and Niche limits (29%).
 
 Medium-funded startups ($20M–$70M), likely in Series A or B stages, are focused on market expansion and revenue generation. Their key challenges shift to Acquisition stagnation (25%), Monetization failure (21%), and Execution flaws (16%).
 
@@ -481,5 +501,8 @@ The analysis of 403 failed U.S. startups reveals a turbulent entrepreneurial lan
 
 To succeed in this volatile environment, startup founders must develop adaptable, robust strategies to address market shifts, such as the saturation observed post-2015. Flexibility is vital—whether adjusting to consumer trends in Retail Trade (33% failed due to niche limits) or tackling execution flaws in high-funded startups (23% failure rate). Investors and incubators should extend beyond funding, offering mentorship, market access, and operational guidance, particularly for low-funded startups facing poor market fit (26%). Additionally, stakeholders should prepare for policy changes from the 2025 U.S. administration, such as potential tariff increases on imported tech components, impacting Manufacturing startups, or stricter data privacy laws affecting Health Care startups’ customer engagement. Businesses should align their strategies to leverage these policies, benefiting through innovations like local sourcing or privacy-focused solutions.
 
+```{=latex}
+\pagebreak
+```
 
 ## References
