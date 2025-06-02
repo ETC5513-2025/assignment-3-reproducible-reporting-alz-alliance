@@ -86,3 +86,7 @@ renv::restore()
 - git issue
 - `.gitignore`
 - git tag
+
+## AI Acknowledgement
+
+We used ChatGPT to help with data wrangling and visualization, as well as report writing and format, specifically, incorporating template in report and presentation, understanding methodology and the structure for a good methodology, and cross-referencing between sections.
