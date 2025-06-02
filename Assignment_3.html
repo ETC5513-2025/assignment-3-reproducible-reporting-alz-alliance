@@ -133,7 +133,6 @@ div.csl-indent {
 <p>The dataset was sourced from CB Insights’ public dataset <span class="citation" data-cites="cbinsights_data">(<a href="#ref-cbinsights_data" role="doc-biblioref">CB Insights, 2024</a>)</span> shared via <a href="https://www.kaggle.com/datasets/dagloxkankwanda/startup-failures/data?select=Startup+Failure+%28Finance+and+Insurance%29.csv">Kaggle</a>. The dataset offers insights into the name, years of operation and funding amounts of 409 failed startups across sectors like Finance, Health, Retail and IT. Each sector was a separate CSV file and merged into a single dataset for analysis.</p>
 <p>Data cleaning and transformation were performed using R and the tidyverse. Column names were standardized and duplicate observations were removed. To conduct temporal analysis, the <code>years_of_operation</code> variable was parsed to extract <code>start_year</code> and <code>end_year</code> from which the business duration was calculated.</p>
 <p>To investigate the relationship between funding levels and failure reasons, funding data was cleaned by extracting numeric values and converted into millions for consistency across records. The dataset variable description can be found <a href="#tbl-data-dict" class="quarto-xref">Table&nbsp;2</a> (see <a href="#sec-appendix" class="quarto-xref">Section&nbsp;6</a>)</p>
-<div style="page-break-after: always;"></div>
 <div class="cell">
 <div id="tbl-funding-sector" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -198,7 +197,6 @@ Table&nbsp;1: Number of startup by sector and funding bracket
 </div>
 </div>
 <p><a href="#tbl-funding-sector" class="quarto-xref">Table&nbsp;1</a> provides an overview of the funds raised by startups in different sectors. It is important to have an overview before we deep dive into the illustrative representation below which talks further on skew distribution.</p>
-<div style="page-break-after: always;"></div>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-funding-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -332,7 +330,6 @@ Figure&nbsp;4: The U.S. startup ecosystem experienced significant fluctuations i
 <h3 data-number="5.2" class="anchored" data-anchor-id="conclusions-recommendations"><span class="header-section-number">5.2</span> Conclusions &amp; Recommendations</h3>
 <p>The analysis of U.S. failed startups reveals a turbulent entrepreneurial landscape influenced by economic cycles, intense competition, and external disruptions. Startups survived an average of 8.2 years, facing challenges across sectors: 52% of Accommodation and Food Services startups failed due to high operational costs, while 55% of Manufacturing startups cited budget constraints. Finance and Information startups battled market giants. From 2000 onward, startup formations peaked in 2012 with 62 new ventures, reflecting a surge during the post-2008 recovery and resulting in active startups reached their highest at 326 in 2015. Closures surged to 64 in 2020, highlighting the pandemic’s economic impact, which disrupted funding and operations across sectors. A decline in formations after 2015 indicates growing market saturation, while rising closures underscore external pressures.</p>
 <p>To succeed, founders must develop adaptable strategies to address market shifts, such as the post-2015 saturation. Flexibility is key, whether adjusting to consumer trends in Retail Trade (33% failed due to niche limits) or tackling execution flaws in high-funded startups (23% failure rate). Investors and incubators should extend beyond funding, offering mentorship, market access, and operational guidance, particularly for low-funded startups facing poor market fit (26%). Stakeholders should prepare for policy changes from the 2025 U.S. administration, such as tariff increases on imported tech components or stricter data privacy laws. Businesses should align their strategies to leverage these policies, benefiting through innovations like local sourcing or privacy-focused solutions.</p>
-<div style="page-break-after: always;"></div>
 </section>
 </section>
 <section id="sec-appendix" class="level2" data-number="6">
