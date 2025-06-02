@@ -119,9 +119,9 @@ Our analysis focuses on two key dimensions: (1) the reasons for failure (broken 
 
 ## Methodology
 
-The dataset was sourced from CB Insights' public dataset [@cbinsights_data] shared via [Kaggle](https://www.kaggle.com/datasets/dagloxkankwanda/startup-failures/data?select=Startup+Failure+%28Finance+and+Insurance%29.csv). The dataset offers insights into the name, years of operation and funding amounts of 483 failed startups across sectors like Finance, Health, Retail and IT. Each sector was a separate CSV file and merged into a single dataset for analysis.
+The dataset was sourced from CB Insights' public dataset [@cbinsights_data] shared via [Kaggle](https://www.kaggle.com/datasets/dagloxkankwanda/startup-failures/data?select=Startup+Failure+%28Finance+and+Insurance%29.csv). The dataset offers insights into the name, years of operation and funding amounts of 409 failed startups across sectors like Finance, Health, Retail and IT. Each sector was a separate CSV file and merged into a single dataset for analysis.
 
-Data cleaning and transformation were performed using R and the tidyverse suite. Column names were standardized and duplicate observations were removed. To conduct temporal analysis, all failed startups in the dataset, the `years_of_operation` variable was parsed to extract `start_year` and `end_year` from which the business duration was calculated.
+Data cleaning and transformation were performed using R and the tidyverse. Column names were standardized and duplicate observations were removed. To conduct temporal analysis, the `years_of_operation` variable was parsed to extract `start_year` and `end_year` from which the business duration was calculated.
 
 To investigate the relationship between funding levels and failure reasons, funding data was cleaned by extracting numeric values and converted into millions for consistency across records. The dataset variable description can be found @tbl-data-dict (see @sec-appendix)
 
@@ -158,7 +158,7 @@ kbl(funding_table, caption = "Number of startup by sector and funding bracket") 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 ```
 
-@tbl-funding-sector provides an overview of the funds raised by startups in different sectors. It is important to have an overview before we deep dive into the illustruative representation below which talks further on skew distribution.
+@tbl-funding-sector provides an overview of the funds raised by startups in different sectors. It is important to have an overview before we deep dive into the illustrative representation below which talks further on skew distribution.
 
 ```{r funding distribution by sector}
 #| label: fig-funding-distribution
@@ -176,7 +176,7 @@ startup_combined |>
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-@fig-funding-distribution illustrates the heavy right-skewed distribution of funding across all sectors. Since there is no clear groupings in funding distributions and considering the various funding rounds startups may undergo, we defined three funding brackets to align with the typical stages of startup development.
+@fig-funding-distribution illustrates the heavy right-skewed distribution of funding across all sectors. Since there is no clear groupings in funding and considering the various funding rounds startups may undergo, we defined three funding brackets to align with the typical stages of startup development.
 
 -   Low-funded startups are those that have raised less than \$20M, commonly associated with (pre-)seed and early-stage funding rounds [@series_abc].
 -   Medium-funded startups have raised between \$20M - \$70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation [@series_abc].
