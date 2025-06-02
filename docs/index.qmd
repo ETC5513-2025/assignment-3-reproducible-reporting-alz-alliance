@@ -1,6 +1,6 @@
 ---
 title: "Why do startups fail?"
-subtitle: "Analysis on 483 startups post-mortem"
+subtitle: "Analysis on failed startups post-mortem"
 author: "ALZ - Alliance"
 institute: 
  - Ayush Pandia - 35613424
@@ -16,8 +16,75 @@ format:
     smaller: true
     logo: images/alz-alliance.png
     css: styles.css
-    footer: 'Why do startups fail?'
+    footer: 'https://tinyurl.com/ALZ-presentation - Why do startups fail?'
 ---
+```{r library and data loading}
+# Loading the required library
+library(tidyverse)
+library(janitor)
+library(knitr)
+library(kableExtra)
+library(stringr)
+library(ggplot2)
+library(ggtext)
+library(plotly)
+
+# loading the data 
+startup_finance <- read_csv(here::here("data","Finance_and_Insurance.csv")) |> clean_names()
+startup_food <- read_csv(here::here("data","Food_and_services.csv")) |> clean_names()
+startup_health <- read_csv(here::here("data","Health_Care.csv")) |> clean_names()
+startup_it <- read_csv(here::here("data","Information_Sector.csv")) |> clean_names()
+startup_manufacture <- read_csv(here::here("data","Manufactures.csv")) |> clean_names()
+startup_retail <- read_csv(here::here("data","Retail_Trade.csv")) |>  clean_names()
+
+#combining the dataset into one
+startup_combined <- bind_rows(
+  startup_finance,
+  startup_food,
+  startup_health,
+  startup_it,
+  startup_manufacture,
+  startup_retail
+)
+```
+
+```{r convert funding}
+# convert col `how_much_they_raised` into numeric values
+startup_combined <- startup_combined |>
+  mutate(funding_millions = str_extract(how_much_they_raised, "\\d+\\.?\\d*") |> as.numeric())
+
+# categorize startup funding into groups
+startup_combined <- startup_combined |> 
+  mutate(funding_group = cut(funding_millions, breaks = c(-Inf, 20, 70, Inf),   
+        labels = c("Low (< $20M)", "Medium ($20M - $70M)", "High (> $70M)"))) 
+```
+
+```{r convert years of operations}
+
+# convert years of operation into start_year, end_year and compute number of operating years
+startup_combined <- startup_combined |>
+  mutate(
+    year_range = str_extract(years_of_operation, "\\d{4}[-–]\\d{4}"), # extracting year range
+    start_year = as.numeric(str_extract(year_range, "^\\d{4}")), # extracting start year and end year
+    end_year = as.numeric(str_extract(year_range, "\\d{4}$")),
+    business_operation_year = end_year - start_year + 1) |> 
+  select(-year_range, -years_of_operation)
+```
+
+```{r find duplicated names and remove them}
+# Find companies with multiple observations
+duplicated_names <- startup_combined |> 
+  count(name) |> 
+  filter(n > 1) |> 
+  pull(name)
+
+# Handpicked the rows to remove
+removed_rows <- c(264, 89, 175, 306, 66, 259)
+startup_combined <- startup_combined |> 
+  mutate(id = row_number()) |> 
+  filter(!id %in% removed_rows)
+```
+
 ### Problem introduction
 
 <br></br>
@@ -36,34 +103,94 @@ format:
   - Funding raised
   - Duration of operation
   - Self-reported reasons for failure (multi-label)
-- Analyses include failure reason by sector, funding groups and temporal analysis
-
 ---
 
-::: columns
-::: {.column width="50%"}
-![Illustration of startup process](images/method.jpg){width=100%}
-:::
-
-::: {.column width="50%"}
 ### Methods
 
-**1. Why are we researching about startup? -** 11% increase in funding since 2023 and we can say that we are in the year of startup  
 
-**2. Importance of a reliable dataset -** The data should be from a trustworthy source and it should include relevant information  
+::: columns
+::: {.column width="40%"}
+<div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+<img src="images/method.jpg" style="width:100%;" />
+</div>
+:::
 
-**3. How do we plan to approach this dataset -**Focus on various sectors and reasons for failure and use R to visualize patterns  
+::: {.column width="60%"}
 
-**4. What is our main goal -** Understand the root causes of startup failure and help prevent similar failures in the future  
+**Data cleaning**
+
+- Data type conversion, including amount of fundings, and years of operations
+- Categorize startups based on their funding amount - Low-funded (<$20M); Medium-funded ($20M - $70M); High-funded (>$70M)
+
+**Data analysis**
+
+- Analysis on failure reason by sector, funding groups 
+- Temporal analysis on years and duration of operations
+
 :::
 :::
+
 ---
 
 ### Results - Why do startups fail? {.smaller}
 
 ::: columns
 ::: {.column width="60%"}
-![](images/overall-reason.png){width=115%}
+```{r overall failure reasons}
+
+# specify col to pivot
+col_pivot <- c("giants", "no_budget", "competition", "poor_market_fit", "acquisition_stagnation",
+"platform_dependency", "monetization_failure", "niche_limits", "execution_flaws",
+"trend_shifts", "toxicity_trust_issues", "regulatory_pressure", "overhype", "high_operational_costs")
+
+# specific labels for each col in later plots
+col_pivot_labels <- c(
+  giants = "Giants",
+  no_budget = "No budget",
+  competition = "Competition",
+  poor_market_fit = "Poor market fit",
+  acquisition_stagnation = "Acquisition stagnation",
+  platform_dependency = "Platform dependency",
+  monetization_failure = "Monetization failure",
+  niche_limits = "Niche limits",
+  execution_flaws = "Execution flaws",
+  trend_shifts = "Trend shifts",
+  toxicity_trust_issues = "Toxicity & trust issues",
+  regulatory_pressure = "Regulatory pressure",
+  overhype = "Overhype",
+  high_operational_costs = "High operational costs"
+)
+
+# pivot dataset to longer form for plotting
+failure_counts <- startup_combined |> 
+  select(col_pivot) |> 
+  mutate_all(~replace_na(., 0)) |> 
+  pivot_longer(cols = col_pivot, names_to = "reason", values_to = "present") |> 
+  group_by(reason) |> 
+  summarise(count = sum(present)) |> 
+  ungroup() |> 
+  mutate(percent = (count/nrow(startup_combined))*100)
+```
+
+```{r plot overall failure reason}
+#| fig-height: 8
+
+failure_counts |> 
+  ggplot(aes(x = reorder(reason, count), y = count)) +
+  geom_bar(stat = "identity", fill = "#2166ac") +
+  geom_text(aes(label = paste0(count, " (", round(percent, 1), "%", ")")), 
+            hjust = -0.1,
+            color = "black", size = 3) +
+  coord_flip() +
+  labs(title = "Count of Startups by Failure Reason",
+    x = "Failure Reason",
+    y = "Number of Startups",
+    fill = "Sector") +
+  scale_x_discrete(labels = col_pivot_labels) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+    axis.text.x = element_blank())
+```
 :::
 
 ::: {.column width="40%"}
@@ -82,7 +209,53 @@ But nuances emerge across sectors and funding groups...
 
 ::: columns
 ::: {.column width="60%"}
-![](images/sector-reason.png){width=115%}
+```{r percentage of failures by sector}
+#| fig-height: 8
+
+# count number of companies in each sector
+sector_counts <- startup_combined |> 
+  group_by(sector) |> 
+  summarise(sector_counts = n()) |> 
+  ungroup() 
+
+# calculate the percentage of each failure reason by sector
+sector_percent <- startup_combined |> 
+  select(sector, col_pivot) |> 
+  mutate_all(~replace_na(., 0)) |> 
+  pivot_longer(cols = col_pivot, names_to = "reason", values_to = "present") |> 
+  group_by(sector, reason) |> 
+  summarise(company_fail_counts = sum(present, na.rm = TRUE)) |> 
+  ungroup() |> 
+  left_join(sector_counts, by = "sector") |> 
+  mutate(percent_fail = (company_fail_counts/sector_counts)*100)
+
+# plot the heat map
+sector_percent |> 
+  bind_rows(
+    failure_counts |> 
+      rename(company_fail_counts = count, percent_fail = percent) |> 
+      mutate(sector = "All sector")
+  ) |> 
+  mutate(
+    label = ifelse(sector == "All sector", paste0("**", round(percent_fail, 1), "**"), as.character(round(percent_fail, 1))),
+    sector_fmt = ifelse(sector == "All sector", paste0("**", sector, "**"), as.character(sector))
+  ) |> 
+  ggplot(aes(x = reorder(reason, company_fail_counts), y = sector_fmt, fill = percent_fail)) +
+  geom_tile(color = "white") +
+  geom_richtext(aes(label = label), size = 3, fill = NA, label.color = NA) +
+  coord_flip() +
+  scale_fill_gradient(low = "#f0f0f0", high = "#2166ac", name = "% Failed") +
+  scale_x_discrete(labels = col_pivot_labels) +
+  theme_minimal() +
+  labs(title = "Startup Failure Reasons by Sector",
+       x = "Failure Reason",
+       y = "Sector") +
+  theme(
+    axis.text.x = element_markdown(angle = 45, hjust = 1),  # enables bold in y-axis
+    panel.grid = element_blank()
+  )
+
+```
 :::
 
 ::: {.column width="40%"}
@@ -101,7 +274,45 @@ But nuances emerge across sectors and funding groups...
 
 ::: columns
 ::: {.column width="60%"}
-![](images/funding-reason.png){width=115%}
+```{r funding by reason}
+#| fig-height: 8
+    
+# calculate the number of startups in each funding group
+funding_group_counts <- startup_combined |> 
+  group_by(funding_group) |> 
+  summarise(funding_group_counts = n())
+
+# calculate the percentage of each failure reason by funding group
+funding_group_percent <- startup_combined |> 
+  select(col_pivot, funding_group) |>
+  pivot_longer(cols = col_pivot, names_to = "reason", values_to = "present") |> 
+  group_by(reason, funding_group) |> 
+  summarise(count = sum(present, na.rm = TRUE)) |> 
+  ungroup() |> 
+  left_join(funding_group_counts, by = "funding_group") |> 
+  mutate(percent_fail = (count/funding_group_counts)*100) |> 
+  filter(!is.na(funding_group))
+  
+# plot the graph
+funding_group_percent |>
+  ggplot(aes(x = reorder(reason, percent_fail), y = percent_fail)) +
+  geom_col(fill = "#2166ac") +
+  geom_text(aes(label = paste0(round(percent_fail, 1), "%")), 
+            hjust = -0.1, color = "black", size = 3) +
+  coord_flip() +
+  facet_wrap(~funding_group, ncol = 4) +
+  scale_x_discrete(labels = col_pivot_labels) + 
+  labs(title = "Startup Failure Reasons by Funding Group",
+    x = "Failure Reason",
+    y = "Failure Percentage") +
+  theme_minimal(base_family = "sans") +
+  theme(panel.grid = element_blank(),
+    strip.text = element_text(face = "bold"),
+    axis.text.y = element_text(face = "plain"),
+    axis.text.x = element_blank()) +
+  expand_limits(y = max(funding_group_percent$percent_fail) * 1.1)
+
+```
 :::
 
 ::: {.column width="40%"}
@@ -125,22 +336,86 @@ But nuances emerge across sectors and funding groups...
 
 ::: columns
 ::: {.column width="76%"}
-![](images/fig-temporalplot.png)
+```{r}
+#| fig-height: 6
+
+# Create data frame for active startups per year
+df_active <- startup_combined |>
+  mutate(year = map2(start_year, end_year, ~ seq(.x, .y))) |>
+  unnest(year) |>
+  filter(year >= 2000) |>
+  group_by(year) |>
+  summarise(count = n(), .groups = "drop") |>
+  mutate(event = "Active Startups")
+
+# Create data frame for start_year and end_year counts
+df_years <- startup_combined |>
+  select(start_year, end_year) |>
+  pivot_longer(cols = c(start_year, end_year), 
+               names_to = "event", 
+               values_to = "year") |>
+  filter(year >= 2000) |>
+  mutate(event = recode(event, start_year = "Start Year", end_year = "End Year")) |>
+  group_by(event, year) |>
+  summarise(count = n(), .groups = "drop")
+
+# Combine data for plotting
+df_combined <- bind_rows(
+  df_years |> mutate(type = "Line"),
+  df_active |> mutate(type = "Bar")
+) |>
+  mutate(event = factor(event, levels = c("Start Year", "End Year", "Active Startups")))
+
+# Plot geom_bar in background and geom_line overlay
+ggplot(df_combined, aes(x = year, y = count)) +
+  geom_bar(data = df_combined |> filter(type == "Bar"), 
+           aes(fill = event), stat = "identity", alpha = 0.3) +
+  geom_line(data = df_combined |> filter(type == "Line"), 
+            aes(color = event), size = 1.2) +
+  geom_point(data = df_combined |> filter(type == "Line"), 
+             aes(color = event), size = 2) +
+  geom_text(data = df_combined |> filter(type == "Line"), 
+            aes(label = count, color = event, 
+                vjust = ifelse(event == "End Year" & year <= 2015, 1.5, -1.5)), 
+            size = 3) +
+  geom_text(data = df_combined |> filter(type == "Bar"), 
+            aes(label = count, 
+                vjust = ifelse(year <= 2006, -3, -0.5)), 
+            color = "black", size = 2.5) +
+  labs(title = "Startup Activity with Formation and Closure Frequencies (2000 Onwards)",
+       x = "Year",
+       y = "Number of Startups",
+       color = "",
+       fill = "") +
+  scale_x_continuous(breaks = seq(2000, 2024, by = 1), labels = seq(2000, 2024, by = 1)) +
+  scale_color_manual(values = c("Start Year" = "#2166ac", "End Year" = "#f28e2b", "Active Startups" = "#b3cde3")) +
+  scale_fill_manual(values = c("Start Year" = "#2166ac", "End Year" = "#f28e2b", "Active Startups" = "#b3cde3")) +
+  theme_minimal(base_family = "sans") +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 8, face = "plain"),
+        axis.text.y = element_text(size = 10, face = "plain"),
+        plot.title = element_text(hjust = 0.5),
+        legend.position = "bottom",
+        legend.text = element_text(size = 10, face = "plain"),
+        legend.key = element_rect(color = NA, fill = NA),
+        legend.key.width = unit(1, "cm"))
+```
 :::
 
 ::: {.column width="3%"}
 :::
 
 ::: {.column width="21%"}
-- 2009-2012 
+- **2009-2012** 
 post-crisis rise
 
-- 2020-2022 
+- **2020-2022** 
 covid-19 impact
 
-- Next ?
+- **What's Next ?**
 :::
 :::
+
 ---
 
 ### Conclusions and recommendations {.smaller}
@@ -148,8 +423,8 @@ covid-19 impact
 ::: columns
 ::: {.column width="60%"}
 - Competition drives failures (70% of startups).
--	Sector-specific: High costs in Food Services (52%), budget issues in Manufacturing (55%), poor market fit in Healthcare (40%).
--	Funding levels: Low-funded face market fit issues (26%); high-funded struggle with execution flaws (23%).
+-	**Sector-specific:** High costs in Food Services (52%), budget issues in Manufacturing (55%), poor market fit in Healthcare (40%).
+-	**Funding levels:** Low-funded face market fit issues (26%); high-funded struggle with execution flaws (23%).
 - Startup formations peaked at 62 in 2012 lead to active startups peaked at 326 in 2015. Startup closures spiked to 64 in 2020 due to COVID-19.
 :::
 
@@ -167,5 +442,6 @@ covid-19 impact
 :::
 
 ---
+<div style="text-align: center; font-size: 1.2em; font-weight: bold"> 
 ### Thank You! {background-image="images/alz-alliance.jpg"}
-
+</div>
