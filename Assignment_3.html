@@ -55,9 +55,11 @@ div.csl-indent {
 <link href="Assignment_3_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="Assignment_3_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Assignment_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Assignment_3_files/libs/bootstrap/bootstrap-10daa034703793678e481cc8cee6d76f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="Assignment_3_files/libs/bootstrap/bootstrap-32162a2fca7cb0439643f2faaab1edf3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="Assignment_3_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
 <link href="Assignment_3_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 
 </head>
@@ -83,8 +85,11 @@ div.csl-indent {
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">5.1</span> Discussion</a></li>
   <li><a href="#conclusions-recommendations" id="toc-conclusions-recommendations" class="nav-link" data-scroll-target="#conclusions-recommendations"><span class="header-section-number">5.2</span> Conclusions &amp; Recommendations</a></li>
   </ul></li>
-  <li><a href="#sec-appendix" id="toc-sec-appendix" class="nav-link" data-scroll-target="#sec-appendix"><span class="header-section-number">6</span> Appendix</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">7</span> References</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6</span> References</a></li>
+  <li><a href="#sec-appendix" id="toc-sec-appendix" class="nav-link" data-scroll-target="#sec-appendix"><span class="header-section-number">7</span> Appendix</a>
+  <ul class="collapse">
+  <li><a href="#appendix-1-data-dictionary" id="toc-appendix-1-data-dictionary" class="nav-link" data-scroll-target="#appendix-1-data-dictionary"><span class="header-section-number">7.1</span> Appendix 1: Data dictionary</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Assignment_3.pdf"><i class="bi bi-file-pdf"></i>PDF (quarto-monash-report)</a></li></ul></div></nav>
 </div>
@@ -132,7 +137,7 @@ div.csl-indent {
 <h2 data-number="3" class="anchored" data-anchor-id="methodology"><span class="header-section-number">3</span> Methodology</h2>
 <p>The dataset was sourced from CB Insights’ public dataset <span class="citation" data-cites="cbinsights_data">(<a href="#ref-cbinsights_data" role="doc-biblioref">CB Insights, 2024</a>)</span> shared via <a href="https://www.kaggle.com/datasets/dagloxkankwanda/startup-failures/data?select=Startup+Failure+%28Finance+and+Insurance%29.csv">Kaggle</a>. The dataset offers insights into the name, years of operation and funding amounts of 409 failed startups across sectors like Finance, Health, Retail and IT. Each sector was a separate CSV file and merged into a single dataset for analysis.</p>
 <p>Data cleaning and transformation were performed using R and the tidyverse. Column names were standardized and duplicate observations were removed. To conduct temporal analysis, the <code>years_of_operation</code> variable was parsed to extract <code>start_year</code> and <code>end_year</code> from which the business duration was calculated.</p>
-<p>To investigate the relationship between funding levels and failure reasons, funding data was cleaned by extracting numeric values and converted into millions for consistency across records. The dataset variable description can be found <a href="#tbl-data-dict" class="quarto-xref">Table&nbsp;2</a> (see <a href="#sec-appendix" class="quarto-xref">Section&nbsp;6</a>)</p>
+<p>To investigate the relationship between funding levels and failure reasons, funding data was cleaned by extracting numeric values and converted into millions for consistency across records. The dataset variable description can be found <a href="#tbl-data-dict" class="quarto-xref">Table&nbsp;2</a> (see <a href="#sec-appendix" class="quarto-xref">Section&nbsp;7</a>)</p>
 <div class="cell">
 <div id="tbl-funding-sector" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -330,11 +335,32 @@ Figure&nbsp;4: The U.S. startup ecosystem experienced significant fluctuations i
 <h3 data-number="5.2" class="anchored" data-anchor-id="conclusions-recommendations"><span class="header-section-number">5.2</span> Conclusions &amp; Recommendations</h3>
 <p>The analysis of U.S. failed startups reveals a turbulent entrepreneurial landscape influenced by economic cycles, intense competition, and external disruptions. Startups survived an average of 8.2 years, facing challenges across sectors: 52% of Accommodation and Food Services startups failed due to high operational costs, while 55% of Manufacturing startups cited budget constraints. Finance and Information startups battled market giants. From 2000 onward, startup formations peaked in 2012 with 62 new ventures, reflecting a surge during the post-2008 recovery and resulting in active startups reached their highest at 326 in 2015. Closures surged to 64 in 2020, highlighting the pandemic’s economic impact, which disrupted funding and operations across sectors. A decline in formations after 2015 indicates growing market saturation, while rising closures underscore external pressures.</p>
 <p>To succeed, founders must develop adaptable strategies to address market shifts, such as the post-2015 saturation. Flexibility is key, whether adjusting to consumer trends in Retail Trade (33% failed due to niche limits) or tackling execution flaws in high-funded startups (23% failure rate). Investors and incubators should extend beyond funding, offering mentorship, market access, and operational guidance, particularly for low-funded startups facing poor market fit (26%). Stakeholders should prepare for policy changes from the 2025 U.S. administration, such as tariff increases on imported tech components or stricter data privacy laws. Businesses should align their strategies to leverage these policies, benefiting through innovations like local sourcing or privacy-focused solutions.</p>
+<div style="page-break-after: always;"></div>
 </section>
 </section>
-<section id="sec-appendix" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="sec-appendix"><span class="header-section-number">6</span> Appendix</h2>
-<p><a href="#tbl-data-dict" class="quarto-xref">Table&nbsp;2</a> includes all variables from the cleaned dataset used in this study.</p>
+<section id="references" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="references"><span class="header-section-number">6</span> References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-vc_funnel" class="csl-entry" role="listitem">
+CB Insights. (2018). <em>The <span>Venture</span> <span>Capital</span> <span>Funnel</span></em>. <a href="https://www.cbinsights.com/research/venture-capital-funnel-2/">https://www.cbinsights.com/research/venture-capital-funnel-2/</a>
+</div>
+<div id="ref-cbinsights_data" class="csl-entry" role="listitem">
+CB Insights. (2024). <em>483 startup failure post-mortems</em>. <a href="https://www.cbinsights.com/research/startup-failure-post-mortem/">https://www.cbinsights.com/research/startup-failure-post-mortem/</a>
+</div>
+<div id="ref-eisenmann_why_2021" class="csl-entry" role="listitem">
+Eisenmann, T. (2021). Why <span>Start</span>-ups <span>Fail</span>. <em>Harvard Business Review</em>. <a href="https://hbr.org/2021/05/why-start-ups-fail">https://hbr.org/2021/05/why-start-ups-fail</a>
+</div>
+<div id="ref-series_abc" class="csl-entry" role="listitem">
+Rutan, R. (n.d.). <em>Series <span>A</span>, <span>B</span>, <span>C</span>, <span>D</span>, and <span>E</span> <span>Funding</span>: <span>How</span> <span>It</span> <span>Works</span></em>. Retrieved May 27, 2025, from <a href="https://www.startups.com/articles/series-funding-a-b-c-d-e">https://www.startups.com/articles/series-funding-a-b-c-d-e</a>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="sec-appendix" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="sec-appendix"><span class="header-section-number">7</span> Appendix</h2>
+<section id="appendix-1-data-dictionary" class="level3" data-number="7.1">
+<h3 data-number="7.1" class="anchored" data-anchor-id="appendix-1-data-dictionary"><span class="header-section-number">7.1</span> Appendix 1: Data dictionary</h3>
+<p><a href="#tbl-data-dict" class="quarto-xref">Table&nbsp;2</a> describes all variables from the cleaned dataset used in this analysis.</p>
 <div class="cell">
 <div id="tbl-data-dict" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -464,27 +490,10 @@ Table&nbsp;2: Variable Descriptions for Startup Combined Dataset
 </figure>
 </div>
 </div>
-<div style="page-break-after: always;"></div>
 </section>
-<section id="references" class="level2 unnumbered" data-number="7">
-
-
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">7 References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-vc_funnel" class="csl-entry" role="listitem">
-CB Insights. (2018). <em>The <span>Venture</span> <span>Capital</span> <span>Funnel</span></em>. <a href="https://www.cbinsights.com/research/venture-capital-funnel-2/">https://www.cbinsights.com/research/venture-capital-funnel-2/</a>
-</div>
-<div id="ref-cbinsights_data" class="csl-entry" role="listitem">
-CB Insights. (2024). <em>483 startup failure post-mortems</em>. <a href="https://www.cbinsights.com/research/startup-failure-post-mortem/">https://www.cbinsights.com/research/startup-failure-post-mortem/</a>
-</div>
-<div id="ref-eisenmann_why_2021" class="csl-entry" role="listitem">
-Eisenmann, T. (2021). Why <span>Start</span>-ups <span>Fail</span>. <em>Harvard Business Review</em>. <a href="https://hbr.org/2021/05/why-start-ups-fail">https://hbr.org/2021/05/why-start-ups-fail</a>
-</div>
-<div id="ref-series_abc" class="csl-entry" role="listitem">
-Rutan, R. (n.d.). <em>Series <span>A</span>, <span>B</span>, <span>C</span>, <span>D</span>, and <span>E</span> <span>Funding</span>: <span>How</span> <span>It</span> <span>Works</span></em>. Retrieved May 27, 2025, from <a href="https://www.startups.com/articles/series-funding-a-b-c-d-e">https://www.startups.com/articles/series-funding-a-b-c-d-e</a>
-</div>
-</div></section></div></main>
+</main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

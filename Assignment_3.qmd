@@ -490,12 +490,29 @@ The analysis of U.S. failed startups reveals a turbulent entrepreneurial landsca
 
 To succeed, founders must develop adaptable strategies to address market shifts, such as the post-2015 saturation. Flexibility is key, whether adjusting to consumer trends in Retail Trade (33% failed due to niche limits) or tackling execution flaws in high-funded startups (23% failure rate). Investors and incubators should extend beyond funding, offering mentorship, market access, and operational guidance, particularly for low-funded startups facing poor market fit (26%). Stakeholders should prepare for policy changes from the 2025 U.S. administration, such as tariff increases on imported tech components or stricter data privacy laws. Businesses should align their strategies to leverage these policies, benefiting through innovations like local sourcing or privacy-focused solutions.
 
+
+```{=latex}
+\pagebreak
+```
+
+## References
+
+::: {#refs}
+:::
+
+```{=latex}
+\pagebreak
+```
+
 ## Appendix {#sec-appendix}
 
-@tbl-data-dict includes all variables from the cleaned dataset used in this study.
+### Appendix 1: Data dictionary
+
+@tbl-data-dict describes all variables from the cleaned dataset used in this analysis.
 
 ```{r dataset variable explanation}
 #| label: tbl-data-dict
+#| tbl-cap: Variable Descriptions for Startup Combined Dataset
 
 variable_description <- tibble::tibble(
   Variable = c(
@@ -536,13 +553,7 @@ variable_description <- tibble::tibble(
 )
 
 # Display as a table
-kbl(variable_description, caption = "Variable Descriptions for Startup Combined Dataset") |>
+kbl(variable_description) |>
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 
 ```
-
-```{=latex}
-\pagebreak
-```
-
-## References
