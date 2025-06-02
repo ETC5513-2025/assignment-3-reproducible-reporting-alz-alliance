@@ -9,6 +9,7 @@ organization: "ETC5513 Assignment 3 - ALZ Alliance"
 format:
   quarto-monash-report-pdf:
     toc: true
+    number-sections: true
   html:
     toc: true
     number-sections: true
@@ -16,6 +17,7 @@ format:
 bibliography: bibliography/citations.bib
 csl: bibliography/apa.csl
 ---
+
 ```{r}
 #| echo: false
 
@@ -63,7 +65,6 @@ startup_combined <- bind_rows(
 )
 ```
 
-
 ```{r convert funding}
 # convert col `how_much_they_raised` into numeric values
 startup_combined <- startup_combined |>
@@ -74,7 +75,6 @@ startup_combined <- startup_combined |>
   mutate(funding_group = cut(funding_millions, breaks = c(-Inf, 20, 70, Inf),   
         labels = c("Low (< $20M)", "Medium ($20M - $70M)", "High (> $70M)"))) 
 ```
-
 
 ```{r convert years of operations}
 
@@ -102,7 +102,6 @@ startup_combined <- startup_combined |>
   filter(!id %in% removed_rows)
 ```
 
-
 ```{=latex}
 \pagebreak
 ```
@@ -115,7 +114,7 @@ This analysis explores why startups fail by examining post-mortems—closure ann
 
 Startups have long been engines of innovation, yet their failure rate remains notoriously high — more than two-thirds of them are unable to generate positive returns [@eisenmann_why_2021]. In recent years, macroeconomic challenges and a venture funding freeze since 2022 have made startup survival even more difficult [@cbinsights_data; @vc_funnel]. This environment raises an urgent question: **Why and when do startups fail?** To answer this, we analyzed post-mortems from 483 failed startups compiled by CB Insights, where founders shared the reasons behind their collapse [@cbinsights_data]. These candid reflections offer rare, unfiltered insights into the internal and external pressures startups face.
 
-Our analysis focuses on two key dimensions: (1) self-reported reasons for failure, which reveal internal struggles shaped by sector-specific dynamics and funding maturity; and (2) temporal patterns of startup activity, which reflect how external forces affect startup viability over time.  Understanding these patterns can help startup founders, investors, and policymakers better anticipate pitfalls and design more resilient strategies. Ultimately, this research aims to uncover not only on what goes wrong — but also when and for whom — to inform smarter decision-making in the startup ecosystem.
+Our analysis focuses on two key dimensions: (1) self-reported reasons for failure, which reveal internal struggles shaped by sector-specific dynamics and funding maturity; and (2) temporal patterns of startup activity, which reflect how external forces affect startup viability over time. Understanding these patterns can help startup founders, investors, and policymakers better anticipate pitfalls and design more resilient strategies. Ultimately, this research aims to uncover not only on what goes wrong — but also when and for whom — to inform smarter decision-making in the startup ecosystem.
 
 ## Methodology
 
@@ -124,10 +123,6 @@ The dataset was sourced from CB Insights' public dataset [@cbinsights_data] shar
 Data cleaning and transformation were performed using R and the tidyverse. Column names were standardized and duplicate observations were removed. To conduct temporal analysis, the `years_of_operation` variable was parsed to extract `start_year` and `end_year` from which the business duration was calculated.
 
 To investigate the relationship between funding levels and failure reasons, funding data was cleaned by extracting numeric values and converted into millions for consistency across records. The dataset variable description can be found @tbl-data-dict (see @sec-appendix)
-
-```{=latex}
-\pagebreak
-```
 
 ```{r tabular representation of funding raised by sector}
 #| label: tbl-funding-sector
@@ -164,10 +159,6 @@ kbl(funding_table, caption = "Number of startup by sector and funding bracket") 
 
 @tbl-funding-sector provides an overview of the funds raised by startups in different sectors. It is important to have an overview before we deep dive into the illustrative representation below which talks further on skew distribution.
 
-```{=latex}
-\pagebreak
-```
-
 ```{r funding distribution by sector}
 #| label: fig-funding-distribution
 #| fig-cap: Funding amount has a heavy right-skewed distribution, which is seen across all sectors. 
@@ -189,7 +180,6 @@ startup_combined |>
 -   Low-funded startups are those that have raised less than \$20M, commonly associated with (pre-)seed and early-stage funding rounds [@series_abc].
 -   Medium-funded startups have raised between \$20M - \$70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation [@series_abc].
 -   High-funded startups have secured over \$70M, amount often reached by Series C companies. At this stage, startups have usually been in operation for several years, proven their business model and are seeking international expansion, an IPO or acquisition by private equity firms/investment banks [@series_abc].
-
 
 ```{=latex}
 \pagebreak
@@ -374,7 +364,7 @@ funding_group_percent |>
 \pagebreak
 ```
 
-### Temporal aspects of start-up failures 
+### Temporal aspects of start-up failures
 
 ```{r}
 #| label: fig-temporalplot
@@ -442,11 +432,11 @@ ggplot(df_combined, aes(x = year, y = count)) +
         legend.key.width = unit(1, "cm"))
 ```
 
-The observed U.S. failed startups experienced significant fluctuations in activity, driven by economic cycles and external shocks (@fig-temporalplot). 
+The observed U.S. failed startups experienced significant fluctuations in activity, driven by economic cycles and external shocks (@fig-temporalplot).
 
-- The number of active startups peaked at 326 in 2015, fueled by post-2008 recovery. 
-- Closures plummeted to 61 in 2020, reflecting COVID-19’s impact on funding and operations. 
-- Post-2015 decline in new startups suggests market saturation, while rising closures emphasize external pressures. 
+-   The number of active startups peaked at 326 in 2015, fueled by post-2008 recovery.
+-   Closures plummeted to 61 in 2020, reflecting COVID-19’s impact on funding and operations.
+-   Post-2015 decline in new startups suggests market saturation, while rising closures emphasize external pressures.
 
 ```{=latex}
 \pagebreak
@@ -466,7 +456,7 @@ To understand why so many startups failed, we analyzed failed startup post-morte
 
 **Sector-specific challenges**
 
-Each sector has a different mix of reasons on why their startups failed. Accommodation and Food services startups reported 52% of their failures were due to High operational costs, which is unsurprising given the industry nature of heavy overheads into physical sites, e.g., hotels, restaurant. High financial requirement is also seen in 24% of startups attributing No budget to their failures. 
+Each sector has a different mix of reasons on why their startups failed. Accommodation and Food services startups reported 52% of their failures were due to High operational costs, which is unsurprising given the industry nature of heavy overheads into physical sites, e.g., hotels, restaurant. High financial requirement is also seen in 24% of startups attributing No budget to their failures.
 
 Similarly, Health Care and Manufacturing require substantial upfront investments into product development, which was a major hurdle that left 40% of startups in Health Care and 55% of startups in Manufacturing out of business due to insufficient financial capability.
 
@@ -478,7 +468,7 @@ Both Finance and Insurance, and Information startups blamed market competition a
 
 **Funding levels and challenges in each startup lifecycle stages**
 
-A closer look through the lens of funding reveals fundamental differences in failure reasons. Low-funded startups (<$20M) often overlap with early-stage companies that typically have only a proof-of-concept or minimum viable product. These startups are still exploring market fit, which explains their struggles with Poor market fit (26%) and Niche limits (29%).
+A closer look through the lens of funding reveals fundamental differences in failure reasons. Low-funded startups (\<\$20M) often overlap with early-stage companies that typically have only a proof-of-concept or minimum viable product. These startups are still exploring market fit, which explains their struggles with Poor market fit (26%) and Niche limits (29%).
 
 Medium-funded startups (\$20M–\$70M), likely in Series A or B stages, are focused on market expansion and revenue generation. Their key challenges shift to Acquisition stagnation (25%), Monetization failure (21%), and Execution flaws (16%).
 
@@ -486,11 +476,11 @@ High-funded startups (\>\$70M), often long-time Series C companies, have usually
 
 #### External reasons for startup failure
 
-@fig-temporalplot provide a timeline of startup operations throughout almost three decades, revealing how startup founding and failures fluctuated in alignment with macroeconomic events. Most were active from 2009 to 2021, with the busiest year being 2015, when 326 startups were running, boosted by the economic rebound after the 2008 crash and heavy investment in tech and finance startups. These sectors struggled with fierce competition due to easy market entry. Failures jumped sharply in 2020–2023, with 64 shutting down in 2020 alone due to the COVID-19 pandemic’s economic hit, which hurt funding, supply chains, and customer demand. This shows outside events made internal problems like poor product fit or bad management worse. 
+@fig-temporalplot provide a timeline of startup operations throughout almost three decades, revealing how startup founding and failures fluctuated in alignment with macroeconomic events. Most were active from 2009 to 2021, with the busiest year being 2015, when 326 startups were running, boosted by the economic rebound after the 2008 crash and heavy investment in tech and finance startups. These sectors struggled with fierce competition due to easy market entry. Failures jumped sharply in 2020–2023, with 64 shutting down in 2020 alone due to the COVID-19 pandemic’s economic hit, which hurt funding, supply chains, and customer demand. This shows outside events made internal problems like poor product fit or bad management worse.
 
-These impacts played out differently across sectors. Startups in Accommodation and Food were hit hard by lockdowns and travel restrictions, and 24% ran out of money. Health Care startups, where 40% faced funding shortages, likely saw more closures in 2020 as privacy rules made it hard to connect with customers. Retail Trade startups, with issues of niche markets (33%), suffered when spending dropped in 2020. Well-funded startups (over $70M), often more established, lasted longer pre-2018 but struggled post-2020 due to management errors (23%) or failing to keep up with market changes (16%). Small startups (under $20M) with poor market fit (26%) were hit hardest in 2020–2021, lacking cash to adapt. Finance startups like LendingClub and Circle lasted longer (16 and 11 years) but closed in 2023, losing to giants like PayPal. 
+These impacts played out differently across sectors. Startups in Accommodation and Food were hit hard by lockdowns and travel restrictions, and 24% ran out of money. Health Care startups, where 40% faced funding shortages, likely saw more closures in 2020 as privacy rules made it hard to connect with customers. Retail Trade startups, with issues of niche markets (33%), suffered when spending dropped in 2020. Well-funded startups (over \$70M), often more established, lasted longer pre-2018 but struggled post-2020 due to management errors (23%) or failing to keep up with market changes (16%). Small startups (under \$20M) with poor market fit (26%) were hit hardest in 2020–2021, lacking cash to adapt. Finance startups like LendingClub and Circle lasted longer (16 and 11 years) but closed in 2023, losing to giants like PayPal.
 
-Tech startups like Digg and MySpace peaked early (2004–2010) but faded by 2018–2020 as Facebook and Reddit took over. Manufacturing startups like Faraday Future, needing lots of money, saw failures rise post-2020 due to bad management and competition from Tesla. The 2020–2023 failure spike shows how the pandemic worsened money and competition problems from earlier sections. 
+Tech startups like Digg and MySpace peaked early (2004–2010) but faded by 2018–2020 as Facebook and Reddit took over. Manufacturing startups like Faraday Future, needing lots of money, saw failures rise post-2020 due to bad management and competition from Tesla. The 2020–2023 failure spike shows how the pandemic worsened money and competition problems from earlier sections.
 
 Startups in costly sectors struggled most during economic slumps, while tech and finance faced constant rivalry. This pattern shows startups need flexible plans to survive tough economic times, especially in sectors with high costs or heavy competition.
 
@@ -499,10 +489,6 @@ Startups in costly sectors struggled most during economic slumps, while tech and
 The analysis of U.S. failed startups reveals a turbulent entrepreneurial landscape influenced by economic cycles, intense competition, and external disruptions. Startups survived an average of 8.2 years, facing challenges across sectors: 52% of Accommodation and Food Services startups failed due to high operational costs, while 55% of Manufacturing startups cited budget constraints. Finance and Information startups battled market giants. From 2000 onward, startup formations peaked in 2012 with 62 new ventures, reflecting a surge during the post-2008 recovery and resulting in active startups reached their highest at 326 in 2015. Closures surged to 64 in 2020, highlighting the pandemic’s economic impact, which disrupted funding and operations across sectors. A decline in formations after 2015 indicates growing market saturation, while rising closures underscore external pressures.
 
 To succeed, founders must develop adaptable strategies to address market shifts, such as the post-2015 saturation. Flexibility is key, whether adjusting to consumer trends in Retail Trade (33% failed due to niche limits) or tackling execution flaws in high-funded startups (23% failure rate). Investors and incubators should extend beyond funding, offering mentorship, market access, and operational guidance, particularly for low-funded startups facing poor market fit (26%). Stakeholders should prepare for policy changes from the 2025 U.S. administration, such as tariff increases on imported tech components or stricter data privacy laws. Businesses should align their strategies to leverage these policies, benefiting through innovations like local sourcing or privacy-focused solutions.
-
-```{=latex}
-\pagebreak
-```
 
 ## Appendix {#sec-appendix}
 
@@ -554,7 +540,6 @@ kbl(variable_description, caption = "Variable Descriptions for Startup Combined 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 
 ```
-
 
 ```{=latex}
 \pagebreak
