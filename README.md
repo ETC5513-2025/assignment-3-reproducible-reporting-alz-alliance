@@ -21,7 +21,6 @@
 .
 ├── Assignment_3.qmd                                        # Quarto source file for the main report
 ├── Assignment_3.pdf                                        # Final Rendered PDF for main report
-├── Assignment_3_files/                                     # Folder that contains resources and files that are required in rendering the qmd 
 ├── docs/                                                   # Folder for the project presentation slides
 │   ├──index.qmd                                            # Quarto source file for presentation slides
 │   ├──index.html                                           # Rendered HTML presentation slides
@@ -86,6 +85,7 @@ renv::restore()
 - git issue
 - `.gitignore`
 - git tag
+- github-pages
 
 ## AI Acknowledgement
 
