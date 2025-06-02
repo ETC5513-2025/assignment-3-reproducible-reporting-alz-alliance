@@ -122,11 +122,9 @@ The dataset was sourced from CB Insights' public dataset [@cbinsights_data] shar
 
 Data cleaning and transformation were performed using R and the tidyverse. Column names were standardized and duplicate observations were removed. To conduct temporal analysis, the `years_of_operation` variable was parsed to extract `start_year` and `end_year` from which the business duration was calculated.
 
-To investigate the relationship between funding levels and failure reasons, funding data was cleaned by extracting numeric values and converted into millions for consistency across records. The dataset variable description can be found @tbl-data-dict (see @sec-appendix)
+To investigate the relationship between funding levels and failure reasons, funding data was cleaned by extracting numeric values and converted into millions for consistency across records. The dataset variable description can be found @tbl-data-dict (see @sec-appendix).
 
 ```{r tabular representation of funding raised by sector}
-#| label: tbl-funding-sector
-
 # Defining funding brackets
 startup_combined_sector <- startup_combined |>
   mutate(funding_bracket = case_when(
@@ -151,17 +149,24 @@ funding_table <- startup_combined_sector |>
     values_from = num_startups,
     values_fill = 0
   )
+```
 
+```{r}
+#| label: tbl-funding-sector
+#| tbl-cap: Variable Descriptions for Startup Combined Dataset
+#| tbl-pos: 'H'
 # Display table
-kbl(funding_table, caption = "Number of startup by sector and funding bracket") |>
+kbl(funding_table) |>
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 ```
+
 
 @tbl-funding-sector provides an overview of the funds raised by startups in different sectors. It is important to have an overview before we deep dive into the illustrative representation below which talks further on skew distribution.
 
 ```{r funding distribution by sector}
 #| label: fig-funding-distribution
-#| fig-cap: Funding amount has a heavy right-skewed distribution, which is seen across all sectors. 
+#| fig-cap: Funding amount has a heavy right-skewed distribution, which is seen across all sectors.
+#| fig-height: 5 
 
 startup_combined |>
   ggplot(aes(x = sector, y = funding_millions)) +
@@ -180,10 +185,6 @@ startup_combined |>
 -   Low-funded startups are those that have raised less than \$20M, commonly associated with (pre-)seed and early-stage funding rounds [@series_abc].
 -   Medium-funded startups have raised between \$20M - \$70M, typically corresponding to Series A and B stages. These startups have already validated their market fit and are now raising capital for market expansion and revenue generation [@series_abc].
 -   High-funded startups have secured over \$70M, amount often reached by Series C companies. At this stage, startups have usually been in operation for several years, proven their business model and are seeking international expansion, an IPO or acquisition by private equity firms/investment banks [@series_abc].
-
-```{=latex}
-\pagebreak
-```
 
 ## Results
 
@@ -501,7 +502,7 @@ To succeed, founders must develop adaptable strategies to address market shifts,
 :::
 
 ```{=latex}
-\pagebreak
+\newpage
 ```
 
 ## Appendix {#sec-appendix}
@@ -513,6 +514,7 @@ To succeed, founders must develop adaptable strategies to address market shifts,
 ```{r dataset variable explanation}
 #| label: tbl-data-dict
 #| tbl-cap: Variable Descriptions for Startup Combined Dataset
+#| tbl-pos: 'H'
 
 variable_description <- tibble::tibble(
   Variable = c(

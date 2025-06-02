@@ -31,7 +31,7 @@
 ├── data/                                                   # Folder for dataset used in this project
 │   ├── Finance_and_Insurance.csv                           # Raw data for Finance and Insurance sector
 │   ├── Food_and_services.csv                               # Raw data for Food and Service sector
-│   ├── Health_Care.csv                                     # Raw data for  Healthcare sector
+│   ├── Health_Care.csv                                     # Raw data for Healthcare sector
 │   ├── Information_Sector.csv                              # Raw data for Information sector
 │   ├── Manufactures.csv                                    # Raw data for Manufactur sector
 │   ├── Retail_Trade.csv                                    # Raw data for Retail Trade sector
@@ -89,4 +89,4 @@ renv::restore()
 
 ## AI Acknowledgement
 
-We used ChatGPT to help with data wrangling and visualization, as well as report writing and format, specifically, incorporating template in report and presentation, understanding methodology and the structure for a good methodology, and cross-referencing between sections.
+We used ChatGPT to help with data wrangling and visualization, as well as report writing and format, specifically, incorporating template in reproducible report and presentation, understanding methodology and the structure for a good methodology, and cross-referencing between sections.
